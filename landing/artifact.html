@@ -274,6 +274,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 .lulu > img { opacity: 0; }
 /* фон кадрів трохи світліший за сторінку в деяких браузерах; darken лишає видимим лише саму Lulu */
 .lulu { mix-blend-mode: darken; }
+.lulu.away { mix-blend-mode: normal; }   /* у куточку кадри з прозорим фоном */
 .lulu.turning > video { opacity: 0; }
 
 /* Lulu-провідник: на широкому екрані з першого екрана переїжджає в праву колонку
@@ -290,10 +291,14 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 .lulu.away { pointer-events: none; }
 .say { position: fixed; z-index: 26; left: 0; top: 0; max-width: 230px; margin: 0; pointer-events: none; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; opacity: 0; transition: opacity .25s; }
 .say.show { opacity: 1; }
-.say::after { content: ""; position: absolute; right: 48px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
+.say::after { content: ""; position: absolute; right: 64px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
+.dock { position: fixed; z-index: 16; right: 20px; bottom: 20px; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--plum); background: var(--milk); box-shadow: 0 6px 18px rgba(48,32,71,.18); display: none; place-items: center; cursor: pointer; padding: 0; }
+.dock img { width: 36px; height: auto; }
+.hide-lulu { position: fixed; z-index: 16; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--plum); background: var(--milk); color: var(--plum); font: 800 16px/1 var(--font-body); display: none; place-items: center; cursor: pointer; padding: 0; }
+body.docked .dock, body.cornered .hide-lulu { display: grid; }
+body.docked .hide-lulu { display: none; }
 [data-point].pointed { outline: 3px dashed var(--orange); outline-offset: 8px; border-radius: 12px; transition: outline-color .3s; }
-@media (min-width: 1280px) {
-  body.rail { padding-right: 270px; }
+@media (min-width: 1024px) {
   /* Lulu-провідник уже поруч, тож у самих блоках другої Lulu не показуємо */
   body.rail .trainer-lulu img, body.rail .price-card > img { display: none; }
   body.rail .trainer { grid-template-columns: minmax(0, 1fr) 200px; }
@@ -545,6 +550,8 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 </footer>
 
 <p class="say" id="lulu-say" aria-live="polite"></p>
+<button class="hide-lulu" id="hide-lulu" type="button" aria-label="Сховати Lulu">×</button>
+<button class="dock" id="dock" type="button" aria-label="Показати Lulu"><img src="assets/logos/logo-symbol.svg" alt=""></button>
 
 <script>
 (() => {
@@ -803,6 +810,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
       im.src = `assets/lulu/point/${String(i).padStart(2, '0')}.webp`;
       pointBox.append(im); return im;
     });
+    showPoint(0);
   }
   const showPoint = i => { if (i === pshown) return; if (pshown >= 0) pimgs[pshown].style.opacity = 0; pimgs[i].style.opacity = 1; pshown = i; };
   // стан жесту: rest → raise → hold (до holdUntil) → lower → rest
@@ -820,11 +828,16 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   }
 
   /* Права колонка: лише на широкому екрані */
-  const railOK = () => innerWidth >= 1280 && !reduce;
+  const railOK = () => innerWidth >= 1024 && !reduce;
   function syncRail() { document.body.classList.toggle('rail', railOK()); }
   syncRail(); addEventListener('resize', syncRail);
-  const RAIL_W = 210, RAIL_GAP = 28, PAW_Y = 0.567;   // ширина Lulu в колонці; висота лапки в кадрі
-  let travel = 0, railY = null;
+  const CORNER_W = 180, GAP = 20;   // Lulu в правому нижньому куточку
+  let travel = 0, docked = false;
+  try { docked = sessionStorage.getItem('lulu-docked') === '1'; } catch (e) {}
+  const setDocked = v => { docked = v; try { sessionStorage.setItem('lulu-docked', v ? '1' : '0'); } catch (e) {} if (v) hideTip(); };
+  $('#hide-lulu').onclick = () => setDocked(true);
+  $('#dock').onclick = () => setDocked(false);
+  if (railOK()) setTimeout(loadPoint, 1200);   // кадри жесту завантажуємо заздалегідь, щоб у перельоті Lulu не зникала
 
   /* Підказки: коли блок доходить до середини екрана, Lulu під'їжджає до нього і показує лапкою */
   const TIPS = [
@@ -890,38 +903,33 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     travel = p;
     if (p === 0) {
       // перший екран: Lulu на своєму місці, крутить головою
-      if (luluEl.style.transform) { luluEl.style.transform = ''; luluEl.classList.remove('pointing', 'away'); railY = null; hideTip(); gesture = 'rest'; gFrame = 0; }
+      if (luluEl.style.transform) { luluEl.style.transform = ''; luluEl.classList.remove('pointing', 'away'); document.body.classList.remove('cornered', 'docked'); hideTip(); gesture = 'rest'; gFrame = 0; }
       step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
     } else {
       loadPoint();
-      // переліт: голова повертається прямо, Lulu зменшується й летить у праву колонку
+      // переліт: Lulu дивиться прямо, зменшується й летить у правий нижній куточок
       hero.target = 0; step(hero, 0, true);
       const sr = stage.getBoundingClientRect();
       const W = luluEl.offsetWidth, H = luluEl.offsetHeight;
       const sx = sr.left + luluEl.offsetLeft, sy = sr.top + luluEl.offsetTop;
-      const k = RAIL_W / W, rh = H * k;
-      const hb = top.getBoundingClientRect().bottom;
-      const rx = innerWidth - RAIL_GAP - RAIL_W;
-      // Лапка тримається біля середини екрана і плавно підтягується до центру блоку (не далі ніж на 100px)
-      const mid = innerHeight / 2;
-      let pawY = mid;
-      if (anchor) {
-        const r = anchor.el.getBoundingClientRect();
-        pawY = clamp(r.top + Math.min(r.height, innerHeight * 0.6) / 2, mid - 100, mid + 100);
-      }
-      const want = clamp(pawY - rh * PAW_Y, hb + 64, innerHeight - rh - 12);
-      railY = railY === null ? want : railY + (want - railY) * 0.07;
+      const k = CORNER_W / W, ch = H * k;
+      const cx = innerWidth - GAP - CORNER_W, cy = innerHeight - GAP - ch + (docked ? ch + 40 : 0);   // сховано: за краєм екрана
       const e = ease(p);
-      const x = sx + (rx - sx) * e, y = sy + (railY - sy) * e, sc = 1 + (k - 1) * e;
-      luluEl.style.transform = `translate(${x - sx}px, ${y - sy}px) scale(${sc})`;
-      luluEl.classList.toggle('away', true);
-      const arrived = p >= 1;
-      if (arrived && hero.shown === hero.frontFrame) luluEl.classList.add('pointing');
-      if (!arrived && gesture === 'rest') luluEl.classList.remove('pointing');
-      if (luluEl.classList.contains('pointing')) {
-        checkTips(now); gestureStep(now);
-        say.style.transform = `translate(${rx + RAIL_W - say.offsetWidth - 4}px, ${railY - say.offsetHeight + rh * 0.08}px)`;
+      luluEl.style.transform = `translate(${sx + (cx - sx) * e - sx}px, ${sy + (cy - sy) * e - sy}px) scale(${1 + (k - 1) * e})`;
+      luluEl.classList.add('away');
+      // кадр «прямо» з відео повороту → перший кадр жесту (теж прямо, з прозорим фоном)
+      const pointReady = pimgs[0].complete && pimgs[0].naturalWidth > 0;
+      if (p > 0.15 && pointReady && (hero.shown === hero.frontFrame || !hero.ready)) luluEl.classList.add('pointing');
+      if (p < 0.1 && gesture === 'rest') luluEl.classList.remove('pointing');
+      const inCorner = p >= 1 && !docked;
+      document.body.classList.toggle('cornered', inCorner);
+      document.body.classList.toggle('docked', p >= 1 && docked);
+      if (inCorner) {
+        checkTips(now);
+        say.style.transform = `translate(${innerWidth - GAP - say.offsetWidth}px, ${cy - say.offsetHeight + ch * 0.06}px)`;
+        $('#hide-lulu').style.transform = `translate(${innerWidth - GAP - 16}px, ${cy + ch * 0.12}px)`;
       } else if (current) hideTip();
+      if (luluEl.classList.contains('pointing')) gestureStep(now);
     }
     requestAnimationFrame(tick);
   }
