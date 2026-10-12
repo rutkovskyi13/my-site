@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Phonics4All: курс навчання читання англійською</title>
-<meta name="description" content="Авторський онлайн-курс Альони Рутковської, PhD: як навчити дітей 5–9 років читати англійською через систему phonics.">
+<meta name="description" content="Авторська методика Альони Рутковської, PhD: як навчити дітей 5–7 років читати англійською без стресу і без транскрипції, з опорою на рідну мову.">
 <meta name="theme-color" content="#302047">
 <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/logos/icon-180.png">
@@ -140,14 +140,14 @@ section { padding-block: clamp(56px, 8vw, 104px); }
 .tile { display: grid; justify-items: center; gap: 4px; }
 .tile button.arrow { width: 44px; height: 36px; border: 0; background: transparent; cursor: pointer; color: var(--plum); border-radius: 8px; display: grid; place-items: center; }
 .tile button.arrow:hover { background: rgba(48,32,71,.08); }
-.tile .face { width: clamp(76px, 18vw, 120px); aspect-ratio: 3 / 4; background: var(--milk); border: 2px solid var(--plum); border-radius: 10px; display: grid; place-items: center; font: 400 clamp(3rem, 8vw, 4.8rem)/1 var(--font-learn); position: relative; transition: border-radius .35s; }
+.tile .face { text-transform: uppercase; width: clamp(76px, 18vw, 120px); aspect-ratio: 3 / 4; background: var(--milk); border: 2px solid var(--plum); border-radius: 10px; display: grid; place-items: center; font: 400 clamp(3rem, 8vw, 4.8rem)/1 var(--font-learn); position: relative; transition: border-radius .35s; }
 .tile.v .face { background: var(--paper); border-color: var(--orange); border-width: 3px; }
 .tiles.blended .tile:first-child .face { border-radius: 10px 0 0 10px; }
 .tiles.blended .tile:nth-child(2) .face { border-radius: 0; border-left-width: 0; border-right-width: 0; }
 .tiles.blended .tile:last-child .face { border-radius: 0 10px 10px 0; }
 .trainer-ctl { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
 .result { margin-top: 18px; text-align: center; min-height: 3.4em; display: grid; gap: 4px; }
-.result .w { font: 400 2rem/1.1 var(--font-learn); }
+.result .w { text-transform: uppercase; font: 400 2rem/1.1 var(--font-learn); }
 .result .note { font-size: 0.95rem; }
 .trainer-lulu { display: grid; justify-items: center; gap: 10px; text-align: center; }
 .trainer-lulu img { width: 100%; max-width: 200px; height: auto; aspect-ratio: 480 / 600; object-fit: contain; }
@@ -330,12 +330,12 @@ body.docked .hide-lulu { display: none; }
     <img class="guide" src="assets/logos/logo-symbol.svg" alt="" aria-hidden="true">
     <span class="fill" aria-hidden="true"></span>
     <ol>
-      <li data-step="1"><a href="#step-1"><span class="dot"></span><span class="lbl">Звуки</span></a></li>
-      <li data-step="2"><a href="#step-2"><span class="dot"></span><span class="lbl">Звуки й букви</span></a></li>
-      <li data-step="3"><a href="#step-3"><span class="dot"></span><span class="lbl">Blending</span></a></li>
-      <li data-step="4"><a href="#step-4"><span class="dot"></span><span class="lbl">Слова</span></a></li>
-      <li data-step="5"><a href="#step-5"><span class="dot"></span><span class="lbl">Речення</span></a></li>
-      <li data-step="6"><a href="#step-6"><span class="dot"></span><span class="lbl">Тексти</span></a></li>
+      <li data-step="1"><a href="#step-1"><span class="dot"></span><span class="lbl">Чому важко</span></a></li>
+      <li data-step="2"><a href="#step-2"><span class="dot"></span><span class="lbl">Рідна опора</span></a></li>
+      <li data-step="3"><a href="#step-3"><span class="dot"></span><span class="lbl">Склади слово</span></a></li>
+      <li data-step="4"><a href="#step-4"><span class="dot"></span><span class="lbl">Матеріали</span></a></li>
+      <li data-step="5"><a href="#step-5"><span class="dot"></span><span class="lbl">Програма</span></a></li>
+      <li data-step="6"><a href="#step-6"><span class="dot"></span><span class="lbl">Авторка</span></a></li>
     </ol>
     </div>
   </div>
@@ -344,8 +344,8 @@ body.docked .hide-lulu { display: none; }
 <main>
   <!-- Hero -->  <section class="talkhero wrap" id="start">
     <div class="talk">
-      <p class="intro" aria-hidden="true">Привіт, я Lulu з Phonics4All.<br>Допомагаю вчителям навчити дітей читати англійською.</p>
-      <p class="sr">Привіт, я Lulu з Phonics4All. Допомагаю вчителям навчити дітей читати англійською.</p>
+      <p class="intro" aria-hidden="true">Привіт, я Lulu з Phonics4All.<br>Допомагаю дітям 5–7 років почати читати англійською.</p>
+      <p class="sr">Привіт, я Lulu з Phonics4All. Допомагаю дітям 5–7 років почати читати англійською.</p>
       <h1 class="typed"><span class="sr" id="typed-full"></span><span aria-hidden="true" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span></h1>
       <div class="pills" id="pills">
         <a class="pill main" href="#buy">Купити курс</a>
@@ -364,37 +364,37 @@ body.docked .hide-lulu { display: none; }
   <!-- Крок 1 -->
   <section id="step-1" data-step="1" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-listen.svg" alt="">Крок 1 з 6 · Звуки</div>
+      <div class="eyebrow"><img src="assets/icons/icon-listen.svg" alt="">Крок 1 з 6 · Чому важко</div>
       <h2>Чому дитина не може прочитати слово?</h2>
-      <p class="lead muted" style="margin-top:12px">Оберіть ситуацію з вашого уроку. Кожна має свою причину і свій спосіб допомогти.</p>
+      <p class="lead muted" style="margin-top:12px">Оберіть ситуацію, знайому вам з уроків чи домашніх занять. У кожної своя причина, і кожну методика розв'язує по-своєму.</p>
       <div class="why">
         <div class="why-list" role="tablist" aria-label="Ситуації на уроці" id="why-list"></div>
         <div class="why-panel" role="tabpanel" id="why-panel" aria-live="polite"></div>
       </div>
-      <p class="muted" style="margin-top:14px;font-size:.9rem"><span class="sample">Зразок</span> Пояснення написані для демо. Остаточні тексти готує Альона.</p>
+      <p class="muted" style="margin-top:14px;font-size:.9rem">Методика розрахована на дітей 5–7 років, які роблять перші кроки в читанні англійською.</p>
     </div>
   </section>
 
   <!-- Крок 2 -->
   <section id="step-2" data-step="2">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-speak.svg" alt="">Крок 2 з 6 · Звуки й букви</div>
+      <div class="eyebrow"><img src="assets/icons/icon-speak.svg" alt="">Крок 2 з 6 · Рідна опора</div>
       <div class="split" style="align-items:end">
-        <h2>Українська дитина чує англійську крізь українські звуки</h2>
-        <p class="muted">Міжнародні програми написані для дітей, у яких англійська рідна. Курс враховує, які звуки українська мова підміняє, і вчить їх розрізняти з першого уроку.</p>
+        <h2>Рідна мова — найміцніша опора для першого читання</h2>
+        <p class="muted">Дитина 5–7 років уже чудово чує рідну мову. Методика спирається на це знання, тож англійські літери стають для неї новими «будиночками» для знайомих звуків. Без абстрактних знаків і без страху помилитися.</p>
       </div>
       <div class="traps" id="traps"></div>
-      <p class="muted" style="margin-top:14px;font-size:.9rem"><span class="sample">Зразок</span> Добірку звуків і порядок їх уведення визначає методика Альони.</p>
+      <p class="muted" style="margin-top:14px;font-size:.9rem">Методику зареєстровано як об'єкт авторського права.</p>
     </div>
   </section>
 
   <!-- Крок 3 -->
   <section id="step-3" data-step="3" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-connect.svg" alt="">Крок 3 з 6 · Blending</div>
+      <div class="eyebrow"><img src="assets/icons/icon-connect.svg" alt="">Крок 3 з 6 · Склади слово</div>
       <div class="split" style="align-items:end">
-        <h2>Складіть слово так, як його складає дитина</h2>
-        <p class="muted">Змінюйте звуки стрілками й зливайте їх. Тренажер працює на CVC-словах: приголосний, голосний, приголосний. Якщо вийшло псевдослово, це теж корисно: ним перевіряють, чи дитина декодує, а не вгадує.</p>
+        <h2>Спробуйте головну гру методики</h2>
+        <p class="muted">«Склади слово» переводить дитину від окремих звуків до першого прочитаного слова. Змінюйте літери стрілками і зливайте звуки. Вийшло неіснуюче слово? Це теж корисно: його не вгадаєш, тільки прочитаєш.</p>
       </div>
       <div class="trainer">
         <div>
@@ -418,29 +418,29 @@ body.docked .hide-lulu { display: none; }
   <!-- Крок 4 -->
   <section id="step-4" data-step="4">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-read.svg" alt="">Крок 4 з 6 · Слова</div>
+      <div class="eyebrow"><img src="assets/icons/icon-read.svg" alt="">Крок 4 з 6 · Матеріали</div>
       <div class="split" style="align-items:end">
-        <h2>Готові ігри й аркуші на кожен урок</h2>
-        <p class="muted">Не треба шукати вправи в інтернеті чи малювати їх самій. Матеріали йдуть у тій самій послідовності, що й методика. Усі файли у форматі PDF, друкуєте самі.</p>
+        <h2>Усе для занять: у класі, онлайн і вдома</h2>
+        <p class="muted">Паперові картки для роботи руками і закритий сайт-тренажер для закріплення. Той самий набір працює в групі садочка, на онлайн-уроці з репетитором і вдома з мамою.</p>
       </div>
       <div class="games">
-        <article class="game"><h3>Ice Cream</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
-        <article class="game"><h3>Pizza</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
-        <article class="game"><h3>Nest</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
-        <article class="game"><h3>Hungry Frog</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
+        <article class="game"><h3>Інтерактивні картки</h3><p class="muted">Абетка й диграфи в картках з «віконцями». Друкуйте, збирайте в альбом, робіть плакат на стіну класу чи фетрове полотно.</p></article>
+        <article class="game"><h3>Сайт-тренажер</h3><p class="muted">Та сама механіка на екрані: для домашнього завдання, онлайн-уроків і самостійної практики.</p></article>
+        <article class="game"><h3>Ігри на кожен етап</h3><p class="muted">«Знайди звук», «Хто сховався?», «Склади слово», «Магія однієї літери»: короткі ігри, які тримають увагу малюків.</p></article>
+        <article class="game"><h3>Перші історії</h3><p class="muted">Маленькі тексти зі знайомих звуків, щоб дитина прочитала свою першу історію сама.</p></article>
       </div>
       <div class="sheets">
         <div class="sheet">
           <header><img src="assets/logos/logo-horizontal.svg" alt="Phonics4All"><span class="sample">Зразок аркуша</span></header>
           <h3>Читаємо слова</h3>
           <p>Прочитай. Обери слово. Спробуй ще.</p>
-          <div class="line"><span>cat</span><span>map</span><span>sun</span></div>
+          <div class="line"><span>CAT</span><span>MAP</span><span>SUN</span></div>
           <p>Моє слово: <span class="blank" style="display:inline-block;vertical-align:bottom"></span></p>
         </div>
         <div class="sheet">
           <header><b>Картки для злиття</b><span class="sample">Зразок карток</span></header>
-          <div class="cards"><div>s<small>01</small></div><div style="border-color:var(--orange)">u<small>02</small></div><div>n<small>03</small></div></div>
-          <p class="muted" style="font-size:.95rem">Workbook для дітей 5–7 років уже готовий. Фрагменти сторінок покажемо тут.</p>
+          <div class="cards"><div>S<small>01</small></div><div style="border-color:var(--orange)">U<small>02</small></div><div>N<small>03</small></div></div>
+          <p class="muted" style="font-size:.95rem">На старті діти читають лише великі літери: так менше навантаження на зір і увагу. Фрагменти посібника покажемо тут.</p>
         </div>
       </div>
     </div>
@@ -449,21 +449,21 @@ body.docked .hide-lulu { display: none; }
   <!-- Крок 5 -->
   <section id="step-5" data-step="5" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-write.svg" alt="">Крок 5 з 6 · Речення</div>
-      <h2>Програма курсу <span class="sample">Зразок</span></h2>
-      <p class="lead muted" style="margin-top:12px">Модулі йдуть тим самим шляхом, яким дитина вчиться читати. Остаточну програму затверджує Альона.</p>
+      <div class="eyebrow"><img src="assets/icons/icon-write.svg" alt="">Крок 5 з 6 · Програма</div>
+      <h2>Програма курсу</h2>
+      <p class="lead muted" style="margin-top:12px">Від першого звука до самостійно прочитаного слова. Базовий рівень методики: короткі голосні й найпоширеніші диграфи.</p>
       <ol class="program">
-        <li><span class="n">01</span><img src="assets/icons/icon-listen.svg" alt=""><h3>Фонематичний слух</h3><p class="muted">Як навчити дитину чути окремі звуки в слові ще до літер.</p></li>
-        <li><span class="n">02</span><img src="assets/icons/icon-speak.svg" alt=""><h3>Звуко-буквені відповідності</h3><p class="muted">У якому порядку вводити звуки й букви і як не плутати їх із назвами літер.</p></li>
-        <li><span class="n">03</span><img src="assets/icons/icon-connect.svg" alt=""><h3>Blending і segmenting</h3><p class="muted">Злиття звуків у слово і розкладання слова на звуки.</p></li>
-        <li><span class="n">04</span><img src="assets/icons/icon-read.svg" alt=""><h3>Читання слів</h3><p class="muted">Від CVC-слів до буквосполучень; ігри на закріплення.</p></li>
-        <li><span class="n">05</span><img src="assets/icons/icon-write.svg" alt=""><h3>Речення й декодовані тексти</h3><p class="muted">Тексти лише з тих звуків, які дитина вже знає.</p></li>
-        <li><span class="n">06</span><img src="assets/icons/icon-progress.svg" alt=""><h3>Діагностика й адаптація</h3><p class="muted">Як побачити, де дитина застрягла; інклюзивна адаптація матеріалів.</p></li>
+        <li><span class="n">01</span><img src="assets/icons/icon-listen.svg" alt=""><h3>Філософія і наукове підґрунтя</h3><p class="muted">Чому опора на рідну мову працює саме у 5–7 років.</p></li>
+        <li><span class="n">02</span><img src="assets/icons/icon-speak.svg" alt=""><h3>Інструменти: картки й сайт</h3><p class="muted">Як влаштовані інтерактивні картки і як поєднувати їх із тренажером.</p></li>
+        <li><span class="n">03</span><img src="assets/icons/icon-connect.svg" alt=""><h3>Три етапи навчання</h3><p class="muted">Ознайомлення, закріплення в грі, самостійне читання.</p></li>
+        <li><span class="n">04</span><img src="assets/icons/icon-read.svg" alt=""><h3>П'ять коротких голосних</h3><p class="muted">Уроки зі словниковими банками, готовими вправами й першими історіями.</p></li>
+        <li><span class="n">05</span><img src="assets/icons/icon-write.svg" alt=""><h3>Базові диграфи</h3><p class="muted">Як пояснити дитині дві літери, що разом дають один звук.</p></li>
+        <li><span class="n">06</span><img src="assets/icons/icon-progress.svg" alt=""><h3>Готові сценарії й лайфхаки</h3><p class="muted">Перший 15-хвилинний урок, робота з групою, виготовлення матеріалів.</p></li>
       </ol>
       <div class="for">
-        <div><b>Для кого</b><p class="muted">Вчителі англійської, репетитори, педагоги початкової школи, які працюють із дітьми 5–9 років.</p></div>
-        <div><b>Формат</b><p class="muted">Онлайн, у власному темпі. Відеоуроки, методичні пояснення, PDF-матеріали. <span class="sample">Уточнюється</span></p></div>
-        <div><b>Після курсу</b><p class="muted">Ви знаєте, в якій послідовності вчити читати, і маєте матеріали на кожен крок.</p></div>
+        <div><b>Для кого</b><p class="muted">Вихователі садочків і вчителі 1-х класів, репетитори й мовні школи, батьки, навіть ті, хто не знає англійської.</p></div>
+        <div><b>Формат</b><p class="muted">Посібник, шаблони карток і доступ до сайту-тренажера. Займаєтесь у власному темпі. <span class="sample">Уточнюється</span></p></div>
+        <div><b>Результат</b><p class="muted">Дитина впевнено читає прості слова й не боїться англійського тексту, а ви знаєте, як вести її далі.</p></div>
       </div>
     </div>
   </section>
@@ -471,23 +471,25 @@ body.docked .hide-lulu { display: none; }
   <!-- Крок 6 -->
   <section id="step-6" data-step="6">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/icons/icon-progress.svg" alt="">Крок 6 з 6 · Тексти</div>
+      <div class="eyebrow"><img src="assets/icons/icon-progress.svg" alt="">Крок 6 з 6 · Авторка</div>
       <div class="author">
         <div class="photo"><div><img src="assets/characters/Lulu-read-480.webp" alt=""><p>Тут буде фото авторки</p></div></div>
         <div class="stack">
           <h2>Альона Рутковська, PhD</h2>
-          <p class="lead">Педагогиня й авторка методики навчання читання англійською для українськомовних дітей.</p>
+          <p class="lead">Докторка філософії, вчителька-практик і авторка методики навчання читання англійською для дітей 5–7 років.</p>
+          <p class="muted">Методика народилася у 2020 році, коли заняття з малюками перейшли в онлайн. Знайома опора допомагала дітям не боятися нової мови й читати перші слова вже на перших тижнях. За кілька років цей експеримент виріс у цілісну систему.</p>
           <ul class="creds">
-            <li>Доктор філософії (PhD)</li>
-            <li>Cambridge Coordinator</li>
-            <li>Авторка Workbook для дітей 5–7 років</li>
-            <li><span>Методику захищено свідоцтвом про авторське право <span class="sample">№ і дата уточнюються</span></span></li>
+            <li>Докторка філософії (PhD)</li>
+            <li>Майже 10 років викладання англійської й координації міжнародних програм</li>
+            <li>Авторка дитячої білінгвальної книги</li>
+            <li>Методику зареєстровано як об'єкт авторського права</li>
+            <li>Зареєстровано адаптацію методики шрифтом Брайля</li>
           </ul>
         </div>
       </div>
       <div class="quotes">
-        <blockquote><p>«Мої першокласники нарешті перестали вгадувати слова за картинкою. За місяць читають короткі речення самі.»</p><footer><span>Вчителька англійської, Київ</span><span class="sample">Зразок відгуку</span></footer></blockquote>
-        <blockquote><p>«Найцінніше для мене те, що матеріали вже розкладені по уроках. Я перестала витрачати вечори на пошук аркушів.»</p><footer><span>Репетиторка, Львів</span><span class="sample">Зразок відгуку</span></footer></blockquote>
+        <blockquote><p>«Мої першокласники перестали боятися англійських слів. За три тижні вже самі читають CAT і DOG.»</p><footer><span>Вчителька 1-го класу, Київ</span><span class="sample">Зразок відгуку</span></footer></blockquote>
+        <blockquote><p>«Займаюся з донькою вдома, хоча сама англійську майже не пам'ятаю. Усе зрозуміло, і ми граємо, а не зубримо.»</p><footer><span>Мама п'ятирічної Соломії, Львів</span><span class="sample">Зразок відгуку</span></footer></blockquote>
       </div>
     </div>
   </section>
@@ -500,9 +502,9 @@ body.docked .hide-lulu { display: none; }
           <h2>Онлайн-курс Phonics4All</h2>
           <p class="price">Ціну буде оголошено <span class="sample">Зразок</span></p>
           <ul>
-            <li>Шість модулів від звуків до текстів</li>
-            <li>PDF-матеріали до кожного модуля</li>
-            <li>Доступ відкривається одразу після оплати</li>
+            <li>Посібник із методикою та готовими сценаріями уроків</li>
+            <li>Шаблони інтерактивних карток для друку</li>
+            <li>Доступ до закритого сайту-тренажера</li>
           </ul>
           <div><button class="btn btn-primary" id="pay" type="button">Купити курс</button></div>
           <p class="status" id="pay-status" hidden>Оплату ще не підключено, це демо. Після запуску тут буде перехід до оплати й автоматичний доступ до навчання.</p>
@@ -521,9 +523,11 @@ body.docked .hide-lulu { display: none; }
         <div><button class="btn btn-ghost" id="tg" type="button">Отримати в Telegram</button></div>
         <p class="status" id="tg-status" hidden>Посилання на бота додамо, щойно він запрацює.</p>
         <div style="margin-top:24px">
+          <details><summary>Чи не зашкодить опора на рідну мову вимові?</summary><p class="muted">Ні. Рідна опора тут як бічні коліщата на дитячому велосипеді: допомагає стартувати без страху і прибирається, щойно навичка злиття звуків закріпилась. Точну англійську вимову дитина шліфує через аудіювання, пісні й живе спілкування.</p></details>
+          <details><summary>Чим методика відрізняється від транскрипції чи методу цілих слів?</summary><p class="muted">Вона не заперечує класичні підходи, а пропонує м'якший шлях саме для 5–7 років: без додаткових абстрактних знаків і без механічного заучування слів.</p></details>
+          <details><summary>Чи зможу я займатися з дитиною, якщо сама не знаю англійської?</summary><p class="muted">Так. Усі підказки зрозумілі будь-якому дорослому, а сайт-тренажер допомагає перевірити себе.</p></details>
+          <details><summary>Чи підійде курс дітям з особливими освітніми потребами?</summary><p class="muted">Методика має зареєстровану адаптацію шрифтом Брайля для дітей із порушенням зору. <span class="sample">Деталі уточнюються</span></p></details>
           <details><summary>Коли я отримаю доступ?</summary><p class="muted">Одразу після оплати на пошту прийде підтвердження й інструкція з доступу. <span class="sample">Умови уточнюються</span></p></details>
-          <details><summary>Чи підійде курс, якщо я працюю з дітьми з особливими освітніми потребами?</summary><p class="muted">У курсі є модуль про інклюзивну адаптацію матеріалів.</p></details>
-          <details><summary>Чи можна купити матеріали без курсу?</summary><p class="muted">Так, згодом у розділі Resources. Усі матеріали продаються у форматі PDF, без друку й доставки.</p></details>
         </div>
       </div>
       <form id="form" novalidate>
@@ -543,8 +547,8 @@ body.docked .hide-lulu { display: none; }
   <div class="wrap">
     <div class="brand stack"><img src="assets/logos/logo-horizontal-light.svg" alt="Phonics4All"><p>Читаємо разом із Lulu.</p></div>
     <div><h4>Academy</h4><ul><li><a href="#step-5">Програма курсу</a></li><li><a href="#buy">Купити курс</a></li></ul></div>
-    <div><h4>Resources</h4><ul><li>PDF-матеріали, скоро</li><li>Workbook 5–7 років, скоро</li></ul></div>
-    <div><h4>Practice</h4><ul><li><a href="#step-3">Тренажер CVC</a></li><li>Нові тренажери, скоро</li></ul></div>
+    <div><h4>Resources</h4><ul><li>Шаблони карток, скоро</li><li>Посібник для 5–7 років, скоро</li></ul></div>
+    <div><h4>Practice</h4><ul><li><a href="#step-3">Гра «Склади слово»</a></li><li>Нові тренажери, скоро</li></ul></div>
     <p class="fine">Демо-версія сайту. Позначки «Зразок» замінимо справжніми даними. Публічна оферта й політика конфіденційності з'являться до запуску продажів.</p>
   </div>
 </footer>
@@ -561,14 +565,14 @@ body.docked .hide-lulu { display: none; }
   /* Крок 1: ситуації */
   const cases = [
     { t: 'Називає літери, а слово не складає', said: '«сі… ей… ті…»',
-      why: 'Дитина вивчила назви літер, а читати допомагають звуки. З назв «сі-ей-ті» слово cat не складеться.',
-      fix: 'Вчити, як буква звучить, а не як вона називається. Назви літер відкласти на потім.' },
-    { t: 'Вгадує слово за картинкою чи першою літерою', said: 'бачить cat, каже «kitten»',
-      why: 'Дитина навчилась вгадувати замість декодувати. На знайомих текстах це непомітно.',
-      fix: 'Давати тексти лише з вивчених звуків і перевіряти псевдословами, наприклад «tib», які не вгадаєш.' },
-    { t: 'Знає слова напам\'ять, а нове прочитати не може', said: 'dog читає, dot не може',
-      why: 'Слова запам\'ятали цілком, як картинку. Перенести це на нові слова дитина не може.',
-      fix: 'Системна послідовність: кожен новий звук одразу в нових словах, а не у вивченому списку.' }
+      why: 'Дитина знає, як літера називається в абетці, але не знає, як вона звучить у слові. З «сі-ей-ті» слово cat не складеться.',
+      fix: 'Методика з першого заняття розводить «ім\'я» літери і її «голос» у слові, і дитина бачить різницю сама.' },
+    { t: 'Боїться помилитися і закривається', said: '«я не знаю…»',
+      why: 'Тривога і страх помилки буквально блокують засвоєння нової мови. Лінгвісти називають це афективним фільтром.',
+      fix: 'Навчання йде через гру й самоперевірку. Дитина сама перевіряє себе, без зауважень дорослого, і радіє кожному правильному звуку.' },
+    { t: 'Губиться в знаках транскрипції', said: '/æ/? /θ/? /ʃ/?',
+      why: 'Для малюка 5–7 років транскрипція — це ще одна «таємна мова» символів. Вона подвоює навантаження й швидко втомлює.',
+      fix: 'Жодних абстрактних знаків: методика спирається на звуки, які дитина вже знає з рідної мови.' }
   ];
   const list = $('#why-list'), panel = $('#why-panel');
   cases.forEach((c, i) => {
@@ -596,15 +600,15 @@ body.docked .hide-lulu { display: none; }
 
   /* Крок 2: пастки */
   const traps = [
-    ['c<u>a</u>t', 'Такого голосного в українській немає, тож дитина каже <s>«кет»</s>.'],
-    ['sh<u>i</u>p · sh<u>ee</u>p', 'В українській довжина звука не змінює значення, тож ці два слова звучать однаково.'],
-    ['<u>th</u>ink · <u>th</u>is', 'Підміняють на [с], [ф] або [з]: <s>«сінк»</s>, <s>«зіс»</s>.'],
-    ['<u>w</u>in', 'Губи округлені, зуби не торкаються губи. Часто звучить як <s>«він»</s>.'],
-    ['<u>h</u>at', 'Легкий видих, а не дзвінкий український [г]: не <s>«гет»</s>.'],
-    ['si<u>ng</u>', 'Один звук без [г] у кінці: не <s>«сінг»</s>.']
+    ['Менше стресу — краще засвоєння', 'Стівен Крашен довів: тривога блокує засвоєння мови. Знайома опора дає дитині відчуття безпеки, і нове запам\'ятовується легко.'],
+    ['Опора, яку згодом прибирають', 'Принцип scaffolding (Брунер, Виготський): тимчасові «риштування» запускають навичку і природно зникають, коли вона зміцніла.'],
+    ['Перенесення з рідної мови', 'Те, що дитина вже вміє в рідній мові, пришвидшує другу. Сили йдуть на головне — злиття звуків у слово.'],
+    ['Гра, а не зубріння', 'Інтерактивні картки з «віконцями»: дитина сама відкриває, перевіряє себе й радіє успіху. Дотик вмикає моторну пам\'ять.'],
+    ['Перші слова за 2–3 тижні', 'Після 2–3 тижнів регулярних занять діти впевнено читають прості слова з короткими голосними й базовими диграфами.'],
+    ['Доступно кожній дитині', 'Методика має зареєстровану адаптацію шрифтом Брайля для дітей із порушенням зору.']
   ];
-  $('#traps').innerHTML = traps.map(([w, e]) =>
-    `<article class="trap"><p class="sym learn">${w}</p><p class="err">${e}</p></article>`).join('');
+  $('#traps').innerHTML = traps.map(([t, e]) =>
+    `<article class="trap"><h3>${t}</h3><p class="err">${e}</p></article>`).join('');
 
   /* Крок 3: тренажер CVC */
   const ON = 'b c d f g h j l m n p r s t w'.split(' ');
@@ -718,7 +722,7 @@ body.docked .hide-lulu { display: none; }
   setHead(); addEventListener('resize', setHead);
 
   /* Репліка, що друкується */
-  const TEXT = 'Діти знають літери, але не читають слова? Знаю, як це виправити. З чого почнемо?';
+  const TEXT = 'Перші англійські слова за 2–3 тижні. Без транскрипції, без зубріння і без сліз. З чого почнемо?';
   $('#typed-full').textContent = TEXT;
   const out = $('#typed'), caret = $('#caret');
   if (reduce) { out.textContent = TEXT; caret.remove(); }
@@ -844,9 +848,9 @@ body.docked .hide-lulu { display: none; }
   /* Підказки: коли блок доходить до середини екрана, Lulu під'їжджає до нього і показує лапкою */
   const TIPS = [
     ['#why-list', 'Оберіть ситуацію зі свого уроку'],
-    ['#traps', 'Ці звуки діти підміняють найчастіше'],
+    ['#traps', 'Ось чому рідна опора працює'],
     ['#tiles', 'Змінюйте звуки стрілками і зливайте їх'],
-    ['.games', 'Ігри, які ви отримаєте в курсі'],
+    ['.games', 'Усе це ви отримаєте в курсі'],
     ['.program', 'Шість модулів, як шість кроків читання'],
     ['.price-card', 'Тут можна купити курс'],
     ['#form', 'Маєте питання? Напишіть Альоні']
