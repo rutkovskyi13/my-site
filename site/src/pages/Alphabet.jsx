@@ -5,8 +5,8 @@ import { loadSettings, saveSettings } from "../lib/settings.js";
 import { LetterCard } from "../components/LetterCard.jsx";
 import { LetterBubbles } from "../components/LetterBubbles.jsx";
 import { PageHead } from "../components/PageHead.jsx";
+import { LuluLive } from "../components/LuluLive.jsx";
 
-const BASE = import.meta.env.BASE_URL;
 
 export function Alphabet() {
   let [revealed, setRevealed] = useState({}),
@@ -18,7 +18,16 @@ export function Alphabet() {
       () => window.removeEventListener("phonics4all_settings_updated", e)
     );
   }, []);
+  let [reaction, setReaction] = useState({ name: "idle", id: 0 });
   let toggleCard = (e) => {
+      if (!revealed[e]) {
+        // кожна відкрита літера — Lulu прислухається; кожна п'ята — радіє
+        let open = Object.values(revealed).filter(Boolean).length + 1;
+        setReaction((r) => ({
+          name: open % 5 === 0 ? "cheer" : "listen",
+          id: r.id + 1,
+        }));
+      }
       setRevealed((t) => ({
         ...t,
         [e]: !t[e],
@@ -31,8 +40,10 @@ export function Alphabet() {
         : []),
     ],
     allOpen = ids.every((i) => revealed[i]),
-    toggleAll = () =>
-      setRevealed(allOpen ? {} : Object.fromEntries(ids.map((i) => [i, true]))),
+    toggleAll = () => {
+      if (!allOpen) setReaction((r) => ({ name: "cheer", id: r.id + 1 }));
+      setRevealed(allOpen ? {} : Object.fromEntries(ids.map((i) => [i, true])));
+    },
     toggleDigraphs = () =>
       saveSettings({ ...settings, digraphsEnabled: !settings.digraphsEnabled }),
     opened = Object.values(revealed).filter(Boolean).length;
@@ -128,12 +139,7 @@ export function Alphabet() {
           )}
         </div>
         <div className="panel-lulu">
-          <img
-            src={`${BASE}brand/${opened >= 5 ? "Lulu-celebrate" : "Lulu-read"}-480.webp`}
-            alt={opened >= 5 ? "Lulu радіє" : "Lulu читає книжку"}
-            width="190"
-            height="240"
-          />
+          <LuluLive react={reaction} label="Lulu слухає разом з тобою" />
           <p className="bubble" aria-live="polite">
             {opened === 0
               ? "Обери літеру й натисни на картку"

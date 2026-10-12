@@ -960,3 +960,34 @@ footer.site .fine {
     width: min(100%, 280px);
   }
 }
+/* Жива Lulu поруч із вправою */
+.lulu-live {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 494 / 480;
+}
+.lulu-live img,
+.lulu-live canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  transition: opacity 0.2s;
+}
+.lulu-live video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .panel-lulu .lulu-live {
+    max-width: 96px;
+  }
+  .panel-lulu {
+    grid-template-columns: 96px 1fr;
+  }
+}
