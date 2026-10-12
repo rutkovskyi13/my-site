@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="uk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lulu: анімація</title>
+<link rel="stylesheet" href="../../brand/web-kit/styles/phonics4all.css">
+<style>
+  body { margin: 0; background: var(--p4a-cream); }
+  .wrap { min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          align-items: center; gap: 24px; padding: 32px 24px; max-width: 1100px; margin: 0 auto; box-sizing: border-box; }
+  h1 { font-weight: 800; font-size: clamp(32px, 5vw, 56px); line-height: 1.1; margin: 24px 0 16px; }
+  p { font-size: 1.15rem; margin: 0 0 28px; }
+  .lulu { position: relative; width: min(100%, 420px); aspect-ratio: 560 / 750; justify-self: center; }
+  /* soft edges so the video blends into the page background */
+  .lulu video, .lulu img { width: 100%; height: 100%; display: block;
+    --fade: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent),
+            linear-gradient(to bottom, transparent, #000 4%, #000 96%, transparent);
+    -webkit-mask-image: var(--fade); -webkit-mask-composite: source-in;
+            mask-image: var(--fade); mask-composite: intersect; }
+  .lulu img { display: none; }
+  @media (prefers-reduced-motion: reduce) { .lulu video { display: none; } .lulu img { display: block; } }
+  @media (max-width: 720px) { .wrap { grid-template-columns: 1fr; text-align: center; } .p4a-logo { margin: 0 auto; } }
+</style>
+</head>
+<body class="p4a-scope">
+  <main class="wrap">
+    <div>
+      <img class="p4a-logo" src="../../brand/web-kit/assets/logos/logo-horizontal.svg" alt="Phonics4All">
+      <h1>Читаємо разом із Lulu</h1>
+      <p>Слухай. Поєднуй звуки. Читай.</p>
+      <a class="p4a-button" href="#">Почати читати</a>
+    </div>
+    <div class="lulu">
+      <video autoplay muted loop playsinline poster="lulu-poster.webp" aria-hidden="true">
+        <source src="lulu-loop.webm" type="video/webm">
+        <source src="lulu-loop.mp4" type="video/mp4">
+      </video>
+      <img src="lulu-poster.webp" alt="" width="560" height="750">
+    </div>
+  </main>
+</body>
+</html>
