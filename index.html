@@ -25,7 +25,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h, 150px) + 12px); }
+html { scroll-behavior: smooth; scroll-padding-top: 160px; }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 body { background: var(--milk); color: var(--plum); font: 400 var(--step-0)/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.12; text-wrap: balance; margin: 0; }
@@ -207,131 +207,6 @@ footer.site a { text-decoration: none; }
 footer.site a:hover { text-decoration: underline; }
 footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; border-top: 1px solid #5A4450; padding-top: 18px; }
 
-
-/* 1. Слова-ланцюжки в hero */
-.chain { display: flex; gap: 0.04em; font: 400 clamp(3rem, 2.2rem + 3.6vw, 4.8rem)/1 var(--font-learn); }
-.chain span { display: inline-block; min-width: 0.55em; text-align: center; }
-.chain span.fly { animation: fly .9s cubic-bezier(.2,.8,.2,1) both; }
-.chain span:nth-child(2).fly { animation-delay: .12s; }
-.chain span:nth-child(3).fly { animation-delay: .24s; }
-@keyframes fly { from { transform: translate(var(--fx), var(--fy)) rotate(var(--fr)); } to { transform: none; } }
-.chain span.out { transition: transform .18s ease-in, opacity .18s ease-in; transform: translateY(-45%) rotateX(70deg); opacity: 0; }
-.chain span.in { animation: drop .32s cubic-bezier(.2,.9,.3,1.3) both; color: var(--orange); }
-@keyframes drop { from { transform: translateY(45%) rotateX(-70deg); opacity: 0; } to { transform: none; opacity: 1; } }
-.chain-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: .95rem; }
-.chain-trail { font-family: var(--font-learn); color: var(--plum-soft); font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
-.chain-trail b { color: var(--plum); font-weight: 400; }
-.mini { border: 1.5px solid var(--plum); background: transparent; color: var(--plum); border-radius: 999px; min-height: 36px; min-width: 44px; padding: 4px 12px; font: 700 .85rem/1 var(--font-body); cursor: pointer; }
-.mini:hover { background: var(--paper); }
-
-/* 5. Книга, що гортається */
-.bookscene { position: relative; height: 340vh; background: var(--milk); }
-.bookscene .sticky { position: sticky; top: var(--head-h, 150px); height: calc(100svh - var(--head-h, 150px)); display: grid; align-content: center; justify-items: center; gap: clamp(14px, 3vh, 28px); padding-block: 16px; }
-.bookscene h2 { text-align: center; }
-.bookscene .hint { color: var(--plum-soft); font-size: .95rem; text-align: center; }
-.book { position: relative; width: min(880px, 100%); aspect-ratio: 2 / 1.18; max-height: 62svh; perspective: 2200px; }
-.book::before { content: ""; position: absolute; inset: -12px -12px -16px; background: var(--plum); border-radius: 14px; }
-.book .half { position: absolute; top: 0; bottom: 0; width: 50%; background: var(--paper); }
-.book .l { left: 0; border-radius: 8px 0 0 8px; }
-.book .r { right: 0; border-radius: 0 8px 8px 0; }
-.book .leaf { position: absolute; top: 0; bottom: 0; right: 0; width: 50%; transform-origin: left center; transform-style: preserve-3d; will-change: transform; }
-.book .face { position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden; background: var(--paper); border-radius: 0 8px 8px 0; display: grid; align-content: center; gap: 12px; padding: clamp(14px, 4%, 40px); overflow: hidden; }
-.book .face::after { content: ""; position: absolute; inset: 0 auto 0 0; width: 18%; background: linear-gradient(90deg, rgba(53,30,40,.10), transparent); pointer-events: none; }
-.book .back { transform: rotateY(180deg); border-radius: 8px 0 0 8px; place-items: center; }
-.book .back::after { inset: 0 0 0 auto; background: linear-gradient(270deg, rgba(53,30,40,.10), transparent); }
-.book .fox-page { display: grid; place-items: center; height: 100%; padding: clamp(10px, 5%, 36px); }
-.book .fox-page img { max-height: 100%; width: auto; max-width: 80%; }
-.book .k { font: 800 .8rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; color: var(--plum-soft); }
-.book .t { font: 800 clamp(1.2rem, .8rem + 2vw, 2.2rem)/1.1 var(--font-head); }
-.book .d { font-size: clamp(.85rem, .7rem + .5vw, 1.1rem); color: var(--plum-soft); }
-.book .face img.ic { width: clamp(36px, 8%, 64px); height: auto; }
-.book-list { display: none; list-style: none; margin: 0; padding: 0; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; width: 100%; }
-.book-list li { background: var(--paper); border-radius: var(--radius); padding: 18px; display: grid; gap: 6px; }
-.bookscene.flat { height: auto; padding-block: 56px; }
-.bookscene.flat .sticky { position: static; height: auto; }
-.bookscene.flat .book, .bookscene.flat .hint { display: none; }
-.bookscene.flat .book-list { display: grid; }
-.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-
-/* 4. Сортування */
-.sorter { margin-top: 36px; background: var(--paper); border: 2px solid var(--plum); border-radius: var(--radius); padding: clamp(18px, 3vw, 32px); display: grid; gap: 22px; }
-.sorter-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-.sorter-top .who { display: flex; align-items: center; gap: 12px; }
-.sorter-top img { width: 72px; height: auto; }
-.chips { display: flex; flex-wrap: wrap; gap: 10px; min-height: 56px; }
-.chip { font: 400 1.6rem/1 var(--font-learn); background: var(--milk); color: var(--plum); border: 2px solid var(--plum); border-radius: 10px; min-width: 76px; min-height: 52px; padding: 8px 14px; cursor: grab; touch-action: none; user-select: none; transition: transform .15s, box-shadow .15s; }
-.chip[aria-pressed="true"] { background: var(--plum); color: var(--milk); }
-.chip.drag { cursor: grabbing; position: relative; z-index: 30; box-shadow: 0 10px 24px rgba(53,30,40,.25); transition: none; }
-.chip.shake { animation: shake .35s; }
-@keyframes shake { 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
-.bins { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
-.bin { border: 2px dashed var(--plum-soft); border-radius: 12px; background: var(--milk); min-height: 150px; padding: 12px; display: grid; align-content: start; gap: 10px; text-align: left; cursor: pointer; font: inherit; color: var(--plum); }
-.bin.hot { border-style: solid; border-color: var(--orange); background: #FFF1EA; }
-.bin .lab { font-weight: 800; display: flex; align-items: baseline; gap: 8px; }
-.bin .lab b { font: 400 1.8rem/1 var(--font-learn); }
-.bin .lab b u { text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
-.bin .in { display: flex; flex-wrap: wrap; gap: 6px; }
-.bin .in span { font: 400 1.2rem/1 var(--font-learn); background: var(--ice); border-radius: 6px; padding: 6px 10px; }
-
-/* 3. До/після */
-.ba { position: relative; margin: 8px 0 44px; border-radius: var(--radius); overflow: hidden; border: 2px solid var(--plum); user-select: none; }
-.ba-layer { padding: clamp(44px, 6vw, 64px) clamp(16px, 4vw, 48px) clamp(28px, 4vw, 44px); }
-.ba-before { background: var(--paper); }
-.ba-after { position: absolute; inset: 0; background: var(--ice); clip-path: inset(0 0 0 var(--cut, 50%)); }
-.ba .tag { position: absolute; top: 14px; font: 800 .8rem/1 var(--font-body); letter-spacing: .08em; text-transform: uppercase; background: var(--milk); padding: 7px 10px; border-radius: 6px; }
-.ba-before .tag { left: 14px; }
-.ba-after .tag { right: 14px; background: var(--plum); color: var(--milk); }
-.sent { display: flex; flex-wrap: wrap; gap: clamp(12px, 3vw, 34px); row-gap: 18px; justify-content: center; }
-.sent .w { display: grid; justify-items: center; gap: 8px; }
-.sent .sub { display: grid; justify-items: center; align-items: center; min-height: 28px; }
-.sent .sub > * { grid-area: 1 / 1; }
-.sent .ghost { visibility: hidden; }
-.sent .w > b { font: 400 clamp(2rem, 1.4rem + 3vw, 3.4rem)/1 var(--font-learn); }
-.ba-before .w > b { color: var(--plum-soft); }
-.sent .note { font-size: .85rem; font-weight: 700; background: var(--milk); border-radius: 6px; padding: 4px 8px; white-space: nowrap; }
-.ba-after .note { background: transparent; }
-.dots { display: flex; gap: 0; justify-content: center; }
-.dots i { width: .62em; display: grid; place-items: center; font-style: normal; font-size: clamp(2rem, 1.4rem + 3vw, 3.4rem); line-height: 0; height: 12px; }
-.dots i::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--plum); }
-.dots i.tw::before { width: 100%; height: 3px; border-radius: 2px; background: var(--orange); }
-.ba-line { position: absolute; top: 0; bottom: 0; left: var(--cut, 50%); width: 3px; margin-left: -1.5px; background: var(--plum); pointer-events: none; }
-.ba-line::after { content: ""; position: absolute; top: 50%; left: 50%; width: 44px; height: 44px; transform: translate(-50%, -50%); border-radius: 50%; background: var(--orange); border: 3px solid var(--plum); }
-.ba input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: ew-resize; margin: 0; }
-.ba input:focus-visible + .ba-line::after { outline: 3px solid var(--plum); outline-offset: 3px; }
-.ba-cap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: .9rem; color: var(--plum-soft); margin-top: -32px; margin-bottom: 40px; }
-.legend { display: inline-flex; align-items: center; gap: 8px; }
-.legend i { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--plum); }
-.legend i.tw { width: 18px; height: 3px; border-radius: 2px; background: var(--orange); }
-
-/* 2. Діагностика */
-.diag { background: var(--plum); color: var(--milk); }
-.diag .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(24px, 5vw, 64px); align-items: center; }
-.diag .muted-d { color: #D9CCD2; }
-.quiz { background: var(--milk); color: var(--plum); border-radius: var(--radius); padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; min-height: 340px; align-content: start; }
-.qbar { display: flex; gap: 6px; }
-.qbar i { flex: 1; height: 6px; border-radius: 3px; background: var(--line); }
-.qbar i.on { background: var(--orange); }
-.quiz .qn { font-size: .85rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--plum-soft); }
-.quiz .qt { font: 800 clamp(1.25rem, 1rem + 1vw, 1.6rem)/1.25 var(--font-head); }
-.quiz .qx { color: var(--plum-soft); }
-.quiz .qx .learn { color: var(--plum); font-size: 1.15em; }
-.quiz .row { display: flex; gap: 10px; flex-wrap: wrap; }
-.res { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 20px; align-items: center; }
-.res img { width: 100%; height: auto; }
-.path li.target .dot { box-shadow: 0 0 0 5px var(--ice), 0 0 0 7px var(--orange); }
-
-@media (max-width: 760px) {
-  .bookscene { height: 300vh; }
-  .book { aspect-ratio: 2 / 1.5; }
-  .book .d { display: none; }
-  .book-list { grid-template-columns: minmax(0, 1fr); }
-  .bins { grid-template-columns: minmax(0, 1fr); }
-  .bin { min-height: 96px; }
-  .diag .wrap { grid-template-columns: minmax(0, 1fr); }
-  .res { grid-template-columns: 90px minmax(0, 1fr); }
-  .sent .note { font-size: .78rem; }
-}
-
 /* Адаптивність */
 @media (max-width: 1000px) {
   .top-nav { display: none; }
@@ -405,37 +280,26 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
           <p><b>Альона Рутковська, PhD</b><br><span class="muted">Cambridge Coordinator. Методика захищена авторським правом.</span></p>
         </div>
       </div>
-      <div class="hero-art">
+      <div class="hero-art" aria-hidden="true">
         <img class="pattern" src="assets/brand/patterns/pattern-pages.svg" alt="">
         <div class="card">
           <div class="row">
-            <div class="chain" id="chain" aria-live="off"><span>c</span><span>a</span><span>t</span></div>
+            <div>
+              <div class="word learn"><span>c</span><span style="color:var(--orange)">a</span><span>t</span></div>
+              <div class="ipa">три звуки, одне слово</div>
+            </div>
             <img src="assets/brand/mascot/fox-connect.svg" alt="">
           </div>
-          <p style="font-size:.95rem">Змінюємо один звук, і виходить нове слово.</p>
-          <div class="chain-meta">
-            <span class="chain-trail" id="trail" aria-hidden="true"></span>
-            <button class="mini" id="chain-toggle" type="button" aria-pressed="false">Пауза</button>
-          </div>
+          <p class="muted" style="font-size:.95rem">Не «сі-ей-ті», а три звуки, злиті в одне слово.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Книга шляху читання -->
-  <div class="bookscene" id="book">
-    <div class="sticky wrap">
-      <h2>Шість кроків. Одна система.</h2>
-      <div class="book" id="book-3d" aria-hidden="true"></div>
-      <p class="hint">Гортайте сторінку, щоб перегорнути книгу</p>
-      <ol class="book-list" id="book-list"></ol>
-    </div>
-  </div>
-
   <!-- Крок 1 -->
   <section id="step-1" data-step="1" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-listen.svg" alt="">Крок 1 із 6 · Звуки</div>
+      <div class="eyebrow"><img src="assets/brand/icons/icon-listen.svg" alt="">Крок 1 з 6 · Звуки</div>
       <h2>Чому дитина не може прочитати слово?</h2>
       <p class="lead muted" style="margin-top:12px">Оберіть ситуацію з вашого уроку. Кожна має свою причину і свій спосіб допомогти.</p>
       <div class="why">
@@ -449,7 +313,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   <!-- Крок 2 -->
   <section id="step-2" data-step="2">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-speak.svg" alt="">Крок 2 із 6 · Звуки й букви</div>
+      <div class="eyebrow"><img src="assets/brand/icons/icon-speak.svg" alt="">Крок 2 з 6 · Звуки й букви</div>
       <div class="split" style="align-items:end">
         <h2>Українська дитина чує англійську крізь українські звуки</h2>
         <p class="muted">Міжнародні програми написані для дітей, у яких англійська рідна. Курс враховує, які звуки українська мова підміняє, і вчить їх розрізняти з першого уроку.</p>
@@ -462,7 +326,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   <!-- Крок 3 -->
   <section id="step-3" data-step="3" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-connect.svg" alt="">Крок 3 із 6 · Blending</div>
+      <div class="eyebrow"><img src="assets/brand/icons/icon-connect.svg" alt="">Крок 3 з 6 · Blending</div>
       <div class="split" style="align-items:end">
         <h2>Складіть слово так, як його складає дитина</h2>
         <p class="muted">Змінюйте звуки стрілками й зливайте їх. Тренажер працює на CVC-словах: приголосний, голосний, приголосний. Якщо вийшло псевдослово, це теж корисно: ним перевіряють, чи дитина декодує, а не вгадує.</p>
@@ -489,20 +353,11 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   <!-- Крок 4 -->
   <section id="step-4" data-step="4">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-read.svg" alt="">Крок 4 із 6 · Слова</div>
+      <div class="eyebrow"><img src="assets/brand/icons/icon-read.svg" alt="">Крок 4 з 6 · Слова</div>
       <div class="split" style="align-items:end">
         <h2>Готові ігри й аркуші на кожен урок</h2>
         <p class="muted">Не треба шукати вправи в інтернеті чи малювати їх самій. Матеріали йдуть у тій самій послідовності, що й методика. Усі файли у форматі PDF, друкуєте самі.</p>
       </div>
-      <div class="sorter" id="sorter">
-        <div class="sorter-top">
-          <div class="who"><img id="sort-fox" src="assets/brand/mascot/fox-listen.svg" alt=""><div><h3>Розклади слова за голосним звуком</h3><p class="muted" id="sort-msg">Перетягніть слово в кошик або натисніть слово, а потім кошик.</p></div></div>
-          <button class="mini" id="sort-reset" type="button">Почати знову</button>
-        </div>
-        <div class="chips" id="chips" aria-label="Слова для сортування"></div>
-        <div class="bins" id="bins"></div>
-      </div>
-      <p class="muted" style="margin-top:12px;font-size:.9rem">Міні-версія вправи на сортування. <span class="sample">Зразок</span> Справжні ігри курсу нижче.</p>
       <div class="games">
         <article class="game"><h3>Ice Cream</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
         <article class="game"><h3>Pizza</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
@@ -529,23 +384,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   <!-- Крок 5 -->
   <section id="step-5" data-step="5" style="background:var(--paper)">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-write.svg" alt="">Крок 5 із 6 · Речення</div>
-      <h2>Одне речення до і після системи</h2>
-      <p class="lead muted" style="margin:12px 0 24px">Потягніть повзунок, щоб побачити, як змінюється читання. <span class="sample">Зразок</span></p>
-      <div class="ba" id="ba">
-        <div class="ba-layer ba-before">
-          <span class="tag">До</span>
-          <div class="sent" id="sent-before"></div>
-        </div>
-        <div class="ba-layer ba-after" aria-hidden="true">
-          <span class="tag">Після</span>
-          <div class="sent" id="sent-after"></div>
-        </div>
-        <input type="range" id="ba-range" min="0" max="100" value="50" aria-label="Порівняння: до і після системи">
-        <span class="ba-line" aria-hidden="true"></span>
-      </div>
-      <div class="ba-cap"><span>Ліворуч: називає літери й вгадує. Праворуч: читає звук за звуком.</span><span><span class="legend"><i></i> один звук</span> &nbsp; <span class="legend"><i class="tw"></i> слово-виняток</span></span></div>
-
+      <div class="eyebrow"><img src="assets/brand/icons/icon-write.svg" alt="">Крок 5 з 6 · Речення</div>
       <h2>Програма курсу <span class="sample">Зразок</span></h2>
       <p class="lead muted" style="margin-top:12px">Модулі йдуть тим самим шляхом, яким дитина вчиться читати. Остаточну програму затверджує Альона.</p>
       <ol class="program">
@@ -567,7 +406,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   <!-- Крок 6 -->
   <section id="step-6" data-step="6">
     <div class="wrap">
-      <div class="eyebrow"><img src="assets/brand/icons/icon-progress.svg" alt="">Крок 6 із 6 · Тексти</div>
+      <div class="eyebrow"><img src="assets/brand/icons/icon-progress.svg" alt="">Крок 6 з 6 · Тексти</div>
       <div class="author">
         <div class="photo"><div><img src="assets/brand/mascot/fox-read.svg" alt=""><p>Тут буде фото авторки</p></div></div>
         <div class="stack">
@@ -585,18 +424,6 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
         <blockquote><p>«Мої першокласники нарешті перестали вгадувати слова за картинкою. За місяць читають короткі речення самі.»</p><footer><span>Вчителька англійської, Київ</span><span class="sample">Зразок відгуку</span></footer></blockquote>
         <blockquote><p>«Найцінніше для мене те, що матеріали вже розкладені по уроках. Я перестала витрачати вечори на пошук аркушів.»</p><footer><span>Репетиторка, Львів</span><span class="sample">Зразок відгуку</span></footer></blockquote>
       </div>
-    </div>
-  </section>
-
-  <!-- Діагностика -->
-  <section class="diag" id="check">
-    <div class="wrap">
-      <div class="stack">
-        <h2>Де застряг ваш учень?</h2>
-        <p class="lead muted-d">П'ять питань про одну дитину з вашого класу. Лисеня покаже, на якому кроці шляху читання вона зараз і з якого модуля курсу почати.</p>
-        <p class="muted-d" style="font-size:.9rem"><span class="sample">Зразок</span> Питання діагностики формулює Альона.</p>
-      </div>
-      <div class="quiz" id="quiz" aria-live="polite"></div>
     </div>
   </section>
 
@@ -789,180 +616,6 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
 
   /* Головний ефект: лисеня йде шляхом читання */
   const items = [...document.querySelectorAll('.path li')];
-
-  /* Етапи шляху: спільні дані для книги й діагностики */
-  const STAGES = [
-    { n: 'Звуки', fox: 'listen', icon: 'listen', d: 'Дитина вчиться чути окремі звуки в слові, ще до літер.', m: 'Модуль 1. Фонематичний слух' },
-    { n: 'Звуки й букви', fox: 'speak', icon: 'speak', d: 'Кожен звук отримує свою букву. Без назв літер.', m: 'Модуль 2. Звуко-буквені відповідності' },
-    { n: 'Blending', fox: 'connect', icon: 'connect', d: 'Звуки зливаються в слово: c, a, t стає cat.', m: 'Модуль 3. Blending і segmenting' },
-    { n: 'Слова', fox: 'read', icon: 'read', d: 'Дитина сама читає нові слова, без вгадування.', m: 'Модуль 4. Читання слів' },
-    { n: 'Речення', fox: 'try-again', icon: 'write', d: 'Речення лише з тих звуків, які дитина вже знає.', m: 'Модуль 5. Речення й декодовані тексти' },
-    { n: 'Тексти', fox: 'celebrate', icon: 'progress', d: 'Перші короткі тексти й радість від читання.', m: 'Модуль 6. Діагностика й адаптація' }
-  ];
-  const foxSrc = f => 'assets/brand/mascot/fox-' + f + '.svg';
-
-  /* Висота шапки для sticky-сцени */
-  const top = $('.top');
-  const setHead = () => document.documentElement.style.setProperty('--head-h', top.offsetHeight + 'px');
-  setHead(); addEventListener('resize', setHead);
-
-  /* 1. Слова-ланцюжки */
-  const CHAIN = ['cat','cap','map','mop','hop','hot','pot','pit','pin','pen','ten','tan','can'];
-  const chain = $('#chain'), trail = $('#trail'), tgl = $('#chain-toggle');
-  const spans = [...chain.children];
-  let ci = 0, timer = 0, paused = false, heroVisible = true;
-  const showTrail = () => { trail.innerHTML = CHAIN.slice(Math.max(0, ci - 3), ci).join(' → ') + (ci ? ' → ' : '') + '<b>' + CHAIN[ci] + '</b>'; };
-  chain.setAttribute('aria-label', 'Слово ' + CHAIN[0]);
-  if (!reduce) spans.forEach((sp, i) => {
-    sp.style.setProperty('--fx', [-140, 30, 160][i] + 'px');
-    sp.style.setProperty('--fy', [-260, -320, -220][i] + 'px');
-    sp.style.setProperty('--fr', [-40, 25, 50][i] + 'deg');
-    sp.classList.add('fly');
-  });
-  function nextWord() {
-    const a = CHAIN[ci], b = CHAIN[(ci + 1) % CHAIN.length];
-    ci = (ci + 1) % CHAIN.length;
-    spans.forEach(sp => sp.classList.remove('in', 'fly'));
-    for (let k = 0; k < 3; k++) if (a[k] !== b[k]) {
-      const sp = spans[k];
-      sp.classList.add('out');
-      setTimeout(() => { sp.textContent = b[k]; sp.classList.remove('out'); sp.classList.add('in'); }, reduce ? 0 : 180);
-    }
-    chain.setAttribute('aria-label', 'Слово ' + b);
-    showTrail();
-  }
-  const runChain = () => { clearInterval(timer); if (!paused && heroVisible && !reduce) timer = setInterval(nextWord, 2200); };
-  tgl.onclick = () => { paused = !paused; tgl.setAttribute('aria-pressed', paused); tgl.textContent = paused ? 'Далі' : 'Пауза'; if (paused) clearInterval(timer); else { nextWord(); runChain(); } };
-  if (reduce) { tgl.textContent = 'Наступне слово'; tgl.onclick = nextWord; }
-  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; runChain(); }).observe($('.hero-art'));
-  showTrail();
-
-  /* 5. Книга */
-  const book = $('#book-3d'), bookScene = $('#book');
-  book.innerHTML = `<div class="half l"><div class="fox-page"><img src="${foxSrc(STAGES[0].fox)}" alt=""></div></div>` +
-    `<div class="half r"><div class="face">${pageFront(5)}</div></div>` +
-    STAGES.slice(0, 5).map((st, i) => `<div class="leaf" data-i="${i}"><div class="face">${pageFront(i)}</div><div class="face back"><div class="fox-page"><img src="${foxSrc(STAGES[i + 1].fox)}" alt=""></div></div></div>`).join('');
-  function pageFront(i) { const st = STAGES[i]; return `<img class="ic" src="assets/brand/icons/icon-${st.icon}.svg" alt=""><span class="k">Крок ${i + 1} із 6</span><span class="t">${st.n}</span><span class="d">${st.d}</span>`; }
-  $('#book-list').innerHTML = STAGES.map((st, i) => `<li><span class="eyebrow" style="margin:0">Крок ${i + 1} із 6</span><b>${st.n}</b><span class="muted">${st.d}</span></li>`).join('');
-  if (reduce) bookScene.classList.add('flat');
-  else $('#book-list').classList.add('sr');
-  const leaves = [...book.querySelectorAll('.leaf')];
-  let bookVisible = false;
-  new IntersectionObserver(([e]) => { bookVisible = e.isIntersecting; }).observe(bookScene);
-  function drawBook() {
-    if (reduce || !bookVisible) return;
-    const r = bookScene.getBoundingClientRect();
-    const span = bookScene.offsetHeight - (innerHeight - top.offsetHeight);
-    const p = Math.min(1, Math.max(0, (top.offsetHeight - r.top) / span));
-    leaves.forEach((lf, i) => {
-      const t = Math.min(1, Math.max(0, p * 5.6 - i * 1.05 - 0.2));
-      const e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      lf.style.transform = `rotateY(${-180 * e}deg)`;
-      lf.style.zIndex = e > .5 ? 10 + i : 10 - i;
-    });
-  }
-
-  /* 4. Сортування */
-  const SORT = [['a', 'c<u>a</u>t', ['hat', 'map', 'bag']], ['e', 'b<u>e</u>d', ['pen', 'leg', 'ten']], ['i', 'p<u>i</u>g', ['sit', 'fin', 'lip']]];
-  const chips = $('#chips'), bins = $('#bins'), sortMsg = $('#sort-msg'), sortFox = $('#sort-fox');
-  let picked = null, placed = 0;
-  bins.innerHTML = SORT.map(([v, key]) => `<button class="bin" type="button" data-v="${v}"><span class="lab">Як у <b class="learn">${key}</b></span><span class="in"></span></button>`).join('');
-  function sortSay(text, fox) { sortMsg.textContent = text; sortFox.src = foxSrc(fox); }
-  function buildSort() {
-    const words = SORT.flatMap(([v, , ws]) => ws.map(w => ({ w, v }))).sort(() => Math.random() - .5);
-    chips.innerHTML = words.map(({ w, v }) => `<button class="chip" type="button" data-v="${v}" aria-pressed="false">${w}</button>`).join('');
-    bins.querySelectorAll('.in').forEach(n => n.innerHTML = '');
-    placed = 0; picked = null;
-    sortSay('Перетягніть слово в кошик або натисніть слово, а потім кошик.', 'listen');
-  }
-  function drop(chip, bin) {
-    if (chip.dataset.v === bin.dataset.v) {
-      bin.querySelector('.in').insertAdjacentHTML('beforeend', `<span>${chip.textContent}</span>`);
-      chip.remove(); placed++;
-      if (placed === 9) sortSay('У тебе вийшло! Усі слова на місці.', 'celebrate');
-      else sortSay('Так! ' + chip.textContent + ' має цей звук.', 'connect');
-    } else {
-      chip.classList.remove('shake'); void chip.offsetWidth; chip.classList.add('shake');
-      sortSay('Спробуймо ще раз. Прочитай слово звук за звуком.', 'try-again');
-    }
-    picked = null;
-    chips.querySelectorAll('.chip').forEach(c => c.setAttribute('aria-pressed', 'false'));
-  }
-  chips.addEventListener('click', e => {
-    const c = e.target.closest('.chip'); if (!c || c.dataset.dragged) { if (c) delete c.dataset.dragged; return; }
-    picked = picked === c ? null : c;
-    chips.querySelectorAll('.chip').forEach(x => x.setAttribute('aria-pressed', x === picked));
-    if (picked) sortSay('Тепер оберіть кошик для слова ' + c.textContent + '.', 'listen');
-  });
-  bins.addEventListener('click', e => { const b = e.target.closest('.bin'); if (b && picked) drop(picked, b); });
-  chips.addEventListener('pointerdown', e => {
-    const c = e.target.closest('.chip'); if (!c || e.button) return;
-    const x0 = e.clientX, y0 = e.clientY; let moved = false, over = null;
-    c.setPointerCapture(e.pointerId);
-    const move = ev => {
-      const dx = ev.clientX - x0, dy = ev.clientY - y0;
-      if (!moved && Math.hypot(dx, dy) < 6) return;
-      moved = true; c.classList.add('drag');
-      c.style.transform = `translate(${dx}px, ${dy}px) rotate(-3deg)`;
-      c.style.visibility = 'hidden';
-      const el = document.elementFromPoint(ev.clientX, ev.clientY);
-      c.style.visibility = '';
-      const b = el && el.closest('.bin');
-      if (b !== over) { over && over.classList.remove('hot'); over = b; over && over.classList.add('hot'); }
-    };
-    const up = () => {
-      c.removeEventListener('pointermove', move); c.removeEventListener('pointerup', up); c.removeEventListener('pointercancel', up);
-      c.classList.remove('drag'); c.style.transform = '';
-      if (moved) { c.dataset.dragged = '1'; if (over) { over.classList.remove('hot'); drop(c, over); } }
-    };
-    c.addEventListener('pointermove', move); c.addEventListener('pointerup', up); c.addEventListener('pointercancel', up);
-  });
-  $('#sort-reset').onclick = buildSort;
-  buildSort();
-
-  /* 3. До/після */
-  const SENT = [['The', 'пропускає', 0], ['cat', '«сі-ей-ті»', 3], ['sat', '«сат?»', 3], ['on', '«оу-ен»', 2], ['a', '«ей»', 1], ['mat', 'вгадує «mum»', 3]];
-  const dotsHtml = n => n ? `<span class="dots">${'<i></i>'.repeat(n)}</span>` : '<span class="dots"><i class="tw" style="width:100%"></i></span>';
-  const sentHtml = after => SENT.map(([w, note, n]) => `<div class="w"><b>${w}</b><span class="sub"><span class="note${after ? ' ghost' : ''}">${note}</span><span class="${after ? '' : 'ghost'}">${dotsHtml(n)}</span></span></div>`).join('');
-  $('#sent-before').innerHTML = sentHtml(false);
-  $('#sent-after').innerHTML = sentHtml(true);
-  const ba = $('#ba'), baR = $('#ba-range');
-  const setCut = () => ba.style.setProperty('--cut', baR.value + '%');
-  baR.addEventListener('input', setCut); setCut();
-
-  /* 2. Діагностика */
-  const QS = [
-    ['Чи чує дитина перший звук у слові?', 'Ви кажете <span class="learn">sun</span>, і дитина називає звук «с».'],
-    ['Чи знає дитина, як звучать букви, а не як вони називаються?', 'Бачить <span class="learn">m</span> і каже «м», а не «ем».'],
-    ['Чи може дитина злити три звуки в слово?', 'Чує «с… а… т» і каже <span class="learn">sat</span>.'],
-    ['Чи читає дитина нові короткі слова без підказки?', 'Наприклад <span class="learn">dog</span>, <span class="learn">pen</span>, <span class="learn">bug</span>, яких не вчила напам\'ять.'],
-    ['Чи читає дитина короткі речення?', 'Наприклад <span class="learn">The dog is on the bed.</span>']
-  ];
-  const quiz = $('#quiz'); let qi = 0;
-  function qRender() {
-    if (qi === -1) return;
-    quiz.innerHTML = `<div class="qbar">${QS.map((_, i) => `<i class="${i < qi + 1 ? 'on' : ''}"></i>`).join('')}</div>` +
-      `<span class="qn">Питання ${qi + 1} із ${QS.length}</span><p class="qt">${QS[qi][0]}</p><p class="qx">${QS[qi][1]}</p>` +
-      `<div class="row"><button class="btn btn-primary" type="button" data-a="1">Так</button><button class="btn btn-ghost" type="button" data-a="0">Ні, поки що</button>${qi ? '<button class="mini" type="button" data-a="back">Назад</button>' : ''}</div>`;
-  }
-  function qResult(stage) {
-    const st = STAGES[stage];
-    items.forEach((li, i) => li.classList.toggle('target', i === stage));
-    quiz.innerHTML = `<div class="res"><img src="${foxSrc(st.fox)}" alt=""><div class="stack" style="gap:10px"><span class="qn">Ваш учень зараз на кроці ${stage + 1} із 6</span><p class="qt">${st.n}</p><p class="qx">${st.d} Почніть з розділу «${st.m}».</p></div></div>` +
-      `<div class="row"><a class="btn btn-primary" href="#buy">Купити курс</a><a class="btn btn-ghost" href="#step-${stage + 1}">Подивитися крок</a><button class="mini" type="button" data-a="again">Пройти ще раз</button></div>` +
-      `<p class="qx" style="font-size:.9rem">Крок підсвічено на смузі шляху вгорі.</p>`;
-  }
-  quiz.addEventListener('click', e => {
-    const a = e.target.closest('[data-a]'); if (!a) return;
-    const v = a.dataset.a;
-    if (v === 'again') { qi = 0; items.forEach(li => li.classList.remove('target')); qRender(); quiz.querySelector('button').focus(); return; }
-    if (v === 'back') { qi--; qRender(); return; }
-    if (v === '0') { qResult(qi); return; }
-    if (qi === QS.length - 1) { qResult(5); return; }
-    qi++; qRender(); quiz.querySelector('button').focus();
-  });
-  qRender();
-
   const guide = $('.path .guide'), fill = $('.path .fill');
   function setStep(n) {
     items.forEach((li, i) => { li.classList.toggle('on', i + 1 === n); li.classList.toggle('done', i + 1 < n); });
@@ -979,7 +632,6 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
     steps.forEach(s => { if (s.getBoundingClientRect().top < mid) cur = +s.dataset.step; });
     if ($('#buy').getBoundingClientRect().top < mid) cur = 6;
     setStep(cur);
-    drawBook();
   }
   addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(onScroll); }, { passive: true });
   onScroll();
