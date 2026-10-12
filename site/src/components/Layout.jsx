@@ -36,8 +36,8 @@ export function Layout() {
           </a>
           <nav className="top-nav" aria-label="Розділи">
             <a href={COURSE}>Academy</a>
-            <a href={`${COURSE}#step-4`}>
-              Resources <small>скоро</small>
+            <a href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">
+              Resources
             </a>
             <Link to="/" aria-current="page">
               Practice
@@ -90,7 +90,11 @@ export function Layout() {
           <div>
             <h4>Resources</h4>
             <ul>
-              <li>Шаблони карток, скоро</li>
+              <li>
+                <a href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">
+                  Роздруківки в магазині
+                </a>
+              </li>
               <li>Посібник для 5–7 років, скоро</li>
             </ul>
           </div>
