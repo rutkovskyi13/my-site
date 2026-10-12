@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="uk">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Phonics4All: курс навчання читання англійською</title>
+<meta name="description" content="Авторський онлайн-курс Альони Рутковської, PhD: як навчити дітей 5–9 років читати англійською через систему phonics.">
+<meta name="theme-color" content="#302047">
+<link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/logos/icon-180.png">
+<link rel="preload" href="assets/fonts/NunitoSans-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+@font-face { font-family: "Nunito Sans"; src: url("assets/fonts/NunitoSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Nunito Sans"; src: url("assets/fonts/NunitoSans-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "Nunito Sans"; src: url("assets/fonts/NunitoSans-ExtraBold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "Andika"; src: url("assets/fonts/Andika-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Andika"; src: url("assets/fonts/Andika-Bold.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+/* Сайт як шлях читання: шість кроків методики від звуків до текстів. Оформлення за брендбуком Phonics4All v2, провідник у читанні Lulu. */
+:root {
+  --plum: #302047;            /* фіолетовий брендбука: текст і структура */
+  --plum-hover: #47335F;
+  --orange: #FF5C34;
+  --blue: #159FE3;
+  --lavender: #B39AD7;
+  --milk: #FFF9F2;            /* кремовий: основна площина */
+  --ice: #D7EFFF;
+  --paper: #FFFFFF;
+  --plum-soft: #5E5272;       /* приглушений текст: 6.9:1 на кремовому */
+  --line: #E6DEEC;
+  --font-head: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-learn: "Andika", "Nunito Sans", system-ui, sans-serif;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius: 14px;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 160px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
+body { background: var(--milk); color: var(--plum); font: 400 var(--step-0)/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.12; text-wrap: balance; margin: 0; }
+h1 { font-size: var(--step-3); letter-spacing: -0.01em; }
+h2 { font-size: var(--step-2); }
+h3 { font-size: var(--step-1); font-weight: 800; }
+p { margin: 0; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; border-radius: 6px; }
+.wrap { max-width: 1160px; margin-inline: auto; padding-inline: var(--gutter); }
+.learn { font-family: var(--font-learn); }
+.muted { color: var(--plum-soft); }
+.sample { display: inline-block; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; background: var(--ice); color: var(--plum); padding: 5px 8px; border-radius: 4px; vertical-align: middle; }
+
+/* Кнопки за брендбуком: фіолетове тло з кремовим текстом (14:1) */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border-radius: 999px; border: 2px solid var(--plum); font: 600 1rem/1.2 var(--font-body); text-decoration: none; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--plum); color: var(--milk); border-color: var(--plum); font-weight: 600; }
+.btn-primary:hover { background: var(--plum-hover); border-color: var(--plum-hover); }
+.btn-ghost { background: transparent; color: var(--plum); }
+.btn-ghost:hover { background: rgba(48,32,71,.06); }
+
+/* Шапка */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--milk); border-bottom: 1px solid var(--line); }
+.top-row { display: flex; align-items: center; gap: 24px; padding-block: 10px; }
+.top-logo img { width: 200px; height: auto; display: block; }
+.top-nav { display: flex; gap: 4px; margin-left: auto; }
+.top-nav a { text-decoration: none; font-weight: 600; padding: 8px 12px; border-radius: 8px; display: flex; gap: 6px; align-items: baseline; }
+.top-nav a:hover { background: var(--paper); }
+.top-nav a[aria-current] { font-weight: 800; box-shadow: inset 0 -3px 0 var(--orange); border-radius: 0; }
+.top-nav small { font-size: 0.7rem; color: var(--plum-soft); font-weight: 600; }
+.top .btn { min-height: 44px; padding: 8px 18px; }
+
+/* Смуга шляху читання: головний ефект */
+.path { padding-block: 26px 12px; }
+.track { position: relative; }
+.path ol { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, 1fr); position: relative; }
+.path ol::before { content: ""; position: absolute; left: 0; right: 0; top: 13px; height: 3px; background: var(--line); border-radius: 2px; }
+.path .fill { position: absolute; left: 0; top: 13px; z-index: 1; height: 3px; background: var(--orange); border-radius: 2px; width: 0; transition: width .5s cubic-bezier(.3,.7,.2,1); }
+.path a { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; text-decoration: none; font-size: 0.82rem; font-weight: 600; color: var(--plum-soft); padding-top: 0; }
+.path .dot { width: 12px; height: 12px; margin-top: 8px; border-radius: 50%; background: var(--milk); border: 3px solid var(--line); transition: border-color .3s, background-color .3s; }
+.path li.done .dot { border-color: var(--orange); background: var(--orange); }
+.path li.on a { color: var(--plum); font-weight: 800; }
+.path li.on .dot { border-color: var(--plum); background: var(--milk); }
+.path .guide { position: absolute; z-index: 2; top: -24px; width: 42px; height: auto; transform: translateX(-50%); left: 8.33%; transition: left .5s cubic-bezier(.3,.7,.2,1); pointer-events: none; }
+.path .num { font-variant-numeric: tabular-nums; }
+
+/* Секції-кроки */
+section { padding-block: clamp(56px, 8vw, 104px); }
+.eyebrow { display: flex; align-items: center; gap: 12px; font-size: 0.85rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--plum-soft); margin-bottom: 14px; }
+.eyebrow img { width: 40px; height: 40px; object-fit: contain; }
+.lead { font-size: var(--step-1); max-width: 40ch; }
+.split { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.stack { display: grid; gap: 18px; }
+
+/* Hero */
+.hero { padding-block: clamp(40px, 6vw, 80px) clamp(48px, 7vw, 96px); }
+.hero h1 em { font-style: normal; color: var(--plum); background: linear-gradient(transparent 80%, var(--orange) 80%, var(--orange) 96%, transparent 96%); }
+.hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.hero .who { display: flex; gap: 14px; align-items: center; margin-top: 18px; font-size: 0.95rem; }
+.hero .who img { width: 52px; height: 52px; }
+.hero-art { position: relative; aspect-ratio: 1 / 1; max-width: 100%; border-radius: var(--radius); overflow: hidden; background: var(--ice); }
+.hero-art .pattern { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% 50%; }
+.hero-art .card { position: absolute; left: 9%; right: 9%; bottom: 9%; background: var(--milk); border-radius: 10px; padding: 18px 20px 20px; display: grid; gap: 10px; }
+.hero-art .card .row { display: flex; align-items: flex-end; justify-content: space-between; gap: 12px; }
+.hero-art .card .word { font-size: clamp(2.6rem, 2rem + 3vw, 4rem); line-height: 1; letter-spacing: 0.02em; }
+.hero-art .card .word span { display: inline-block; }
+.hero-art .card .ipa { font-size: 1.1rem; color: var(--plum-soft); }
+.hero-art .card img { width: 96px; height: auto; margin-top: -60px; }
+
+/* Крок 1: проблеми */
+.why { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 0; border: 2px solid var(--plum); border-radius: var(--radius); overflow: hidden; background: var(--paper); margin-top: 36px; }
+.why-list { display: grid; align-content: start; border-right: 2px solid var(--plum); }
+.why-list button { text-align: left; background: var(--paper); border: 0; border-bottom: 1px solid var(--line); padding: 18px 20px; font: 600 1rem/1.4 var(--font-body); color: var(--plum); cursor: pointer; display: grid; grid-template-columns: 28px 1fr; gap: 10px; min-height: 64px; }
+.why-list button:last-child { border-bottom: 0; }
+.why-list button .q { font: 800 0.8rem/1.8 var(--font-body); color: var(--plum-soft); font-variant-numeric: tabular-nums; }
+.why-list button:hover { background: var(--milk); }
+.why-list button[aria-selected="true"] { background: var(--plum); color: var(--milk); }
+.why-list button[aria-selected="true"] .q { color: var(--orange); }
+.why-panel { padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; align-content: start; }
+.why-panel .said { font-size: 1.6rem; line-height: 1.3; background: var(--milk); border-radius: 10px; padding: 14px 18px; }
+.why-panel dl { margin: 0; display: grid; gap: 14px; }
+.why-panel dt { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--plum-soft); }
+.why-panel dd { margin: 4px 0 0; }
+.why-panel .fix dd { border-left: 4px solid var(--orange); padding-left: 14px; }
+
+/* Крок 2: пастки звуків */
+.traps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+.trap { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; align-content: start; }
+.trap .sym { font-size: 2.4rem; line-height: 1.15; }
+.trap .sym u { text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+.trap .err { font-size: 0.95rem; }
+.trap .err s { text-decoration-color: var(--orange); text-decoration-thickness: 2px; }
+
+/* Крок 3: тренажер */
+.trainer { background: var(--ice); border-radius: var(--radius); padding: clamp(20px, 4vw, 44px); display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: clamp(20px, 4vw, 48px); align-items: center; margin-top: 36px; }
+.tiles { display: flex; gap: 12px; justify-content: center; transition: gap .35s cubic-bezier(.3,.7,.2,1); }
+.tiles.blended { gap: 0; }
+.tile { display: grid; justify-items: center; gap: 4px; }
+.tile button.arrow { width: 44px; height: 36px; border: 0; background: transparent; cursor: pointer; color: var(--plum); border-radius: 8px; display: grid; place-items: center; }
+.tile button.arrow:hover { background: rgba(48,32,71,.08); }
+.tile .face { width: clamp(76px, 18vw, 120px); aspect-ratio: 3 / 4; background: var(--milk); border: 2px solid var(--plum); border-radius: 10px; display: grid; place-items: center; font: 400 clamp(3rem, 8vw, 4.8rem)/1 var(--font-learn); position: relative; transition: border-radius .35s; }
+.tile.v .face { background: var(--paper); border-color: var(--orange); border-width: 3px; }
+.tiles.blended .tile:first-child .face { border-radius: 10px 0 0 10px; }
+.tiles.blended .tile:nth-child(2) .face { border-radius: 0; border-left-width: 0; border-right-width: 0; }
+.tiles.blended .tile:last-child .face { border-radius: 0 10px 10px 0; }
+.trainer-ctl { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
+.result { margin-top: 18px; text-align: center; min-height: 3.4em; display: grid; gap: 4px; }
+.result .w { font: 400 2rem/1.1 var(--font-learn); }
+.result .note { font-size: 0.95rem; }
+.trainer-lulu { display: grid; justify-items: center; gap: 10px; text-align: center; }
+.trainer-lulu img { width: 100%; max-width: 200px; height: auto; aspect-ratio: 480 / 600; object-fit: contain; }
+.trainer-lulu .bubble { background: var(--milk); border-radius: 12px; padding: 10px 14px; font-weight: 800; position: relative; }
+.honest { font-size: 0.85rem; margin-top: 16px; text-align: center; }
+
+/* Крок 4: матеріали */
+.games { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
+.game { border: 2px dashed var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; min-height: 170px; background: var(--paper); }
+.game .sample { justify-self: start; }
+.game h3 { font-family: var(--font-learn); font-weight: 700; font-size: 1.5rem; }
+.sheets { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin-top: 20px; }
+.sheet { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 22px; display: grid; gap: 14px; }
+.sheet header { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+.sheet header img { width: 130px; height: auto; }
+.sheet .line { font: 400 2rem/1.2 var(--font-learn); display: flex; gap: 24px; flex-wrap: wrap; }
+.sheet .blank { border-bottom: 2px solid var(--plum); width: 60%; height: 1.6rem; }
+.sheet .cards { display: flex; gap: 12px; }
+.sheet .cards div { flex: 1; aspect-ratio: 3/4; border: 2px solid var(--plum); border-radius: 8px; display: grid; place-items: center; font: 400 3rem/1 var(--font-learn); position: relative; }
+.sheet .cards small { position: absolute; left: 10px; bottom: 8px; font: 600 0.75rem/1 var(--font-body); }
+
+/* Крок 5: програма */
+.program { list-style: none; margin: 36px 0 0; padding: 0; display: grid; gap: 0; border-top: 2px solid var(--plum); }
+.program li { display: grid; grid-template-columns: 64px 56px minmax(0, 1fr) minmax(0, 1.2fr); gap: 20px; align-items: center; padding-block: 20px; border-bottom: 1px solid var(--line); }
+.program .n { font: 800 1.6rem/1 var(--font-head); font-variant-numeric: tabular-nums; color: var(--orange); }
+.program img { width: 48px; height: 48px; object-fit: contain; }
+.program h3 { font-size: 1.15rem; }
+.for { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin-top: 48px; }
+.for div { display: grid; gap: 6px; align-content: start; }
+.for b { font-size: 1.05rem; }
+
+/* Крок 6: авторка, ціна */
+.author { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.photo { aspect-ratio: 4 / 5; max-width: 100%; border-radius: var(--radius); background: var(--ice); display: grid; place-items: center; text-align: center; padding: 20px; color: var(--plum-soft); font-weight: 600; font-size: 0.9rem; position: relative; overflow: hidden; }
+.photo img { width: 70%; height: auto; }
+.creds { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
+.creds li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
+.creds li::before { content: ""; width: 12px; height: 12px; margin-top: 7px; background: var(--orange); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; }
+blockquote { margin: 0; padding: 22px; background: var(--paper); border-radius: var(--radius); display: grid; gap: 12px; border: 1px solid var(--line); }
+blockquote p { font-size: 1.05rem; }
+blockquote footer { font-size: 0.9rem; color: var(--plum-soft); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+
+.buy { position: relative; background: var(--plum) url("assets/patterns/P5-character-tile.svg") repeat; background-size: 320px 320px; color: var(--milk); overflow: hidden; }
+.buy .wrap { position: relative; }
+.price-card { background: var(--milk); color: var(--plum); border-radius: 24px; box-shadow: 0 12px 36px rgba(48,32,71,.25); padding: clamp(24px, 4vw, 48px); max-width: 760px; margin-inline: auto; display: grid; grid-template-columns: minmax(0, 1fr) 180px; gap: 28px; align-items: center; }
+.price-card .price { font: 800 2.2rem/1 var(--font-head); font-variant-numeric: tabular-nums; }
+.price-card ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.price-card img { width: 100%; height: auto; }
+.status { font-size: 0.92rem; background: var(--ice); padding: 10px 14px; border-radius: 8px; }
+
+.free { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
+form { display: grid; gap: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+label { font-weight: 600; font-size: 0.95rem; display: grid; gap: 6px; }
+input, textarea { font: 400 1rem/1.4 var(--font-body); color: var(--plum); background: var(--milk); border: 1.5px solid #C9BDD6; border-radius: 8px; padding: 12px 14px; min-height: 48px; width: 100%; }
+input:focus, textarea:focus { outline: 3px solid var(--plum); outline-offset: 1px; }
+.check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-weight: 400; align-items: start; }
+.check input { min-height: auto; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--orange); }
+details { border-bottom: 1px solid var(--line); padding-block: 14px; }
+summary { font-weight: 800; cursor: pointer; min-height: 32px; display: flex; align-items: center; }
+details p { margin-top: 8px; }
+
+footer.site { background: var(--plum); color: var(--milk); padding-block: 48px 40px; }
+footer.site .wrap { display: grid; grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr)); gap: 28px; }
+footer.site img { width: 220px; height: auto; }
+footer.site h4 { margin: 0 0 8px; font-size: 0.85rem; letter-spacing: .06em; text-transform: uppercase; color: var(--ice); }
+footer.site ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+footer.site a { text-decoration: none; }
+footer.site a:hover { text-decoration: underline; }
+footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; border-top: 1px solid #4E3D66; padding-top: 18px; }
+
+/* Адаптивність */
+@media (max-width: 1000px) {
+  .top-nav { display: none; }
+  .top .btn { margin-left: auto; }
+  .games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .program li { grid-template-columns: 44px 48px minmax(0, 1fr); }
+  .program li p { grid-column: 3; }
+  .traps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 760px) {
+  .split, .why, .trainer, .author, .free, .sheets, .quotes, .for, .price-card { grid-template-columns: minmax(0, 1fr); }
+  .why-list { border-right: 0; border-bottom: 2px solid var(--plum); }
+  .traps, .games { grid-template-columns: minmax(0, 1fr); }
+  .path a .lbl { display: none; }
+  .path li.on a .lbl { display: block; position: absolute; top: 30px; white-space: nowrap; }
+  .path { padding-bottom: 30px; }
+  .top-logo img { width: 160px; }
+  .trainer-lulu { grid-template-columns: 110px 1fr; justify-items: start; text-align: left; align-items: center; }
+  .trainer-lulu img { max-width: 110px; }
+  .author .photo { max-width: 260px; }
+  .price-card img { display: none; }
+  footer.site .wrap { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  footer.site .brand { grid-column: 1 / -1; }
+  .hero-art { aspect-ratio: 4 / 3; }
+}
+@media (max-width: 420px) {
+  .top .btn { padding: 8px 14px; font-size: 0.9rem; }
+  .top-logo img { width: 132px; }
+}
+/* ===== Перший екран-розмова і Lulu-провідник ===== */
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.talkhero { min-height: calc(100svh - var(--head-h, 150px)); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 24px; padding-block: 32px; }
+.talk { max-width: 36rem; }
+.intro { margin: 0 0 20px; font-size: clamp(18px, 3vw, 23px); line-height: 1.3; filter: blur(3px); user-select: none; pointer-events: none; color: var(--plum-soft); }
+.typed { margin: 0 0 26px; font: 800 clamp(26px, 4.2vw, 46px)/1.15 var(--font-head); min-height: 3.45em; }
+.caret { display: inline-block; width: 3px; height: 0.95em; background: var(--orange); vertical-align: -0.1em; margin-left: 3px; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.pills { display: flex; flex-wrap: wrap; gap: 8px; opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; }
+.pills.show { opacity: 1; transform: none; }
+.pill { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; min-height: 44px; padding: 8px 18px; border-radius: 999px; border: 1.5px solid rgba(48,32,71,.18); background: var(--paper); color: var(--plum); font: 600 15px/1.2 var(--font-body); text-decoration: none; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s; }
+.pill:hover { background: var(--plum); color: var(--milk); border-color: var(--plum); }
+.pill.main { background: var(--plum); color: var(--milk); border-color: var(--plum); font-weight: 800; }
+.pill.main:hover { background: var(--plum-hover); border-color: var(--plum-hover); }
+.pill.line { background: transparent; border-color: var(--plum); }
+.stage { --stage-h: min(70svh, 640px); position: relative; height: var(--stage-h); display: grid; place-items: end center; touch-action: pan-y; cursor: ew-resize; }
+.stage::before { content: ""; position: absolute; left: 50%; bottom: 2%; width: 46%; height: 5%; transform: translateX(-50%); background: radial-gradient(closest-side, rgba(48,32,71,.12), transparent); border-radius: 50%; }
+.stage .hint { position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%); font-size: 13px; color: var(--plum-soft); white-space: nowrap; transition: opacity .3s; }
+
+/* Lulu: відео-повтор у спокої, кадри повороту голови за курсором */
+.lulu { position: relative; aspect-ratio: 480 / 643; width: 100%; }
+.stage .lulu { width: min(100%, calc(var(--stage-h) * 0.7465)); }
+.lulu > img, .lulu > video { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
+  mask-composite: intersect; }
+.lulu > img { opacity: 0; }
+.lulu > video { transition: opacity .35s ease; }
+.lulu.turning > video { opacity: 0; }
+
+/* Супутник збоку (лише на широкому екрані) */
+.buddy { position: fixed; z-index: 15; left: 16px; bottom: 16px; width: clamp(150px, calc((100vw - 1160px) / 2 + 30px), 230px); display: none; flex-direction: column; align-items: flex-start; gap: 8px; pointer-events: none; opacity: 0; transform: translateX(-40px); transition: opacity .35s ease, transform .45s cubic-bezier(.3, 1.2, .5, 1); }
+.buddy.on { opacity: 1; transform: none; }
+.buddy .lulu { width: 100%; }
+.buddy .bubble { pointer-events: auto; position: relative; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; max-width: 220px; opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s; }
+.buddy .bubble.show { opacity: 1; transform: none; }
+.buddy .bubble::after { content: ""; position: absolute; left: 34px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
+.buddy .bye { pointer-events: auto; position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--plum); background: var(--milk); color: var(--plum); cursor: pointer; font: 800 16px/1 var(--font-body); display: grid; place-items: center; opacity: 0; transition: opacity .2s; }
+.buddy:hover .bye, .buddy .bye:focus-visible { opacity: 1; }
+.buddy .luluwrap { position: relative; width: 100%; pointer-events: auto; background: var(--milk); border: 2px solid var(--plum); border-radius: 22px; padding: 6px 6px 0; box-shadow: 0 8px 24px rgba(48,32,71,.12); }
+[data-point].pointed { outline: 3px dashed var(--orange); outline-offset: 8px; border-radius: 12px; transition: outline-color .3s; }
+@media (min-width: 1280px) { .buddy { display: flex; } }
+@media (max-width: 900px) {
+  .talkhero { grid-template-columns: minmax(0, 1fr); align-items: end; }
+  .stage { order: -1; --stage-h: 38svh; margin-bottom: 30px; }
+  .typed { min-height: 4.6em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret { display: none; }
+  .pills, .buddy, .lulu > video { transition: none; }
+}
+</style>
+
+<header class="top">
+  <div class="wrap top-row">
+    <a class="top-logo" href="#start" aria-label="Phonics4All, на початок"><img src="assets/logos/logo-horizontal.svg" alt="Phonics4All" width="200" height="60"></a>
+    <nav class="top-nav" aria-label="Розділи">
+      <a href="#start" aria-current="page">Academy</a>
+      <a href="#step-4">Resources <small>скоро</small></a>
+      <a href="#step-3">Practice <small>демо</small></a>
+    </nav>
+    <a class="btn btn-primary" href="#buy">Купити курс</a>
+  </div>
+  <div class="wrap path" aria-label="Шлях читання">
+    <div class="track">
+    <img class="guide" src="assets/logos/logo-symbol.svg" alt="" aria-hidden="true">
+    <span class="fill" aria-hidden="true"></span>
+    <ol>
+      <li data-step="1"><a href="#step-1"><span class="dot"></span><span class="lbl">Звуки</span></a></li>
+      <li data-step="2"><a href="#step-2"><span class="dot"></span><span class="lbl">Звуки й букви</span></a></li>
+      <li data-step="3"><a href="#step-3"><span class="dot"></span><span class="lbl">Blending</span></a></li>
+      <li data-step="4"><a href="#step-4"><span class="dot"></span><span class="lbl">Слова</span></a></li>
+      <li data-step="5"><a href="#step-5"><span class="dot"></span><span class="lbl">Речення</span></a></li>
+      <li data-step="6"><a href="#step-6"><span class="dot"></span><span class="lbl">Тексти</span></a></li>
+    </ol>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- Hero -->  <section class="talkhero wrap" id="start">
+    <div class="talk">
+      <p class="intro" aria-hidden="true">Привіт, я Lulu з Phonics4All.<br>Допомагаю вчителям навчити дітей читати англійською.</p>
+      <p class="sr">Привіт, я Lulu з Phonics4All. Допомагаю вчителям навчити дітей читати англійською.</p>
+      <h1 class="typed"><span class="sr" id="typed-full"></span><span aria-hidden="true" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span></h1>
+      <div class="pills" id="pills">
+        <a class="pill main" href="#buy">Купити курс</a>
+        <a class="pill" href="#step-1">Чому дитина не читає?</a>
+        <a class="pill" href="#step-3">Спробувати тренажер</a>
+        <a class="pill" href="#step-5">Подивитися програму</a>
+        <a class="pill line" href="#contact">Безкоштовний матеріал у Telegram</a>
+      </div>
+    </div>
+    <div class="stage" id="stage" role="img" aria-label="Lulu з Phonics4All повертає голову слідом за курсором">
+      <div class="lulu" data-lulu="hero"></div>
+      <span class="hint" id="hint">Поводіть курсором, і Lulu поверне голову</span>
+    </div>
+  </section>
+
+  <!-- Крок 1 -->
+  <section id="step-1" data-step="1" style="background:var(--paper)">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-listen.svg" alt="">Крок 1 з 6 · Звуки</div>
+      <h2>Чому дитина не може прочитати слово?</h2>
+      <p class="lead muted" style="margin-top:12px">Оберіть ситуацію з вашого уроку. Кожна має свою причину і свій спосіб допомогти.</p>
+      <div class="why">
+        <div class="why-list" role="tablist" aria-label="Ситуації на уроці" id="why-list"></div>
+        <div class="why-panel" role="tabpanel" id="why-panel" aria-live="polite"></div>
+      </div>
+      <p class="muted" style="margin-top:14px;font-size:.9rem"><span class="sample">Зразок</span> Пояснення написані для демо. Остаточні тексти готує Альона.</p>
+    </div>
+  </section>
+
+  <!-- Крок 2 -->
+  <section id="step-2" data-step="2">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-speak.svg" alt="">Крок 2 з 6 · Звуки й букви</div>
+      <div class="split" style="align-items:end">
+        <h2>Українська дитина чує англійську крізь українські звуки</h2>
+        <p class="muted">Міжнародні програми написані для дітей, у яких англійська рідна. Курс враховує, які звуки українська мова підміняє, і вчить їх розрізняти з першого уроку.</p>
+      </div>
+      <div class="traps" id="traps"></div>
+      <p class="muted" style="margin-top:14px;font-size:.9rem"><span class="sample">Зразок</span> Добірку звуків і порядок їх уведення визначає методика Альони.</p>
+    </div>
+  </section>
+
+  <!-- Крок 3 -->
+  <section id="step-3" data-step="3" style="background:var(--paper)">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-connect.svg" alt="">Крок 3 з 6 · Blending</div>
+      <div class="split" style="align-items:end">
+        <h2>Складіть слово так, як його складає дитина</h2>
+        <p class="muted">Змінюйте звуки стрілками й зливайте їх. Тренажер працює на CVC-словах: приголосний, голосний, приголосний. Якщо вийшло псевдослово, це теж корисно: ним перевіряють, чи дитина декодує, а не вгадує.</p>
+      </div>
+      <div class="trainer">
+        <div>
+          <div class="tiles" id="tiles"></div>
+          <div class="trainer-ctl">
+            <button class="btn btn-primary" id="blend" type="button">Злити звуки</button>
+            <button class="btn btn-ghost" id="say" type="button">Прослухати слово</button>
+            <button class="btn btn-ghost" id="shuffle" type="button">Інше слово</button>
+          </div>
+          <div class="result" id="result" aria-live="polite"></div>
+        </div>
+        <div class="trainer-lulu">
+          <img id="lulu-pic" src="assets/characters/Lulu-guide-480.webp" alt="Lulu показує картку з літерою" width="480" height="600">
+          <p class="bubble" id="bubble">Прислухайся до кожного звука</p>
+        </div>
+      </div>
+      <p class="honest muted" id="speech-note">Слово озвучує синтезатор браузера, тому окремі звуки він не вимовляє. У курсі звуки озвучує Альона.</p>
+    </div>
+  </section>
+
+  <!-- Крок 4 -->
+  <section id="step-4" data-step="4">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-read.svg" alt="">Крок 4 з 6 · Слова</div>
+      <div class="split" style="align-items:end">
+        <h2>Готові ігри й аркуші на кожен урок</h2>
+        <p class="muted">Не треба шукати вправи в інтернеті чи малювати їх самій. Матеріали йдуть у тій самій послідовності, що й методика. Усі файли у форматі PDF, друкуєте самі.</p>
+      </div>
+      <div class="games">
+        <article class="game"><h3>Ice Cream</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
+        <article class="game"><h3>Pizza</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
+        <article class="game"><h3>Nest</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
+        <article class="game"><h3>Hungry Frog</h3><p class="muted">Навчальна мета й правила гри</p><span class="sample">Опис готує Альона</span></article>
+      </div>
+      <div class="sheets">
+        <div class="sheet">
+          <header><img src="assets/logos/logo-horizontal.svg" alt="Phonics4All"><span class="sample">Зразок аркуша</span></header>
+          <h3>Читаємо слова</h3>
+          <p>Прочитай. Обери слово. Спробуй ще.</p>
+          <div class="line"><span>cat</span><span>map</span><span>sun</span></div>
+          <p>Моє слово: <span class="blank" style="display:inline-block;vertical-align:bottom"></span></p>
+        </div>
+        <div class="sheet">
+          <header><b>Картки для злиття</b><span class="sample">Зразок карток</span></header>
+          <div class="cards"><div>s<small>01</small></div><div style="border-color:var(--orange)">u<small>02</small></div><div>n<small>03</small></div></div>
+          <p class="muted" style="font-size:.95rem">Workbook для дітей 5–7 років уже готовий. Фрагменти сторінок покажемо тут.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Крок 5 -->
+  <section id="step-5" data-step="5" style="background:var(--paper)">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-write.svg" alt="">Крок 5 з 6 · Речення</div>
+      <h2>Програма курсу <span class="sample">Зразок</span></h2>
+      <p class="lead muted" style="margin-top:12px">Модулі йдуть тим самим шляхом, яким дитина вчиться читати. Остаточну програму затверджує Альона.</p>
+      <ol class="program">
+        <li><span class="n">01</span><img src="assets/icons/icon-listen.svg" alt=""><h3>Фонематичний слух</h3><p class="muted">Як навчити дитину чути окремі звуки в слові ще до літер.</p></li>
+        <li><span class="n">02</span><img src="assets/icons/icon-speak.svg" alt=""><h3>Звуко-буквені відповідності</h3><p class="muted">У якому порядку вводити звуки й букви і як не плутати їх із назвами літер.</p></li>
+        <li><span class="n">03</span><img src="assets/icons/icon-connect.svg" alt=""><h3>Blending і segmenting</h3><p class="muted">Злиття звуків у слово і розкладання слова на звуки.</p></li>
+        <li><span class="n">04</span><img src="assets/icons/icon-read.svg" alt=""><h3>Читання слів</h3><p class="muted">Від CVC-слів до буквосполучень; ігри на закріплення.</p></li>
+        <li><span class="n">05</span><img src="assets/icons/icon-write.svg" alt=""><h3>Речення й декодовані тексти</h3><p class="muted">Тексти лише з тих звуків, які дитина вже знає.</p></li>
+        <li><span class="n">06</span><img src="assets/icons/icon-progress.svg" alt=""><h3>Діагностика й адаптація</h3><p class="muted">Як побачити, де дитина застрягла; інклюзивна адаптація матеріалів.</p></li>
+      </ol>
+      <div class="for">
+        <div><b>Для кого</b><p class="muted">Вчителі англійської, репетитори, педагоги початкової школи, які працюють із дітьми 5–9 років.</p></div>
+        <div><b>Формат</b><p class="muted">Онлайн, у власному темпі. Відеоуроки, методичні пояснення, PDF-матеріали. <span class="sample">Уточнюється</span></p></div>
+        <div><b>Після курсу</b><p class="muted">Ви знаєте, в якій послідовності вчити читати, і маєте матеріали на кожен крок.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Крок 6 -->
+  <section id="step-6" data-step="6">
+    <div class="wrap">
+      <div class="eyebrow"><img src="assets/icons/icon-progress.svg" alt="">Крок 6 з 6 · Тексти</div>
+      <div class="author">
+        <div class="photo"><div><img src="assets/characters/Lulu-read-480.webp" alt=""><p>Тут буде фото авторки</p></div></div>
+        <div class="stack">
+          <h2>Альона Рутковська, PhD</h2>
+          <p class="lead">Педагогиня й авторка методики навчання читання англійською для українськомовних дітей.</p>
+          <ul class="creds">
+            <li>Доктор філософії (PhD)</li>
+            <li>Cambridge Coordinator</li>
+            <li>Авторка Workbook для дітей 5–7 років</li>
+            <li><span>Методику захищено свідоцтвом про авторське право <span class="sample">№ і дата уточнюються</span></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="quotes">
+        <blockquote><p>«Мої першокласники нарешті перестали вгадувати слова за картинкою. За місяць читають короткі речення самі.»</p><footer><span>Вчителька англійської, Київ</span><span class="sample">Зразок відгуку</span></footer></blockquote>
+        <blockquote><p>«Найцінніше для мене те, що матеріали вже розкладені по уроках. Я перестала витрачати вечори на пошук аркушів.»</p><footer><span>Репетиторка, Львів</span><span class="sample">Зразок відгуку</span></footer></blockquote>
+      </div>
+    </div>
+  </section>
+
+  <!-- Купівля -->
+  <section class="buy" id="buy">
+        <div class="wrap">
+      <div class="price-card">
+        <div class="stack">
+          <h2>Онлайн-курс Phonics4All</h2>
+          <p class="price">Ціну буде оголошено <span class="sample">Зразок</span></p>
+          <ul>
+            <li>Шість модулів від звуків до текстів</li>
+            <li>PDF-матеріали до кожного модуля</li>
+            <li>Доступ відкривається одразу після оплати</li>
+          </ul>
+          <div><button class="btn btn-primary" id="pay" type="button">Купити курс</button></div>
+          <p class="status" id="pay-status" hidden>Оплату ще не підключено, це демо. Після запуску тут буде перехід до оплати й автоматичний доступ до навчання.</p>
+        </div>
+        <img src="assets/characters/Lulu-celebrate-480.webp" alt="" width="480" height="661">
+      </div>
+    </div>
+  </section>
+
+  <!-- Безкоштовне й питання -->
+  <section id="contact">
+    <div class="wrap free">
+      <div class="stack">
+        <h2>Ще не готові купувати?</h2>
+        <p class="lead muted">Отримайте безкоштовний матеріал у Telegram-боті Phonics4All і спробуйте його на уроці.</p>
+        <div><button class="btn btn-ghost" id="tg" type="button">Отримати в Telegram</button></div>
+        <p class="status" id="tg-status" hidden>Посилання на бота додамо, щойно він запрацює.</p>
+        <div style="margin-top:24px">
+          <details><summary>Коли я отримаю доступ?</summary><p class="muted">Одразу після оплати на пошту прийде підтвердження й інструкція з доступу. <span class="sample">Умови уточнюються</span></p></details>
+          <details><summary>Чи підійде курс, якщо я працюю з дітьми з особливими освітніми потребами?</summary><p class="muted">У курсі є модуль про інклюзивну адаптацію матеріалів.</p></details>
+          <details><summary>Чи можна купити матеріали без курсу?</summary><p class="muted">Так, згодом у розділі Resources. Усі матеріали продаються у форматі PDF, без друку й доставки.</p></details>
+        </div>
+      </div>
+      <form id="form" novalidate>
+        <h3>Поставити питання</h3>
+        <label for="f-name">Ім'я<input id="f-name" name="name" autocomplete="name" required></label>
+        <label for="f-email">Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
+        <label for="f-msg">Питання<textarea id="f-msg" name="msg" rows="4" required></textarea></label>
+        <label class="check" for="f-ok"><input id="f-ok" type="checkbox" required><span>Погоджуюсь з політикою конфіденційності</span></label>
+        <div><button class="btn btn-primary" type="submit">Надіслати</button></div>
+        <p class="status" id="form-status" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="brand stack"><img src="assets/logos/logo-horizontal-light.svg" alt="Phonics4All"><p>Читаємо разом із Lulu.</p></div>
+    <div><h4>Academy</h4><ul><li><a href="#step-5">Програма курсу</a></li><li><a href="#buy">Купити курс</a></li></ul></div>
+    <div><h4>Resources</h4><ul><li>PDF-матеріали, скоро</li><li>Workbook 5–7 років, скоро</li></ul></div>
+    <div><h4>Practice</h4><ul><li><a href="#step-3">Тренажер CVC</a></li><li>Нові тренажери, скоро</li></ul></div>
+    <p class="fine">Демо-версія сайту. Позначки «Зразок» замінимо справжніми даними. Публічна оферта й політика конфіденційності з'являться до запуску продажів.</p>
+  </div>
+</footer>
+
+<aside class="buddy" id="buddy" aria-label="Lulu, провідник у читанні">
+  <p class="bubble" id="lulu-say" aria-live="polite"></p>
+  <div class="luluwrap">
+    <div class="lulu" data-lulu="buddy"></div>
+    <button class="bye" id="bye" type="button" aria-label="Сховати Lulu">×</button>
+  </div>
+</aside>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Крок 1: ситуації */
+  const cases = [
+    { t: 'Називає літери, а слово не складає', said: '«сі… ей… ті…»',
+      why: 'Дитина вивчила назви літер, а читати допомагають звуки. З назв «сі-ей-ті» слово cat не складеться.',
+      fix: 'Вчити, як буква звучить, а не як вона називається. Назви літер відкласти на потім.' },
+    { t: 'Вгадує слово за картинкою чи першою літерою', said: 'бачить cat, каже «kitten»',
+      why: 'Дитина навчилась вгадувати замість декодувати. На знайомих текстах це непомітно.',
+      fix: 'Давати тексти лише з вивчених звуків і перевіряти псевдословами, наприклад «tib», які не вгадаєш.' },
+    { t: 'Знає слова напам\'ять, а нове прочитати не може', said: 'dog читає, dot не може',
+      why: 'Слова запам\'ятали цілком, як картинку. Перенести це на нові слова дитина не може.',
+      fix: 'Системна послідовність: кожен новий звук одразу в нових словах, а не у вивченому списку.' }
+  ];
+  const list = $('#why-list'), panel = $('#why-panel');
+  cases.forEach((c, i) => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.role = 'tab'; b.id = 'why-' + i;
+    b.setAttribute('aria-controls', 'why-panel');
+    b.innerHTML = `<span class="q">${String(i + 1).padStart(2, '0')}</span><span>${c.t}</span>`;
+    b.addEventListener('click', () => pick(i));
+    b.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        const n = (i + (e.key === 'ArrowDown' ? 1 : cases.length - 1)) % cases.length;
+        pick(n); $('#why-' + n).focus();
+      }
+    });
+    list.append(b);
+  });
+  function pick(i) {
+    list.querySelectorAll('button').forEach((b, j) => { b.setAttribute('aria-selected', j === i); b.tabIndex = j === i ? 0 : -1; });
+    const c = cases[i];
+    panel.setAttribute('aria-labelledby', 'why-' + i);
+    panel.innerHTML = `<p class="said learn">${c.said}</p><dl><div><dt>Чому так</dt><dd>${c.why}</dd></div><div class="fix"><dt>Що допомагає</dt><dd>${c.fix}</dd></div></dl>`;
+  }
+  pick(0);
+
+  /* Крок 2: пастки */
+  const traps = [
+    ['c<u>a</u>t', 'Такого голосного в українській немає, тож дитина каже <s>«кет»</s>.'],
+    ['sh<u>i</u>p · sh<u>ee</u>p', 'В українській довжина звука не змінює значення, тож ці два слова звучать однаково.'],
+    ['<u>th</u>ink · <u>th</u>is', 'Підміняють на [с], [ф] або [з]: <s>«сінк»</s>, <s>«зіс»</s>.'],
+    ['<u>w</u>in', 'Губи округлені, зуби не торкаються губи. Часто звучить як <s>«він»</s>.'],
+    ['<u>h</u>at', 'Легкий видих, а не дзвінкий український [г]: не <s>«гет»</s>.'],
+    ['si<u>ng</u>', 'Один звук без [г] у кінці: не <s>«сінг»</s>.']
+  ];
+  $('#traps').innerHTML = traps.map(([w, e]) =>
+    `<article class="trap"><p class="sym learn">${w}</p><p class="err">${e}</p></article>`).join('');
+
+  /* Крок 3: тренажер CVC */
+  const ON = 'b c d f g h j l m n p r s t w'.split(' ');
+  const VO = 'a e i o u'.split(' ');
+  const CO = 'b d g m n p t'.split(' ');
+  const WORDS = new Set(('bad bag ban bat cab can cap cat dad dam fan fat gap had ham hat jam lab lad lap mad man map mat nap pad pan pat rag ram ran rap rat sad sap sat tab tag tan tap wag ' +
+    'bed beg bet den fed get hem hen jet led leg let men met net peg pen pet red set ten web wed wet ' +
+    'bib bid big bin bit dig dim din dip fig fin fit hid him hip hit jig lid lip lit mid nip pig pin pit rib rid rig rim rip sip sit tin tip wig win wit ' +
+    'cob cod cog cop cot dog dot fog got hog hop hot job jog jot log lot mob mom mop nod not pod pop pot rob rod rot sob top ' +
+    'bud bug bun but cub cup cut dug fun gum gun hug hum hut jug lug mud mug nut pug pun pup rub rug run rut sub sum sun tub tug').split(' '));
+  const sets = [ON, VO, CO];
+  const names = ['Перший звук', 'Голосний', 'Останній звук'];
+  const state = [ON.indexOf('c'), VO.indexOf('a'), CO.indexOf('t')];
+  const tiles = $('#tiles');
+  const chevron = d => `<svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><path d="${d ? 'M4 7l6 6 6-6' : 'M4 13l6-6 6 6'}" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  sets.forEach((set, k) => {
+    const t = document.createElement('div');
+    t.className = 'tile' + (k === 1 ? ' v' : '');
+    t.innerHTML = `<button class="arrow" type="button" aria-label="${names[k]}: попередній">${chevron(0)}</button><div class="face learn" aria-live="polite"></div><button class="arrow" type="button" aria-label="${names[k]}: наступний">${chevron(1)}</button>`;
+    const [up, down] = t.querySelectorAll('button');
+    up.onclick = () => step(k, -1); down.onclick = () => step(k, 1);
+    tiles.append(t);
+  });
+  const word = () => state.map((v, k) => sets[k][v]).join('');
+  function render() {
+    tiles.querySelectorAll('.tile').forEach((t, k) => {
+      const l = sets[k][state[k]];
+      t.querySelector('.face').textContent = l;
+    });
+  }
+  const pic = $('#lulu-pic'), bubble = $('#bubble'), result = $('#result');
+  const POSES = { connect: ['Lulu-guide', 'Lulu показує картку з літерою'], celebrate: ['Lulu-celebrate', 'Lulu радіє й махає лапкою'], read: ['Lulu-read', 'Lulu читає книжку'], speak: ['Lulu', 'Lulu слухає слово'] };
+  function setLulu(name, text) { pic.src = 'assets/characters/' + POSES[name][0] + '-480.webp'; pic.alt = POSES[name][1]; bubble.textContent = text; }
+  function reset() {
+    tiles.classList.remove('blended');
+    result.innerHTML = '<p class="note muted">Натисніть «Злити звуки».</p>';
+    setLulu('connect', 'Прислухайся до кожного звука');
+  }
+  function step(k, d) { state[k] = (state[k] + d + sets[k].length) % sets[k].length; render(); reset(); }
+  $('#blend').onclick = () => {
+    tiles.classList.add('blended');
+    const w = word(), real = WORDS.has(w);
+    result.innerHTML = `<p class="w">${w}</p>` +
+      `<p class="note">${real ? 'Справжнє слово.' : 'Псевдослово: такого слова немає, але дитина, яка декодує, прочитає і його.'}</p>`;
+    real ? setLulu('celebrate', 'У тебе вийшло!') : setLulu('read', 'Прочитай ще раз, звук за звуком');
+  };
+  $('#shuffle').onclick = () => {
+    const pool = [...WORDS], w = pool[Math.floor(Math.random() * pool.length)];
+    [...w].forEach((ch, k) => state[k] = sets[k].indexOf(ch));
+    render(); reset();
+  };
+  const canSpeak = 'speechSynthesis' in window;
+  $('#say').onclick = () => {
+    if (!canSpeak) { $('#speech-note').textContent = 'Цей браузер не вміє озвучувати текст. У курсі звуки й слова озвучує Альона.'; return; }
+    try {
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(word());
+      u.lang = 'en-GB'; u.rate = 0.75;
+      const v = speechSynthesis.getVoices().find(v => /^en(-|_)GB/i.test(v.lang)) || speechSynthesis.getVoices().find(v => /^en/i.test(v.lang));
+      if (v) u.voice = v;
+      setLulu('speak', 'Слухай: ' + word());
+      speechSynthesis.speak(u);
+    } catch (e) { $('#speech-note').textContent = 'Озвучення тут недоступне. У курсі звуки й слова озвучує Альона.'; }
+  };
+  render(); reset();
+
+  /* Чесні заглушки */
+  $('#pay').onclick = () => { $('#pay-status').hidden = false; };
+  $('#tg').onclick = () => { $('#tg-status').hidden = false; };
+  $('#form').addEventListener('submit', e => {
+    e.preventDefault();
+    const f = e.target, s = $('#form-status');
+    const bad = [...f.querySelectorAll('[required]')].find(el => el.type === 'checkbox' ? !el.checked : !el.value.trim() || (el.type === 'email' && !el.checkValidity()));
+    s.hidden = false;
+    if (bad) { s.textContent = bad.type === 'checkbox' ? 'Поставте галочку згоди, щоб надіслати питання.' : bad.type === 'email' ? 'Перевірте email: схоже, в ньому помилка.' : 'Заповніть усі поля.'; bad.focus(); return; }
+    s.textContent = 'Дякуємо! Це демо, тому форма ще нікуди не надсилає дані. Після запуску відповідь прийде на ваш email.';
+  });
+
+  /* Головний ефект: знак Phonics4All іде шляхом читання */
+  const items = [...document.querySelectorAll('.path li')];
+  const guide = $('.path .guide'), fill = $('.path .fill');
+  function setStep(n) {
+    items.forEach((li, i) => { li.classList.toggle('on', i + 1 === n); li.classList.toggle('done', i + 1 < n); });
+    const pos = n ? ((n - 0.5) / 6) * 100 : (0.5 / 6) * 100;
+    guide.style.left = pos + '%';
+    fill.style.width = n ? pos + '%' : '0';
+  }
+  const steps = [...document.querySelectorAll('section[data-step]')];
+  let raf = 0;
+  function onScroll() {
+    raf = 0;
+    const mid = innerHeight * 0.45;
+    let cur = 0;
+    steps.forEach(s => { if (s.getBoundingClientRect().top < mid) cur = +s.dataset.step; });
+    if ($('#buy').getBoundingClientRect().top < mid) cur = 6;
+    setStep(cur);
+  }
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(onScroll); }, { passive: true });
+  onScroll();
+})();
+</script>
+
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const top = $('.top');
+  const setHead = () => document.documentElement.style.setProperty('--head-h', top.offsetHeight + 'px');
+  setHead(); addEventListener('resize', setHead);
+
+  /* Репліка, що друкується */
+  const TEXT = 'Діти знають літери, але не читають слова? Знаю, як це виправити. З чого почнемо?';
+  $('#typed-full').textContent = TEXT;
+  const out = $('#typed'), caret = $('#caret');
+  if (reduce) { out.textContent = TEXT; caret.remove(); }
+  else setTimeout(() => { let i = 0; const t = setInterval(() => { out.textContent = TEXT.slice(0, ++i); if (i >= TEXT.length) { clearInterval(t); caret.remove(); } }, 38); }, 600);
+  setTimeout(() => $('#pills').classList.add('show'), reduce ? 0 : 400);
+
+  /* Модель Lulu: відео-повтор у спокої; коли курсор рухається, показуємо кадр повороту голови.
+     YAW: куди дивиться Lulu на кожному кадрі (від'ємне = ліворуч, додатне = праворуч). */
+  const YAW = [-105, -102, -98, -91, -88, -81, -9, 1, 10, 17, 26, 32, 37, 42, 44, 49, 63, 67, 69, 71, 74, 77, 79, 80];
+  const FRONT = 6;  // кадр, де Lulu дивиться майже прямо
+  const frameAt = a => {   // a: -1…1 → дробовий номер кадру
+    const y = a < 0 ? YAW[FRONT] + a * (YAW[FRONT] - YAW[0]) : YAW[FRONT] + a * (YAW[YAW.length - 1] - YAW[FRONT]);
+    for (let i = 0; i < YAW.length - 1; i++) if (y <= YAW[i + 1]) return i + clamp((y - YAW[i]) / (YAW[i + 1] - YAW[i]), 0, 1);
+    return YAW.length - 1;
+  };
+  function makeLulu(root, eager) {
+    const imgs = YAW.map((_, i) => {
+      const im = new Image(480, 643);
+      im.alt = ''; im.decoding = 'async'; if (!eager) im.loading = 'lazy';
+      im.src = `assets/lulu/turn/${String(i).padStart(2, '0')}.webp`;
+      root.append(im); return im;
+    });
+    const v = document.createElement('video');
+    Object.assign(v, { muted: true, loop: true, playsInline: true, autoplay: !reduce, poster: 'assets/lulu/lulu-poster.webp', preload: eager ? 'auto' : 'metadata' });
+    v.setAttribute('aria-hidden', 'true');
+    v.innerHTML = '<source src="assets/lulu/lulu-loop.webm" type="video/webm"><source src="assets/lulu/lulu-loop.mp4" type="video/mp4">';
+    root.append(v);
+    const l = { angle: 0, target: 0, turning: false };
+    l.draw = () => {
+      const f = frameAt(l.angle), i = Math.floor(f), k = f - i;
+      imgs.forEach((im, j) => { im.style.opacity = j === i ? 1 - k : j === i + 1 ? k : 0; });
+    };
+    l.setTurning = on => {   // on: Lulu стежить за курсором; off: грає відео
+      if (on === l.turning) return;
+      l.turning = on; root.classList.toggle('turning', on);
+      if (!on && !reduce) v.play().catch(() => {});
+    };
+    l.play = () => { if (!l.turning && !reduce) v.play().catch(() => {}); };
+    l.pause = () => v.pause();
+    l.draw();
+    return l;
+  }
+  const stage = $('#stage');
+  const hero = makeLulu(stage.querySelector('.lulu'), true);
+  const buddyEl = $('#buddy'), buddyLulu = buddyEl.querySelector('.lulu'), buddy = makeLulu(buddyLulu, false);
+  buddy.pause();
+
+  /* Курсор: Lulu дивиться на нього */
+  let mouseX = innerWidth / 2, lastInput = -1e9, pointing = false;
+  addEventListener('mousemove', e => { mouseX = e.clientX; lastInput = performance.now(); $('#hint').style.opacity = 0; }, { passive: true });
+  let dragX = null, dragStart = 0;
+  stage.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; dragX = e.clientX; dragStart = hero.angle; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove', e => { if (dragX === null) return; hero.target = clamp(dragStart + (e.clientX - dragX) / (stage.clientWidth * 0.6), -1, 1); lastInput = performance.now(); $('#hint').style.opacity = 0; });
+  ['pointerup', 'pointercancel'].forEach(t => stage.addEventListener(t, () => { dragX = null; }));
+  if (matchMedia('(hover: none)').matches) $('#hint').textContent = 'Проведіть пальцем по Lulu';
+
+  /* Супутник: з'являється, коли перший екран прокручено */
+  let heroVisible = true, buddyOn = false, dismissed = false;
+  try { dismissed = sessionStorage.getItem('lulu-bye') === '1'; } catch (e) {}
+  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; heroVisible ? hero.play() : hero.pause(); sync(); }, { threshold: 0.15 }).observe($('#start'));
+  function sync() {
+    const was = buddyOn;
+    buddyOn = !heroVisible && !dismissed && innerWidth >= 1280;
+    buddyEl.classList.toggle('on', buddyOn);
+    buddyEl.setAttribute('aria-hidden', !buddyOn);
+    if (buddyOn !== was) buddyOn ? buddy.play() : buddy.pause();
+  }
+  addEventListener('resize', sync);
+  $('#bye').onclick = () => { dismissed = true; try { sessionStorage.setItem('lulu-bye', '1'); } catch (e) {} sync(); };
+
+  /* Підказки: коли блок доходить до середини екрана, Lulu повертається до нього і підказує */
+  const TIPS = [
+    ['#why-list', 'Оберіть ситуацію зі свого уроку'],
+    ['#traps', 'Ці звуки діти підміняють найчастіше'],
+    ['#tiles', 'Змінюйте звуки стрілками і зливайте їх'],
+    ['.games', 'Ігри, які ви отримаєте в курсі'],
+    ['.program', 'Шість модулів, як шість кроків читання'],
+    ['.price-card', 'Тут можна купити курс'],
+    ['#form', 'Маєте питання? Напишіть Альоні']
+  ];
+  const tips = TIPS.map(([sel, text]) => { const el = $(sel); if (el) el.dataset.point = ''; return el && { el, text, shown: false }; }).filter(Boolean);
+  const bubble = $('#lulu-say');
+  let current = null, hideT = 0;
+  function show(tip) {
+    if (current) current.el.classList.remove('pointed');
+    current = tip; tip.shown = true;
+    bubble.textContent = tip.text; bubble.classList.add('show');
+    tip.el.classList.add('pointed');
+    pointing = true;
+    clearTimeout(hideT);
+    hideT = setTimeout(() => { pointing = false; bubble.classList.remove('show'); tip.el.classList.remove('pointed'); current = null; }, 3600);
+  }
+  let lastCheck = 0;
+  function checkTips(now) {
+    if (now - lastCheck < 150) return; lastCheck = now;
+    for (const t of tips) {
+      const r = t.el.getBoundingClientRect(), c = r.top + Math.min(r.height, innerHeight) / 2;
+      if (r.top > innerHeight) t.shown = false;                       // повернулись вище: можна показати знову
+      else if (!t.shown && !pointing && c > innerHeight * 0.3 && c < innerHeight * 0.7) { show(t); break; }
+    }
+  }
+
+  /* Один цикл анімації на обидві Lulu */
+  function aimAt(el) {
+    const r = el.getBoundingClientRect();
+    return clamp((mouseX - (r.left + r.width / 2)) / (innerWidth * 0.45), -1, 1);
+  }
+  function step(l, target, follow) {
+    l.setTurning(follow);
+    if (!follow) { l.angle = 0; return; }
+    l.target = target;
+    l.angle += (l.target - l.angle) * 0.14; l.draw();
+  }
+  function tick(now) {
+    const idle = now - lastInput > 3500;
+    if (heroVisible) step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
+    if (buddyOn) {
+      checkTips(now);
+      if (pointing && current) step(buddy, 1, true);   // контент праворуч від Lulu
+      else step(buddy, aimAt(buddyLulu), !idle);
+    }
+    requestAnimationFrame(tick);
+  }
+  if (!reduce) requestAnimationFrame(tick);
+})();
+</script>
