@@ -1,0 +1,30 @@
+import { chromium } from '/opt/node22/lib/node_modules/playwright/index.mjs';
+const out = process.argv[2], url = 'http://localhost:8766/landing/';
+const b = await chromium.launch();
+const p = await b.newPage({ viewport: { width: 1440, height: 900 } });
+const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => m.type() === 'error' && errs.push(m.text()));
+p.on('requestfailed', r => errs.push('FAIL ' + r.url()));
+p.on('response', r => r.status() >= 400 && errs.push(r.status() + ' ' + r.url()));
+await p.goto(url, { waitUntil: 'networkidle' });
+await p.waitForTimeout(3500);
+await p.screenshot({ path: `${out}/d-hero-idle.png` });
+for (const [x, n] of [[100, 'left'], [1400, 'right'], [1000, 'mid']]) {
+  await p.mouse.move(x, 450, { steps: 5 }); await p.waitForTimeout(900);
+  await p.screenshot({ path: `${out}/d-hero-${n}.png`, clip: { x: 720, y: 120, width: 720, height: 780 } });
+  console.log(n, await p.evaluate(() => [document.querySelector('#stage .lulu').className, [...document.querySelectorAll('#stage .lulu img')].findIndex(i => +i.style.opacity > 0.5)]));
+}
+await p.evaluate(() => document.querySelector('#step-3').scrollIntoView()); await p.waitForTimeout(1500);
+await p.screenshot({ path: `${out}/d-step3.png` });
+await p.click('#blend'); await p.waitForTimeout(600); await p.screenshot({ path: `${out}/d-step3-blend.png` });
+await p.evaluate(() => document.querySelector('#buy').scrollIntoView()); await p.waitForTimeout(1200);
+await p.screenshot({ path: `${out}/d-buy.png` });
+await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(800);
+await p.screenshot({ path: `${out}/d-footer.png` });
+await p.screenshot({ path: `${out}/d-full.png`, fullPage: true });
+const m = await b.newPage({ viewport: { width: 390, height: 844 } });
+await m.goto(url, { waitUntil: 'networkidle' }); await m.waitForTimeout(3500);
+await m.screenshot({ path: `${out}/m-hero.png` });
+await m.screenshot({ path: `${out}/m-full.png`, fullPage: true });
+console.log('mobile overflow', await m.evaluate(() => document.documentElement.scrollWidth));
+console.log('errors:', errs.join('\n') || 'none');
+await b.close();
