@@ -902,12 +902,15 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
       const k = RAIL_W / W, rh = H * k;
       const hb = top.getBoundingClientRect().bottom;
       const rx = innerWidth - RAIL_GAP - RAIL_W;
-      let want = railY === null ? innerHeight - rh - 24 : railY;   // без блоку поруч Lulu лишається, де була
+      // Лапка тримається біля середини екрана і плавно підтягується до центру блоку (не далі ніж на 100px)
+      const mid = innerHeight / 2;
+      let pawY = mid;
       if (anchor) {
         const r = anchor.el.getBoundingClientRect();
-        want = clamp(r.top + Math.min(r.height, innerHeight * 0.6) / 2 - rh * PAW_Y, hb + 90, innerHeight - rh - 12);
+        pawY = clamp(r.top + Math.min(r.height, innerHeight * 0.6) / 2, mid - 100, mid + 100);
       }
-      railY = railY === null ? want : railY + (want - railY) * 0.08;
+      const want = clamp(pawY - rh * PAW_Y, hb + 64, innerHeight - rh - 12);
+      railY = railY === null ? want : railY + (want - railY) * 0.07;
       const e = ease(p);
       const x = sx + (rx - sx) * e, y = sy + (railY - sy) * e, sc = 1 + (k - 1) * e;
       luluEl.style.transform = `translate(${x - sx}px, ${y - sy}px) scale(${sc})`;
