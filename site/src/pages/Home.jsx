@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import { LetterBubbles } from "../components/LetterBubbles.jsx";
+import { LuluCat } from "../components/LuluCat.jsx";
 
 const BASE = import.meta.env.BASE_URL;
-
 const SECTIONS = [
   {
     to: "/alphabet",
@@ -35,7 +35,12 @@ export function Home() {
       <section className="hero fade-up">
         <div className="stack">
           <div className="eyebrow" style={{ marginBottom: 0 }}>
-            <img src={`${BASE}brand/icon-listen.svg`} alt="" width="40" height="40" />
+            <img
+              src={`${BASE}brand/icon-listen.svg`}
+              alt=""
+              width="40"
+              height="40"
+            />
             Practice · Тренажер читання
           </div>
           <h1>Читаємо разом із Lulu</h1>
@@ -53,12 +58,8 @@ export function Home() {
           </div>
         </div>
         <div className="hero-art">
-          <img
-            src={`${BASE}brand/Lulu-guide-480.webp`}
-            alt="Зайчиха Lulu показує картку з літерою a"
-            width="360"
-            height="450"
-          />
+          {/* Lulu складає слово CAT: прозорий фон, повтор без стику */}
+          <LuluCat className="hero-video" />
         </div>
       </section>
       <div className="cards3">

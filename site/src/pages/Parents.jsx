@@ -205,7 +205,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-read.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-read.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",
@@ -276,7 +281,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-read.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-read.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",
@@ -346,7 +356,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-listen.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-listen.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",
@@ -430,7 +445,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-connect.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-connect.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",
@@ -506,7 +526,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-write.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-write.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",
@@ -586,7 +611,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <img src={`${BASE}brand/icon-progress.svg`} alt="" width="40" height="40" />
+              <img
+                src={`${BASE}brand/icon-progress.svg`}
+                alt=""
+                width="40"
+                height="40"
+              />
               <span
                 style={{
                   fontWeight: "800",

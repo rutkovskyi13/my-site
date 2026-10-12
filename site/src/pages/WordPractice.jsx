@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, List, X } from "lucide-react";
 import { PageHead } from "../components/PageHead.jsx";
+import { LuluLive } from "../components/LuluLive.jsx";
 
-const BASE = import.meta.env.BASE_URL;
 const VOWELS = ["a", "e", "i", "o", "u"];
 import { DEFAULT_WORDS } from "../data/words.js";
 import { loadDecks } from "../lib/decks.js";
@@ -14,6 +14,7 @@ export function WordPractice() {
     [wordIndex, setWordIndex] = useState(0),
     [revealed, setRevealed] = useState({}),
     [listOpen, setListOpen] = useState(false),
+    [reaction, setReaction] = useState({ name: "idle", id: 0 }),
     touchStartX = useRef(null);
   useEffect(() => {
     let e = () => {
@@ -70,6 +71,14 @@ export function WordPractice() {
         setRevealed({}));
     }, [words.length]),
     toggleTile = (e) => {
+      if (!revealed[e] && currentWord) {
+        // Lulu реагує: прислухається до кожного звука, радіє, коли відкрито всі
+        let open = Object.values(revealed).filter(Boolean).length + 1;
+        setReaction((r) => ({
+          name: open >= currentWord.letters.length ? "cheer" : "listen",
+          id: r.id + 1,
+        }));
+      }
       setRevealed((t) => ({
         ...t,
         [e]: !t[e],
@@ -200,11 +209,9 @@ export function WordPractice() {
           )}
         </div>
         <div className="panel-lulu">
-          <img
-            src={`${BASE}brand/${allRevealed ? "Lulu-celebrate" : opened ? "Lulu-read" : "Lulu-guide"}-480.webp`}
-            alt={allRevealed ? "Lulu радіє" : "Lulu допомагає читати"}
-            width="190"
-            height="240"
+          <LuluLive
+            react={reaction}
+            label={allRevealed ? "Lulu радіє" : "Lulu допомагає читати"}
           />
           <p className="bubble" aria-live="polite">
             {isEmpty

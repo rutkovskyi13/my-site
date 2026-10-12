@@ -580,7 +580,9 @@ main.page {
   background: none;
   cursor: pointer;
 }
+/* За методикою на старті слова читаємо лише великими літерами */
 .wtile .face {
+  text-transform: uppercase;
   width: clamp(52px, 15vw, 112px);
   aspect-ratio: 3 / 4;
   display: grid;
@@ -672,6 +674,7 @@ main.page {
   gap: 8px;
 }
 .modal-list .pill {
+  text-transform: uppercase;
   font-family: var(--font-learn);
   font-weight: 400;
   font-size: 1.1rem;
@@ -927,4 +930,75 @@ footer.site .fine a {
 .page .wrap > * {
   position: relative;
   z-index: 1;
+}
+/* Lulu на першому екрані: прозоре відео (canvas) поверх постера; бульбашки видно довкола */
+.hero-art {
+  position: relative;
+}
+.hero-art::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  width: 70%;
+  height: 5%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(48, 32, 71, 0.12), transparent);
+  border-radius: 50%;
+}
+.hero-video {
+  position: relative;
+  width: min(100%, 460px);
+  aspect-ratio: 626 / 640;
+}
+.hero-video img,
+.hero-video canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s;
+}
+.hero-video video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .hero-video {
+    width: min(100%, 280px);
+  }
+}
+/* Жива Lulu поруч із вправою */
+.lulu-live {
+  position: relative;
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 494 / 480;
+}
+.lulu-live img,
+.lulu-live canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  transition: opacity 0.2s;
+}
+.lulu-live video {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+@media (max-width: 760px) {
+  .panel-lulu .lulu-live {
+    max-width: 96px;
+  }
+  .panel-lulu {
+    grid-template-columns: 96px 1fr;
+  }
 }
