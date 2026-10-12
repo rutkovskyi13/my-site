@@ -272,7 +272,6 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
   mask-composite: intersect; }
 .lulu > img { opacity: 0; }
-.lulu > video { transition: opacity .35s ease; }
 .lulu.turning > video { opacity: 0; }
 
 /* Супутник збоку (лише на широкому екрані) */
@@ -294,7 +293,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 }
 @media (prefers-reduced-motion: reduce) {
   .caret { display: none; }
-  .pills, .buddy, .lulu > video { transition: none; }
+  .pills, .buddy { transition: none; }
 }
 </style>
 
@@ -712,19 +711,23 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   else setTimeout(() => { let i = 0; const t = setInterval(() => { out.textContent = TEXT.slice(0, ++i); if (i >= TEXT.length) { clearInterval(t); caret.remove(); } }, 38); }, 600);
   setTimeout(() => $('#pills').classList.add('show'), reduce ? 0 : 400);
 
-  /* Модель Lulu: відео-повтор у спокої; коли курсор рухається, показуємо кадр повороту голови.
-     YAW: куди дивиться Lulu на кожному кадрі (від'ємне = ліворуч, додатне = праворуч). */
-  const YAW = [-105, -102, -98, -91, -88, -81, -9, 1, 10, 17, 26, 32, 37, 42, 44, 49, 63, 67, 69, 71, 74, 77, 79, 80];
-  const FRONT = 6;  // кадр, де Lulu дивиться майже прямо
-  const frameAt = a => {   // a: -1…1 → дробовий номер кадру
-    const y = a < 0 ? YAW[FRONT] + a * (YAW[FRONT] - YAW[0]) : YAW[FRONT] + a * (YAW[YAW.length - 1] - YAW[FRONT]);
-    for (let i = 0; i < YAW.length - 1; i++) if (y <= YAW[i + 1]) return i + clamp((y - YAW[i]) / (YAW[i + 1] - YAW[i]), 0, 1);
-    return YAW.length - 1;
-  };
+  /* Модель Lulu. У спокої грає відео-повтор; коли курсор рухається, показуємо один кадр повороту голови.
+     Кадри повороту вирізані з того самого відео, тож перемикання відео ↔ кадр відбувається на однаковій позі.
+     ORIG: номер кадру у вихідному відео; YAW: куди дивиться Lulu (від'ємне = ліворуч); REST: очі відкриті.
+     LOOP_YAW: поза на кожному кадрі відео-повтору (повтор починається з 12-го кадру вихідного відео, 24 к/с). */
+  const ORIG = [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 76, 78, 80, 82, 84, 85, 86, 87, 88, 89, 90, 92, 95, 99];
+  const YAW = [-104, -103, -100, -97, -92, -85, -76, -64, -52, -40, -28, -17, -9, 0, 9, 17, 24, 31, 36, 40, 42, 45, 46, 48, 49, 52, 56, 61, 65, 69, 72, 74, 77, 79, 80];
+  const REST = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
+  const LOOP_YAW = [-21, -25, -30, -33, -35, -36, -38, -40, -45, -53, -60, -67, -73, -78, -83, -87, -91, -95, -98, -101, -104, -106, -107, -108, -109, -109, -109, -108, -108, -107, -107, -106, -106, -105, -105, -105, -105, -105, -105, -105, -104, -103, -100, -97, -92, -85, -76, -64, -52, -40, -28, -17, -9, 0, 9, 17, 24, 31, 36, 40, 42, 44, 44, 44, 45, 45, 46, 47, 48, 47, 48, 50, 52, 56, 61, 65, 69, 72, 74, 75, 77, 77, 78, 79, 79, 79, 80, 80, 79, 79, 77, 73, 68, 60, 53, 44, 36, 30, 26, 21, 18, 13, 8, 3, -2, -6, -9, -12, -14, -15, -16, -17, -17, -17, -16, -16, -15, -15, -14, -14, -13, -13, -13, -13, -13, -13, -13, -13, -13, -13, -14, -14, -6, -7, -7, -8, -9, -10, -12, -13, -14, -15, -16, -18];
+  const FPS = 24, LOOP_START = 12;
+  const Y0 = YAW[ORIG.indexOf(64)], YMIN = YAW[0], YMAX = YAW[YAW.length - 1];   // кадр 64: Lulu дивиться прямо
+  const yawOf = a => a < 0 ? Y0 + a * (Y0 - YMIN) : Y0 + a * (YMAX - Y0);
+  const angleOf = y => y < Y0 ? (y - Y0) / (Y0 - YMIN) : (y - Y0) / (YMAX - Y0);
+  const nearest = (y, restOnly) => { let best = -1, d = 1e9; YAW.forEach((v, i) => { if ((!restOnly || REST[i]) && Math.abs(v - y) < d) { d = Math.abs(v - y); best = i; } }); return best; };
   function makeLulu(root, eager) {
-    const imgs = YAW.map((_, i) => {
+    const imgs = ORIG.map((_, i) => {
       const im = new Image(480, 643);
-      im.alt = ''; im.decoding = 'async'; if (!eager) im.loading = 'lazy';
+      im.alt = ''; im.decoding = 'async';
       im.src = `assets/lulu/turn/${String(i).padStart(2, '0')}.webp`;
       root.append(im); return im;
     });
@@ -733,25 +736,43 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     v.setAttribute('aria-hidden', 'true');
     v.innerHTML = '<source src="assets/lulu/lulu-loop.webm" type="video/webm"><source src="assets/lulu/lulu-loop.mp4" type="video/mp4">';
     root.append(v);
-    const l = { angle: 0, target: 0, turning: false };
-    l.draw = () => {
-      const f = frameAt(l.angle), i = Math.floor(f), k = f - i;
-      imgs.forEach((im, j) => { im.style.opacity = j === i ? 1 - k : j === i + 1 ? k : 0; });
+    const l = { angle: 0, target: 0, turning: false, shown: -1, active: true, ready: false };
+    Promise.all(imgs.map(im => im.decode().catch(() => {}))).then(() => { l.ready = true; });   // поки кадри не готові, грає відео
+    const showFrame = i => { if (i === l.shown) return; if (l.shown >= 0) imgs[l.shown].style.opacity = 0; imgs[i].style.opacity = 1; l.shown = i; };
+    l.draw = settled => {
+      const y = yawOf(l.angle);
+      showFrame(nearest(y, settled));   // у русі можна моргнути, у спокої лише з відкритими очима
     };
-    l.setTurning = on => {   // on: Lulu стежить за курсором; off: грає відео
-      if (on === l.turning) return;
-      l.turning = on; root.classList.toggle('turning', on);
-      if (!on && !reduce) v.play().catch(() => {});
+    l.startTurning = () => {   // відео → кадри: беремо позу з поточного кадру відео
+      if (l.turning || !l.ready) return;
+      l.turning = true;
+      const o = Math.floor(v.currentTime * FPS + 0.5) % LOOP_YAW.length;
+      l.angle = clamp(angleOf(LOOP_YAW[o]), -1, 1);
+      l.draw(false);
+      v.pause();
+      root.classList.add('turning');
     };
-    l.play = () => { if (!l.turning && !reduce) v.play().catch(() => {}); };
-    l.pause = () => v.pause();
-    l.draw();
+    l.stopTurning = () => {    // кадри → відео: продовжуємо відео саме з того кадру, що зараз на екрані
+      if (!l.turning || l.returning) return;
+      l.returning = true;
+      v.currentTime = (ORIG[l.shown] - LOOP_START + 0.5) / FPS;
+      v.addEventListener('seeked', () => {
+        l.returning = false;
+        if (!l.wantVideo) return;
+        l.turning = false;
+        root.classList.remove('turning');
+        if (l.active && !reduce) v.play().catch(() => {});
+      }, { once: true });
+    };
+    l.play = () => { l.active = true; if (!l.turning && !reduce) v.play().catch(() => {}); };
+    l.pause = () => { l.active = false; v.pause(); };
+    showFrame(nearest(Y0, true));
     return l;
   }
   const stage = $('#stage');
   const hero = makeLulu(stage.querySelector('.lulu'), true);
-  const buddyEl = $('#buddy'), buddyLulu = buddyEl.querySelector('.lulu'), buddy = makeLulu(buddyLulu, false);
-  buddy.pause();
+  const buddyEl = $('#buddy'), buddyLulu = buddyEl.querySelector('.lulu');
+  let buddy = null;   // створюємо, коли супутник уперше з'являється
 
   /* Курсор: Lulu дивиться на нього */
   let mouseX = innerWidth / 2, lastInput = -1e9, pointing = false;
@@ -771,7 +792,8 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     buddyOn = !heroVisible && !dismissed && innerWidth >= 1280;
     buddyEl.classList.toggle('on', buddyOn);
     buddyEl.setAttribute('aria-hidden', !buddyOn);
-    if (buddyOn !== was) buddyOn ? buddy.play() : buddy.pause();
+    if (buddyOn && !buddy) buddy = makeLulu(buddyLulu, true);
+    if (buddy && buddyOn !== was) buddyOn ? buddy.play() : buddy.pause();
   }
   addEventListener('resize', sync);
   $('#bye').onclick = () => { dismissed = true; try { sessionStorage.setItem('lulu-bye', '1'); } catch (e) {} sync(); };
@@ -814,10 +836,13 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     return clamp((mouseX - (r.left + r.width / 2)) / (innerWidth * 0.45), -1, 1);
   }
   function step(l, target, follow) {
-    l.setTurning(follow);
-    if (!follow) { l.angle = 0; return; }
+    l.wantVideo = !follow;
+    if (!follow) { if (l.turning && Math.abs(l.target - l.angle) < 0.02) l.stopTurning(); else if (l.turning) { l.angle += (l.target - l.angle) * 0.14; l.draw(false); } return; }
+    l.startTurning();
+    if (!l.turning) return;
     l.target = target;
-    l.angle += (l.target - l.angle) * 0.14; l.draw();
+    l.angle += (l.target - l.angle) * 0.14;
+    l.draw(Math.abs(l.target - l.angle) < 0.02);
   }
   function tick(now) {
     const idle = now - lastInput > 3500;
