@@ -268,8 +268,8 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 .stage .hint { position: absolute; left: 50%; bottom: -24px; transform: translateX(-50%); font-size: 13px; color: var(--plum-soft); white-space: nowrap; transition: opacity .3s; }
 
 /* Lulu: відео-повтор у спокої, кадри повороту голови за курсором */
-.lulu { position: relative; aspect-ratio: 480 / 643; width: 100%; }
-.stage .lulu { width: min(100%, calc(var(--stage-h) * 0.7465)); }
+.lulu { position: relative; aspect-ratio: 474 / 600; width: 100%; }
+.stage .lulu { width: min(100%, calc(var(--stage-h) * 0.79)); }
 .lulu > img, .lulu > video { position: absolute; inset: 0; width: 100%; height: 100%; display: block;
   -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
   -webkit-mask-composite: source-in;
@@ -284,12 +284,8 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 /* Lulu-провідник: на широкому екрані з першого екрана переїжджає в праву колонку
    і супроводжує сторінку, показуючи лапкою на блок, про який зараз мова. */
 .stage .lulu { z-index: 15; transform-origin: 0 0; will-change: transform; }   /* нижче за шапку (z-index 20) */
-.lulu .point { position: absolute; top: 0; left: -28.571%; width: 128.571%; height: 100%; display: none; pointer-events: none; }
-.lulu .point img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
-  mask-composite: intersect; }
+.lulu .point { position: absolute; inset: 0; display: none; pointer-events: none; }
+.lulu .point img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
 .lulu.pointing .point { display: block; }
 .lulu.pointing > img, .lulu.pointing > video { visibility: hidden; }
 .lulu.away { pointer-events: none; }
@@ -732,19 +728,19 @@ body.docked .hide-lulu { display: none; }
   /* Модель Lulu. У спокої грає відео-повтор; коли курсор рухається, показуємо один кадр повороту голови.
      Кадри повороту вирізані з того самого відео, тож перемикання відео ↔ кадр відбувається на однаковій позі.
      ORIG: номер кадру у вихідному відео; YAW: куди дивиться Lulu (від'ємне = ліворуч); REST: очі відкриті.
-     LOOP_YAW: поза на кожному кадрі відео-повтору (повтор починається з 12-го кадру вихідного відео, 24 к/с). */
-  const ORIG = [52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 76, 78, 80, 82, 84, 85, 86, 87, 88, 89, 90, 92, 95, 99];
-  const YAW = [-104, -103, -100, -97, -92, -85, -76, -64, -52, -40, -28, -17, -9, 0, 9, 17, 24, 31, 36, 40, 42, 45, 46, 48, 49, 52, 56, 61, 65, 69, 72, 74, 77, 79, 80];
-  const REST = [1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1];
-  const LOOP_YAW = [-21, -25, -30, -33, -35, -36, -38, -40, -45, -53, -60, -67, -73, -78, -83, -87, -91, -95, -98, -101, -104, -106, -107, -108, -109, -109, -109, -108, -108, -107, -107, -106, -106, -105, -105, -105, -105, -105, -105, -105, -104, -103, -100, -97, -92, -85, -76, -64, -52, -40, -28, -17, -9, 0, 9, 17, 24, 31, 36, 40, 42, 44, 44, 44, 45, 45, 46, 47, 48, 47, 48, 50, 52, 56, 61, 65, 69, 72, 74, 75, 77, 77, 78, 79, 79, 79, 80, 80, 79, 79, 77, 73, 68, 60, 53, 44, 36, 30, 26, 21, 18, 13, 8, 3, -2, -6, -9, -12, -14, -15, -16, -17, -17, -17, -16, -16, -15, -15, -14, -14, -13, -13, -13, -13, -13, -13, -13, -13, -13, -13, -14, -14, -6, -7, -7, -8, -9, -10, -12, -13, -14, -15, -16, -18];
-  const FPS = 24, LOOP_START = 12;
-  const Y0 = YAW[ORIG.indexOf(64)], YMIN = YAW[0], YMAX = YAW[YAW.length - 1];   // кадр 64: Lulu дивиться прямо
+     LOOP_YAW: поза на кожному кадрі відео-повтору (повтор починається з 6-го кадру вихідного відео, 24 к/с). */
+  const ORIG = [27, 36, 37, 38, 39, 40, 41, 42, 43, 45, 47, 51, 58, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 88, 90, 93];
+  const YAW = [-94, -88, -83, -72, -58, -45, -34, -25, -22, -18, -14, -12, -9, -4, 1, 8, 20, 33, 47, 59, 68, 74, 78, 82, 86, 89];
+  const REST = [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
+  const LOOP_YAW = [-32, -42, -54, -65, -88, -109, -112, -114, -115, -101, -86, -87, -87, -87, -88, -89, -91, -92, -93, -93, -94, -94, -94, -94, -94, -94, -93, -93, -92, -92, -88, -83, -72, -58, -45, -34, -25, -22, -20, -18, -16, -14, -13, -12, -12, -12, -11, -11, -10, -10, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -10, -10, -9, -8, -7, -4, 1, 8, 20, 33, 47, 59, 68, 74, 78, 80, 82, 84, 86, 88, 89, 89, 90, 90, 90, 90, 91, 91, 90, 90, 90, 90, 89, 87, 81, 73, 63, 56, 47, 40, 33, 29, 22, 17, 14, 12, 9, 7, 5, 5, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -16, -16, -16, -17, -19, -24];
+  const FPS = 24, LOOP_START = 6;
+  const Y0 = YAW[ORIG.indexOf(58)], YMIN = YAW[0], YMAX = YAW[YAW.length - 1];   // кадр 58: Lulu дивиться прямо
   const yawOf = a => a < 0 ? Y0 + a * (Y0 - YMIN) : Y0 + a * (YMAX - Y0);
   const angleOf = y => y < Y0 ? (y - Y0) / (Y0 - YMIN) : (y - Y0) / (YMAX - Y0);
   const nearest = (y, restOnly) => { let best = -1, d = 1e9; YAW.forEach((v, i) => { if ((!restOnly || REST[i]) && Math.abs(v - y) < d) { d = Math.abs(v - y); best = i; } }); return best; };
   function makeLulu(root, eager) {
     const imgs = ORIG.map((_, i) => {
-      const im = new Image(480, 643);
+      const im = new Image(474, 600);
       im.alt = ''; im.decoding = 'async';
       im.src = `assets/lulu/turn/${String(i).padStart(2, '0')}.webp`;
       root.append(im); return im;
@@ -801,8 +797,8 @@ body.docked .hide-lulu { display: none; }
   ['pointerup', 'pointercancel'].forEach(t => stage.addEventListener(t, () => { dragX = null; }));
   if (matchMedia('(hover: none)').matches) $('#hint').textContent = 'Проведіть пальцем по Lulu';
 
-  /* Жест лапкою: 28 кадрів з другого відео. 0 = спокій, 0…14 піднімає лапку, 14…27 тримає (туди-назад). */
-  const RAISE = 14, LAST = 27, PFPS = 12;
+  /* Жест лапкою: 37 кадрів з відео на зеленому фоні. 0 = спокій, 0…20 піднімає лапку, 20…36 тримає (туди-назад). */
+  const RAISE = 20, LAST = 36, PFPS = 12;
   const pointBox = document.createElement('div');
   pointBox.className = 'point';
   luluEl.append(pointBox);
@@ -810,7 +806,7 @@ body.docked .hide-lulu { display: none; }
   function loadPoint() {
     if (pimgs) return;
     pimgs = Array.from({ length: LAST + 1 }, (_, i) => {
-      const im = new Image(384, 400); im.alt = ''; im.decoding = 'async';
+      const im = new Image(240, 304); im.alt = ''; im.decoding = 'async';
       im.src = `assets/lulu/point/${String(i).padStart(2, '0')}.webp`;
       pointBox.append(im); return im;
     });
