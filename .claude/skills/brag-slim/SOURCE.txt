@@ -1,0 +1,1 @@
+MIT License, (c) 2026 Shunit Haviv Hakimi. Source: https://github.com/latent-spaces/brag (commit 8531ccb), skills/brag-slim/SKILL.md
