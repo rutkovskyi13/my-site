@@ -1,0 +1,590 @@
+{
+  "brand": "Phonics4All",
+  "version": "web-kit-v1",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 3183,
+      "sha256": "35fac4efaee47328800ad8f23368cca5f406deb7f44dff36c390492a3ed8a42c"
+    },
+    {
+      "path": "assets/characters/Kami-480.webp",
+      "bytes": 50318,
+      "sha256": "79713dfd710b94dc723a1d1d2cde757d271cfa67a315ddc598e4552bea9aeaf8",
+      "width": 480,
+      "height": 510
+    },
+    {
+      "path": "assets/characters/Kami-960.webp",
+      "bytes": 143850,
+      "sha256": "6d152b8936a39fd3fda9f37720ccaa7baa03b6f927c092dab85268c543e1b5e7",
+      "width": 960,
+      "height": 1020
+    },
+    {
+      "path": "assets/characters/Kami.png",
+      "bytes": 1123698,
+      "sha256": "9dd4be4f8daf9e31dc17de894a69b498068325b24c18c9e7b09abbaff5f5caeb",
+      "width": 1217,
+      "height": 1293
+    },
+    {
+      "path": "assets/characters/Lulu-480.webp",
+      "bytes": 56766,
+      "sha256": "82d09e8b745ad5ad099a832ebb75884b2a732f4e1b6053f795b20cc23fef90fe",
+      "width": 480,
+      "height": 571
+    },
+    {
+      "path": "assets/characters/Lulu-960.webp",
+      "bytes": 170424,
+      "sha256": "4bb91f8a45be8f4e60ef960335a7d3532ce937a77dcc43c2af3ed4e3d7040dcc",
+      "width": 960,
+      "height": 1141
+    },
+    {
+      "path": "assets/characters/Lulu-celebrate-480.webp",
+      "bytes": 69160,
+      "sha256": "1392bd7c7fb5d5424ae95fc577739815027a3c6a5f7a1f79a00df56f1a18829b",
+      "width": 480,
+      "height": 661
+    },
+    {
+      "path": "assets/characters/Lulu-celebrate-960.webp",
+      "bytes": 72188,
+      "sha256": "922412088fd1e1c8828c4e952d474d19cb8fba741330fc79a37dce571bda2dbd",
+      "width": 515,
+      "height": 709
+    },
+    {
+      "path": "assets/characters/Lulu-celebrate.png",
+      "bytes": 638686,
+      "sha256": "c8134d30e25e615bd519bbf489addcd1ee8b9668dc0739dec755556b46a58bc6",
+      "width": 515,
+      "height": 709
+    },
+    {
+      "path": "assets/characters/Lulu-guide-480.webp",
+      "bytes": 65268,
+      "sha256": "7f3502606fb7641492f2ba864774949d13b357609935848eb15ad860eb45c272",
+      "width": 480,
+      "height": 712
+    },
+    {
+      "path": "assets/characters/Lulu-guide-960.webp",
+      "bytes": 76958,
+      "sha256": "5bc65b119ed74ee407689fb5eb2418b8e21ec2e1abe6262f108ad8f8f13d5597",
+      "width": 568,
+      "height": 842
+    },
+    {
+      "path": "assets/characters/Lulu-guide.png",
+      "bytes": 671347,
+      "sha256": "e9f561a8e9ae14c0ff0641a0f9a68e0888a9a44459b6395c66215eb737c8d087",
+      "width": 568,
+      "height": 842
+    },
+    {
+      "path": "assets/characters/Lulu-read-480.webp",
+      "bytes": 68644,
+      "sha256": "2bbc5a879a86451fe22a7454e3325ec8add8723d8511a421c1bbadfbcf02f493",
+      "width": 480,
+      "height": 738
+    },
+    {
+      "path": "assets/characters/Lulu-read-960.webp",
+      "bytes": 77534,
+      "sha256": "f2f5516e0827752408cbcd924813ce2434b05e486d6dee039d71e054dca459b2",
+      "width": 546,
+      "height": 839
+    },
+    {
+      "path": "assets/characters/Lulu-read.png",
+      "bytes": 685894,
+      "sha256": "b7e0d0c64613d0e3b34d5d3135b906a2ae083d9c518c10d39cc2483e8e35b315",
+      "width": 546,
+      "height": 839
+    },
+    {
+      "path": "assets/characters/Lulu.png",
+      "bytes": 1535728,
+      "sha256": "8d17ca6c54d01c5c9f9942be522d319b0fbc2ba3acda2a378a9479401435c003",
+      "width": 1150,
+      "height": 1367
+    },
+    {
+      "path": "assets/characters/Max-480.webp",
+      "bytes": 68592,
+      "sha256": "931c22052f90b45943c59dca056f9c11f2da8081196d9dd57590112453136f3d",
+      "width": 480,
+      "height": 720
+    },
+    {
+      "path": "assets/characters/Max-960.webp",
+      "bytes": 202144,
+      "sha256": "ac88fc2b2a65e7559479a9563ede26b387cdf440d0cd6b81e90601ad88f38b82",
+      "width": 960,
+      "height": 1440
+    },
+    {
+      "path": "assets/characters/Max.png",
+      "bytes": 2119754,
+      "sha256": "4ac2b1e1668ff245eafc3f63f54b4b38d55b1d645c241c8ab4b7e872ecd708db",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "assets/characters/MiMi-480.webp",
+      "bytes": 56186,
+      "sha256": "50d19d3e065da829a687316d14e14c8f7851caef78c9e699b2a89bd1a71719b6",
+      "width": 480,
+      "height": 720
+    },
+    {
+      "path": "assets/characters/MiMi-960.webp",
+      "bytes": 163102,
+      "sha256": "226988b0e1c6677938cabce3b21064aa7fe2a8abce376161181c579170c7bc32",
+      "width": 960,
+      "height": 1440
+    },
+    {
+      "path": "assets/characters/MiMi.png",
+      "bytes": 1974760,
+      "sha256": "e9de3420ab480f4fb3f43b8a72d5b872ca84341d7a55f0e44a0f2cf50d637a26",
+      "width": 1024,
+      "height": 1536
+    },
+    {
+      "path": "assets/decor/dot-grid.svg",
+      "bytes": 532,
+      "sha256": "d15e7c1bfbebbf8e409f6cb53b7662cdbd252f71aef7f93e559e999a060e8a10",
+      "viewBox": "0 0 64 64"
+    },
+    {
+      "path": "assets/decor/lulu-ears.svg",
+      "bytes": 453,
+      "sha256": "e899db4fc3be11c4938f113428d14dd30dbf590b945ace0a0bf4454d0aa6fe53",
+      "viewBox": "0 0 80 72"
+    },
+    {
+      "path": "assets/decor/open-book.svg",
+      "bytes": 337,
+      "sha256": "070d69be850a5faaa7ad5a179085aca6e9dacee8274682c51cc3d4211562bd05",
+      "viewBox": "0 0 84 64"
+    },
+    {
+      "path": "assets/decor/sound-arcs.svg",
+      "bytes": 276,
+      "sha256": "be3a38f9b49d1bcd5218fd3cdab37fac2fbf2e3e2e7eeaf1c18e4c410e4dd6f9",
+      "viewBox": "0 0 64 64"
+    },
+    {
+      "path": "assets/decor/spark.svg",
+      "bytes": 210,
+      "sha256": "3f32d41347566fde86ca7146d13e0c20017a90330aa99428d9d1af592cf3ab92",
+      "viewBox": "0 0 64 64"
+    },
+    {
+      "path": "assets/decor/wave.svg",
+      "bytes": 232,
+      "sha256": "878b0f83dd6ad4a6837bcf6d1e69733681df6680b46cfceffcd2d4b102907fe4",
+      "viewBox": "0 0 128 64"
+    },
+    {
+      "path": "assets/favicons/favicon.ico",
+      "bytes": 5446,
+      "sha256": "94b95e55a2f75c530e33bf27f22004e0b68422f7a27205fd54333138d43099fa",
+      "width": 48,
+      "height": 48
+    },
+    {
+      "path": "assets/favicons/favicon.svg",
+      "bytes": 13861,
+      "sha256": "c50e8ad03688aea6569d67066089e8f8117746e242583a5b5529f4bf0e95c40d",
+      "viewBox": "0 0 600 600"
+    },
+    {
+      "path": "assets/favicons/icon-180.png",
+      "bytes": 14999,
+      "sha256": "e74ddce45830c2f861991da64a0e8c27ba4d51a8e7e32275083858ee04ee2c35",
+      "width": 180,
+      "height": 180
+    },
+    {
+      "path": "assets/favicons/icon-192.png",
+      "bytes": 16102,
+      "sha256": "d40141a071c3f26b51dc33718b081a3a58c1d7f7e9fbec6a08c71cd807d29bf5",
+      "width": 192,
+      "height": 192
+    },
+    {
+      "path": "assets/favicons/icon-32.png",
+      "bytes": 1711,
+      "sha256": "283fe9e981e20d19b2b9be07f80ed958366763a6c77ff61b9e3712efda33ff33",
+      "width": 32,
+      "height": 32
+    },
+    {
+      "path": "assets/favicons/icon-512.png",
+      "bytes": 46163,
+      "sha256": "b59c7bedc39a52aa491bc006735cce199616d5e7b5454d859475f8696bee03b4",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "path": "assets/icons/color/icon-connect.png",
+      "bytes": 11489,
+      "sha256": "2f9248d246fe684d36ffd0b6212b2dd017c29799ac55ff48e113f58d190678f0",
+      "width": 455,
+      "height": 337
+    },
+    {
+      "path": "assets/icons/color/icon-connect.svg",
+      "bytes": 7503,
+      "sha256": "56bbebbf40fe136ddd4de07c39b8b63b5b0b4d311d2b1f2901336b07b6f69cfa",
+      "viewBox": "0 0 455 337"
+    },
+    {
+      "path": "assets/icons/color/icon-listen.png",
+      "bytes": 15796,
+      "sha256": "5e30d349422afa9f652b8116d3679619231fc678cf308b6987e338026e8cc5cc",
+      "width": 391,
+      "height": 375
+    },
+    {
+      "path": "assets/icons/color/icon-listen.svg",
+      "bytes": 4766,
+      "sha256": "1cc1dc2be793c88fa2a0f2894ffd47b0cf2ae6ed634953d5c2c29f7a0f4880bb",
+      "viewBox": "0 0 391 375"
+    },
+    {
+      "path": "assets/icons/color/icon-progress.png",
+      "bytes": 15358,
+      "sha256": "012c2849b609e24617e2c3ef79e935447684f686b62ee857056a18cc8fbf065a",
+      "width": 440,
+      "height": 427
+    },
+    {
+      "path": "assets/icons/color/icon-progress.svg",
+      "bytes": 8507,
+      "sha256": "aa716c5a8de942071065cb8517f1a4835765bd7f7ac0d31a919405b7df901a17",
+      "viewBox": "0 0 440 427"
+    },
+    {
+      "path": "assets/icons/color/icon-read.png",
+      "bytes": 15180,
+      "sha256": "236ea182130ee5c54b3f12a99070619bf50c575419fbb171223519311c413da9",
+      "width": 456,
+      "height": 349
+    },
+    {
+      "path": "assets/icons/color/icon-read.svg",
+      "bytes": 10873,
+      "sha256": "7ee9e16c9d5cb85031bf7350a28587c090f73394f4275e29a21e4861a5632109",
+      "viewBox": "0 0 456 349"
+    },
+    {
+      "path": "assets/icons/color/icon-speak.png",
+      "bytes": 14635,
+      "sha256": "8a3e45e66355ddfc387bc76630106f9d9cb5e23fb9c5562a81843ff40989a0d0",
+      "width": 469,
+      "height": 277
+    },
+    {
+      "path": "assets/icons/color/icon-speak.svg",
+      "bytes": 5241,
+      "sha256": "9bc11b87a1fbbb79b4deb791f35a7ebe383257ebafe0029a8cf9c774fc7330df",
+      "viewBox": "0 0 469 277"
+    },
+    {
+      "path": "assets/icons/color/icon-write.png",
+      "bytes": 13657,
+      "sha256": "d0628320e20b063f9e29eeb4482349eb6eecbfa765de0a616ace57905eab95ac",
+      "width": 428,
+      "height": 404
+    },
+    {
+      "path": "assets/icons/color/icon-write.svg",
+      "bytes": 6592,
+      "sha256": "ccb6140c095e0b0192f7c6da09e324b61c8dc423772b960d1506a08ca7d23342",
+      "viewBox": "0 0 428 404"
+    },
+    {
+      "path": "assets/icons/mono/icon-connect.svg",
+      "bytes": 7515,
+      "sha256": "8fe0a36cce99cd3d9d752f75608ebe1c0e0c49bea4d8a40682626b1585411db4",
+      "viewBox": "0 0 455 337"
+    },
+    {
+      "path": "assets/icons/mono/icon-listen.svg",
+      "bytes": 4790,
+      "sha256": "387eadd6f2eb0bec46d28d66d831b23d114e11f27dfa51bdf1df5c22d69c4c58",
+      "viewBox": "0 0 391 375"
+    },
+    {
+      "path": "assets/icons/mono/icon-progress.svg",
+      "bytes": 8537,
+      "sha256": "cfa136b36f3dff7537fe253f9af8146b14ec56e5162dc19c604e810441875fa4",
+      "viewBox": "0 0 440 427"
+    },
+    {
+      "path": "assets/icons/mono/icon-read.svg",
+      "bytes": 10885,
+      "sha256": "7603ecb4fc885b70dc5e06342ec7c8b2b5ec4817e7cf6ff8f83e4f83db9f7d86",
+      "viewBox": "0 0 456 349"
+    },
+    {
+      "path": "assets/icons/mono/icon-speak.svg",
+      "bytes": 5265,
+      "sha256": "2533ff1e1d63aa0085ac783395f480f0fa25fd900d5a7fc4b769962d3289c62a",
+      "viewBox": "0 0 469 277"
+    },
+    {
+      "path": "assets/icons/mono/icon-write.svg",
+      "bytes": 6616,
+      "sha256": "eb01f3268c8719c4e3d79e6a92eaac7c8672cacbf2c92fd506e7f179b044123a",
+      "viewBox": "0 0 428 404"
+    },
+    {
+      "path": "assets/icons/sprite.svg",
+      "bytes": 43431,
+      "sha256": "d0f15601abec2da4d276edb24a6a18f2d236c8f98b14573541c2d8105608beac",
+      "viewBox": null
+    },
+    {
+      "path": "assets/logos/avatar-cream.png",
+      "bytes": 80582,
+      "sha256": "cd412b9fa43fd0da4803daf39b1433352055acdc8be5b1af9ab8211f9830eb28",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "path": "assets/logos/avatar-cream.svg",
+      "bytes": 13861,
+      "sha256": "c50e8ad03688aea6569d67066089e8f8117746e242583a5b5529f4bf0e95c40d",
+      "viewBox": "0 0 600 600"
+    },
+    {
+      "path": "assets/logos/avatar-violet.png",
+      "bytes": 84689,
+      "sha256": "00acb30c1c86928825c9eced99343e3e53a0c9a369c1065fd0e0751144bca259",
+      "width": 1200,
+      "height": 1200
+    },
+    {
+      "path": "assets/logos/avatar-violet.svg",
+      "bytes": 13863,
+      "sha256": "1b4f237e7f71e5d1cf01c7a6bb53d38412392c8eb6ddb219bc3681d816c3fdd5",
+      "viewBox": "0 0 600 600"
+    },
+    {
+      "path": "assets/logos/logo-horizontal-light.png",
+      "bytes": 63962,
+      "sha256": "b6a9b2e625d57ae8ab1ff6672b9ca12fa8a55e5503e30f4380b5d24a1a561e5c",
+      "width": 2092,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-horizontal-light.svg",
+      "bytes": 30813,
+      "sha256": "58c94858b5812c49b0445eca72f7c17ea40f10a89896e9a774ea6d0b2492c1fb",
+      "viewBox": null
+    },
+    {
+      "path": "assets/logos/logo-horizontal-violet.png",
+      "bytes": 67216,
+      "sha256": "b6aee1bc0b386b19575f0f64104d43bcdbb5f46184f2ebc33d0dbbf7de58facd",
+      "width": 2092,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-horizontal-violet.svg",
+      "bytes": 30813,
+      "sha256": "79a34feb8a0698368696bc50f93463ce9ff3f6d9829aad4c1c7e27730e89ec54",
+      "viewBox": null
+    },
+    {
+      "path": "assets/logos/logo-horizontal.png",
+      "bytes": 69560,
+      "sha256": "d6ef788f4ef31430f4a26d0f056a6083527bd03fc4c3f41eb006161545ce1e0b",
+      "width": 2092,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-horizontal.svg",
+      "bytes": 30827,
+      "sha256": "893074bb89f76c0de12a52004add62e4b17d32565a6e24dbbba2ec9a7bdccaca",
+      "viewBox": "0 0 2092 524"
+    },
+    {
+      "path": "assets/logos/logo-symbol-light.png",
+      "bytes": 24343,
+      "sha256": "eada8efe23721cb76ae63da6ab0ab74c7b218526de265b844cd3cd785ef6115a",
+      "width": 559,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-symbol-light.svg",
+      "bytes": 13776,
+      "sha256": "cd0c9e8da94684fdd91599e07b15f6770415c6701f858989e092cf4df3864c69",
+      "viewBox": null
+    },
+    {
+      "path": "assets/logos/logo-symbol-violet.png",
+      "bytes": 25788,
+      "sha256": "3d369fcc1eccce2623654f9d78bb97168b306bb7728880495e6b2e0be9f4d663",
+      "width": 559,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-symbol-violet.svg",
+      "bytes": 13776,
+      "sha256": "b9d34a85d5506cc44b0462e2560d757ee7336bf9835a2837af0bfc3b6c70b5ad",
+      "viewBox": null
+    },
+    {
+      "path": "assets/logos/logo-symbol.png",
+      "bytes": 27773,
+      "sha256": "c3ddffba73f2bd982cd3dbd781d577b69dd0c8d7966b96f22d91648a2f05f450",
+      "width": 559,
+      "height": 524
+    },
+    {
+      "path": "assets/logos/logo-symbol.svg",
+      "bytes": 13695,
+      "sha256": "3031f1c808d5a8e8c4ef96890043b2ef0ea40abf0f085004a8d0aa01ddc4d571",
+      "viewBox": "0 0 559 524"
+    },
+    {
+      "path": "assets/patterns/P1-sound-tile.png",
+      "bytes": 1884,
+      "sha256": "78a93c82ed4c3a0047a11dcade844e599b3a9a4dce0d4bafe92bcee01f6cfe1b",
+      "width": 240,
+      "height": 240
+    },
+    {
+      "path": "assets/patterns/P1-sound-tile.svg",
+      "bytes": 565,
+      "sha256": "7b6bf042cb907a1523efebc5b513fbb006370aa72f66abd44bb038e1a0d2bee0",
+      "viewBox": "0 0 240 240"
+    },
+    {
+      "path": "assets/patterns/P2-books-tile.png",
+      "bytes": 4910,
+      "sha256": "a78b6922e8d282bb2d91a4e95d63250f3a3e8f5f96e3e93fa471cad5830d5b95",
+      "width": 240,
+      "height": 240
+    },
+    {
+      "path": "assets/patterns/P2-books-tile.svg",
+      "bytes": 596,
+      "sha256": "48cd8d24420990f07ec9c74385b9e7194f72e4abe2c6c29824a718f8b4bab0e7",
+      "viewBox": "0 0 240 240"
+    },
+    {
+      "path": "assets/patterns/P3-letter-tile.png",
+      "bytes": 4086,
+      "sha256": "9a4aad55de152dfd43460976c8aab27c3e324116c0bf85afa07886a68519cb2e",
+      "width": 240,
+      "height": 240
+    },
+    {
+      "path": "assets/patterns/P3-letter-tile.svg",
+      "bytes": 932,
+      "sha256": "73a6d3eed430d28b81102caffb0f34a6f8913c0ad683a5d593f7161a017da44f",
+      "viewBox": "0 0 240 240"
+    },
+    {
+      "path": "assets/patterns/P5-character-tile.png",
+      "bytes": 9391,
+      "sha256": "4e648550a2c5e910dce23ba8846abab67e4e91c83fc90ff7cabedc128de41747",
+      "width": 320,
+      "height": 320
+    },
+    {
+      "path": "assets/patterns/P5-character-tile.svg",
+      "bytes": 1122,
+      "sha256": "f02817e1a8c2b8d702072d39be0a5be95da029ab7d341fa58fdabae5a59c1f5c",
+      "viewBox": "0 0 320 320"
+    },
+    {
+      "path": "docs/contrast.json",
+      "bytes": 458,
+      "sha256": "2c99efd4627ae5f0ea75a30bef1fd7193702bd320fae59bf8c79703803b1a54c"
+    },
+    {
+      "path": "docs/integration.md",
+      "bytes": 4840,
+      "sha256": "2e01ffd5da0fd621cda64bdb780f906b603d8e9c139cedbc32a81e59b13e8f8e"
+    },
+    {
+      "path": "fonts/andika/Andika-Bold.ttf",
+      "bytes": 681008,
+      "sha256": "4361126189a2d0e0da66999352db58aaf1b4ca940faf8a8239d725f8303d890d"
+    },
+    {
+      "path": "fonts/andika/Andika-Regular.ttf",
+      "bytes": 669828,
+      "sha256": "202b96b1f174a4a43baefe885b40dacacb81786755efd08ed4b7704e79c45515"
+    },
+    {
+      "path": "fonts/andika/OFL.txt",
+      "bytes": 4506,
+      "sha256": "43ee152fcd7be0c6eb3468f3012e776cb75bf88f5dec548be0aa4619bf438f9e"
+    },
+    {
+      "path": "fonts/nunitosans/NunitoSans-ExtraBold.ttf",
+      "bytes": 113508,
+      "sha256": "a7d673fdccb1e45c7b090028a805a4ee587266694fdb2968e79e1a44c46d987e"
+    },
+    {
+      "path": "fonts/nunitosans/NunitoSans-Regular.ttf",
+      "bytes": 113444,
+      "sha256": "515531fcba9558633685c5547dd1e92ceac36842bc7e70dbd73590121a636eab"
+    },
+    {
+      "path": "fonts/nunitosans/NunitoSans-SemiBold.ttf",
+      "bytes": 113524,
+      "sha256": "54d40a659105b7f7c81331196e3feb3ab60d92c30f5c3e4c168d234d6d2f5fb9"
+    },
+    {
+      "path": "fonts/nunitosans/OFL.txt",
+      "bytes": 4393,
+      "sha256": "efbb0c9e864cef973982d9a17567e6be5c3d1759695574586f3f18c7ecca064b"
+    },
+    {
+      "path": "preview-desktop.png",
+      "bytes": 213349,
+      "sha256": "0a42d365fa12e4afb7d52a1640968e5657042a6f69ce07227d0c66dda533f508",
+      "width": 1440,
+      "height": 1000
+    },
+    {
+      "path": "preview-mobile.png",
+      "bytes": 121159,
+      "sha256": "2ac5daf5dba0a1b764a1245f361d63fe53419b723b3f447f138c11e0de87941c",
+      "width": 390,
+      "height": 844
+    },
+    {
+      "path": "preview.html",
+      "bytes": 8134,
+      "sha256": "0b106aca6187f53882e0f31bce0411780aac86a540786af58b8036e8d7ec84c7"
+    },
+    {
+      "path": "site.webmanifest",
+      "bytes": 399,
+      "sha256": "59314e08d90b0be320b7020e85ae8940b6a854e9b62ef0c5e0321b8e0d099f0c"
+    },
+    {
+      "path": "styles/brand-colors.json",
+      "bytes": 299,
+      "sha256": "e21302c4ccd70eb2d980be46e534de8f52c90f598690804656eee6f526a4972b"
+    },
+    {
+      "path": "styles/phonics4all.css",
+      "bytes": 3083,
+      "sha256": "ff1d112053d002978a6c7c08bfab3aa18467a3ccd586526f352ab4dd972d1b9a"
+    }
+  ]
+}

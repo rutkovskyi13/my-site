@@ -1,0 +1,16 @@
+{
+  "primary": {
+    "orange": "#FF5C34",
+    "blue": "#159FE3",
+    "cream": "#FFF9F2",
+    "violet": "#302047"
+  },
+  "support": {
+    "lavender": "#B39AD7",
+    "raspberry": "#D84F8B",
+    "gold": "#EFB84D",
+    "mint": "#27B9A0",
+    "logoLetterA": "#9659DA"
+  },
+  "lightBlueField": "#D7EFFF"
+}
