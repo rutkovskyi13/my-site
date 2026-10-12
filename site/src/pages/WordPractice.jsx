@@ -5,34 +5,34 @@ import { loadDecks } from "../lib/decks.js";
 
 export const TILE_COLORS = [
   {
-    bg: "#FFF0EB",
-    border: "#FFBCAD",
-    revealBg: "#FF6B4A",
-    revealText: "white",
+    bg: "#FFF1EC",
+    border: "#FFC2B0",
+    revealBg: "#FF5C34",
+    revealText: "#302047",
   },
   {
-    bg: "#EDF7FF",
-    border: "#B3DEFF",
-    revealBg: "#4DB8FF",
-    revealText: "white",
+    bg: "#EAF6FF",
+    border: "#A9D9F4",
+    revealBg: "#159FE3",
+    revealText: "#302047",
   },
   {
-    bg: "#FFFBEC",
-    border: "#FFE899",
-    revealBg: "#FFD93D",
-    revealText: "#7A5800",
+    bg: "#FDF4E2",
+    border: "#F3D597",
+    revealBg: "#EFB84D",
+    revealText: "#302047",
   },
   {
-    bg: "#EDFAF4",
-    border: "#A8F0D3",
-    revealBg: "#6EE7B7",
-    revealText: "#0E6646",
+    bg: "#EDF9F6",
+    border: "#A5E3D7",
+    revealBg: "#27B9A0",
+    revealText: "#302047",
   },
   {
-    bg: "#F5F0FF",
-    border: "#D7C4FF",
-    revealBg: "#B792FF",
-    revealText: "white",
+    bg: "#F4EFFA",
+    border: "#D6C7EB",
+    revealBg: "#B39AD7",
+    revealText: "#302047",
   },
 ];
 export const DEFAULT_DECK_ID = "default";
@@ -191,13 +191,13 @@ export function WordPractice() {
               borderRadius: "99px",
               border:
                 activeDeckId === e.id
-                  ? "2px solid var(--blue)"
+                  ? "2px solid var(--plum)"
                   : "2px solid var(--border)",
               background:
                 activeDeckId === e.id
-                  ? "linear-gradient(135deg, #4DB8FF, #6EE7B7)"
+                  ? "var(--plum)"
                   : "var(--surface)",
-              color: activeDeckId === e.id ? "white" : "var(--text)",
+              color: activeDeckId === e.id ? "var(--milk)" : "var(--text)",
               fontWeight: "700",
               fontSize: "0.95rem",
               cursor: "pointer",
@@ -205,7 +205,7 @@ export function WordPractice() {
               whiteSpace: "nowrap",
               boxShadow:
                 activeDeckId === e.id
-                  ? "0 4px 14px rgba(77,184,255,0.30)"
+                  ? "0 4px 14px rgba(21,159,227,0.30)"
                   : "none",
             }}
           >
@@ -237,9 +237,9 @@ export function WordPractice() {
         onTouchEnd={isEmpty ? void 0 : handleTouchEnd}
         style={{
           padding: "48px 16px 36px",
-          background: "linear-gradient(160deg, #FBFEFF 0%, #F0F8FF 100%)",
-          border: "1.5px solid rgba(77,184,255,0.18)",
-          boxShadow: "0 12px 48px rgba(77,184,255,0.10)",
+          background: "var(--surface)",
+          border: "1.5px solid rgba(21,159,227,0.18)",
+          boxShadow: "0 12px 48px rgba(21,159,227,0.10)",
           position: "relative",
           overflow: "visible",
           touchAction: "pan-y",
@@ -288,8 +288,9 @@ export function WordPractice() {
               top: "-18px",
               left: "50%",
               transform: "translateX(-50%)",
-              background: "linear-gradient(135deg, #6EE7B7, #2ECC8F)",
-              color: "white",
+              background: "var(--mint-light)",
+              border: "2px solid var(--mint)",
+              color: "var(--plum)",
               fontWeight: "800",
               fontSize: "0.9rem",
               padding: "6px 18px",
@@ -335,8 +336,8 @@ export function WordPractice() {
                       border: `2.5px solid ${n ? r.revealBg : r.border}`,
                       borderRadius: "20px",
                       boxShadow: n
-                        ? "0 10px 28px rgba(36,50,74,0.18)"
-                        : "0 4px 16px rgba(36,50,74,0.07)",
+                        ? "0 10px 28px rgba(48,32,71,0.18)"
+                        : "0 4px 16px rgba(48,32,71,0.07)",
                       transform: n
                         ? "translateY(-6px) scale(1.04)"
                         : "scale(1)",
@@ -348,7 +349,8 @@ export function WordPractice() {
                     <div
                       style={{
                         fontSize: tileFontSize,
-                        fontWeight: "900",
+                        fontFamily: "var(--font-learn)",
+                        fontWeight: "700",
                         lineHeight: 1,
                         color: n ? r.revealText : "var(--text)",
                         letterSpacing: e.length > 1 ? "-2px" : "normal",
@@ -370,7 +372,8 @@ export function WordPractice() {
                       <div
                         style={{
                           fontSize: soundFontSize,
-                          fontWeight: "800",
+                          fontFamily: "var(--font-learn)",
+                          fontWeight: "700",
                           color: n ? r.revealText : "transparent",
                           opacity: n ? 0.9 : 0,
                         }}
@@ -408,7 +411,7 @@ export function WordPractice() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}
                 onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
+                  ((e.currentTarget.style.background = "#EAF6FF"),
                     (e.currentTarget.style.borderColor = "var(--blue)"));
                 }}
                 onMouseOut={(e) => {
@@ -437,7 +440,7 @@ export function WordPractice() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}
                 onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
+                  ((e.currentTarget.style.background = "#EAF6FF"),
                     (e.currentTarget.style.borderColor = "var(--blue)"));
                 }}
                 onMouseOut={(e) => {
@@ -481,7 +484,7 @@ export function WordPractice() {
                   boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
                 }}
                 onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
+                  ((e.currentTarget.style.background = "#EAF6FF"),
                     (e.currentTarget.style.borderColor = "var(--blue)"));
                 }}
                 onMouseOut={(e) => {
@@ -593,7 +596,7 @@ export function WordPractice() {
                         : "2px solid var(--border)",
                     background:
                       t === wordIndex
-                        ? "linear-gradient(135deg, #4DB8FF22, #6EE7B722)"
+                        ? "var(--ice)"
                         : "var(--bg-color)",
                     cursor: "pointer",
                     fontWeight: "700",

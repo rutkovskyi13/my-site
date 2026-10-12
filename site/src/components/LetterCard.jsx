@@ -10,38 +10,34 @@ export function LetterCard({
   isActive: isActive,
   onClick: onClick,
 }) {
+  // Брендбук v2: приголосні білі, голосні теплі (помаранчевий акцент), диграфи лавандові. Текст завжди фіолетовий.
   let bg, borderColor, ringColor, supportBg, supportColor, nameColor;
   isDigraph
-    ? ((bg = isActive ? "var(--lavender-light)" : "#F5F0FF"),
-      (borderColor = isActive ? "var(--lavender)" : "rgba(183,146,255,0.35)"),
-      (ringColor = "rgba(183,146,255,0.30)"),
-      (supportBg = "rgba(183,146,255,0.18)"),
-      (supportColor = "var(--lavender-dark)"),
+    ? ((bg = isActive ? "var(--lavender-light)" : "#F4EFFA"),
+      (borderColor = isActive ? "var(--lavender-dark)" : "var(--lavender)"),
+      (ringColor = "rgba(179,154,215,0.35)"),
+      (supportBg = "var(--lavender)"),
+      (supportColor = "var(--plum)"),
       (nameColor = "var(--lavender-dark)"))
     : isVowel
-      ? ((bg = isActive ? "var(--yellow-light)" : "#FFFBEC"),
-        (borderColor = isActive
-          ? "var(--yellow-dark)"
-          : "rgba(255,217,61,0.45)"),
-        (ringColor = "rgba(255,217,61,0.30)"),
-        (supportBg = "rgba(255,217,61,0.18)"),
-        (supportColor = "#B88A00"),
-        (nameColor = "#B88A00"))
-      : ((bg = isActive ? "var(--sky-light)" : "var(--surface)"),
-        (borderColor = isActive ? "var(--sky)" : "var(--border)"),
-        (ringColor = "rgba(77,184,255,0.28)"),
-        (supportBg = "rgba(77,184,255,0.13)"),
-        (supportColor = "var(--sky-dark)"),
-        (nameColor = "var(--sky-dark)"));
-  let letterColor = isDigraph
-    ? "var(--lavender-dark)"
-    : isVowel
-      ? "#B88A00"
-      : "var(--text)";
+      ? ((bg = isActive ? "var(--coral-light)" : "#FFF1EC"),
+        (borderColor = "var(--coral)"),
+        (ringColor = "rgba(255,92,52,0.25)"),
+        (supportBg = "var(--coral)"),
+        (supportColor = "var(--plum)"),
+        (nameColor = "var(--coral-dark)"))
+      : ((bg = "var(--surface)"),
+        (borderColor = isActive ? "var(--plum)" : "var(--border)"),
+        (ringColor = "rgba(21,159,227,0.30)"),
+        (supportBg = "var(--plum)"),
+        (supportColor = "var(--milk)"),
+        (nameColor = "var(--muted)"));
+  let letterColor = "var(--text)";
   return (
     <div
       onClick={() => onClick(id)}
       className="card alphabet-card"
+      data-active={isActive}
       style={{
         position: "relative",
         width: isDigraph ? "154px" : "124px",
@@ -70,12 +66,12 @@ export function LetterCard({
             position: "absolute",
             top: "8px",
             right: "9px",
-            fontSize: "0.6rem",
+            fontSize: "0.62rem",
             fontWeight: "800",
             color: nameColor,
             letterSpacing: "0.02em",
             lineHeight: 1,
-            opacity: isActive ? 0 : 0.7,
+            opacity: isActive ? 0 : 1,
             transform: isActive
               ? "translateY(-4px) scale(0.85)"
               : "translateY(0) scale(1)",
@@ -90,12 +86,14 @@ export function LetterCard({
         </div>
       )}
       <div
+        className="card-glyph"
         style={{
-          fontSize: isDigraph ? "2.6rem" : "3.4rem",
-          fontWeight: "900",
+          fontSize: isDigraph ? "2.8rem" : "3.4rem",
+          fontFamily: "var(--font-learn)",
+          fontWeight: "700",
           color: letterColor,
           lineHeight: "1",
-          letterSpacing: isDigraph ? "-2px" : "normal",
+          letterSpacing: isDigraph ? "-0.5px" : "normal",
           userSelect: "none",
         }}
       >
@@ -103,8 +101,8 @@ export function LetterCard({
         {displayBottom && (
           <span
             style={{
-              opacity: 0.45,
-              fontWeight: "800",
+              opacity: 0.6,
+              fontWeight: "400",
             }}
           >
             {displayBottom}
@@ -130,7 +128,8 @@ export function LetterCard({
         <span
           style={{
             fontSize: "1.55rem",
-            fontWeight: "800",
+            fontFamily: "var(--font-learn)",
+            fontWeight: "700",
             color: supportColor,
             userSelect: "none",
           }}
