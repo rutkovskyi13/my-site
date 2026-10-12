@@ -899,3 +899,31 @@ footer.site .fine {
   position: relative;
   z-index: 1;
 }
+/* Відео Lulu на першому екрані: фон відео дорівнює кремовому фону сторінки; darken пропускає бульбашки крізь кремові ділянки */
+.hero-art {
+  position: relative;
+}
+.hero-art::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3%;
+  width: 70%;
+  height: 5%;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(48, 32, 71, 0.12), transparent);
+  border-radius: 50%;
+}
+.hero-video {
+  position: relative;
+  display: block;
+  width: min(100%, 460px);
+  height: auto;
+  aspect-ratio: 626 / 640;
+  mix-blend-mode: darken;
+}
+@media (max-width: 760px) {
+  .hero-video {
+    width: min(100%, 280px);
+  }
+}
