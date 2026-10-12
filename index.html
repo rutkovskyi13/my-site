@@ -115,10 +115,8 @@ section { padding-block: clamp(56px, 8vw, 104px); }
 /* Крок 2: пастки звуків */
 .traps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
 .trap { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 10px; align-content: start; }
-.trap .sym { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-.trap .sym b { font-family: var(--font-learn); font-size: 2.6rem; font-weight: 400; line-height: 1; }
-.trap .sym span { font-family: var(--font-learn); font-size: 1.4rem; }
-.trap .sym span u { text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
+.trap .sym { font-size: 2.4rem; line-height: 1.15; }
+.trap .sym u { text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 4px; }
 .trap .err { font-size: 0.95rem; }
 .trap .err s { text-decoration-color: var(--orange); text-decoration-thickness: 2px; }
 
@@ -134,7 +132,6 @@ section { padding-block: clamp(56px, 8vw, 104px); }
 .tiles.blended .tile:first-child .face { border-radius: 10px 0 0 10px; }
 .tiles.blended .tile:nth-child(2) .face { border-radius: 0; border-left-width: 0; border-right-width: 0; }
 .tiles.blended .tile:last-child .face { border-radius: 0 10px 10px 0; }
-.tile .ipa { font: 400 1.15rem/1 var(--font-learn); color: var(--plum-soft); min-height: 1.2em; }
 .trainer-ctl { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
 .result { margin-top: 18px; text-align: center; min-height: 3.4em; display: grid; gap: 4px; }
 .result .w { font: 400 2rem/1.1 var(--font-learn); }
@@ -289,7 +286,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
           <div class="row">
             <div>
               <div class="word learn"><span>c</span><span style="color:var(--orange)">a</span><span>t</span></div>
-              <div class="ipa learn">/k/ + /æ/ + /t/ → /kæt/</div>
+              <div class="ipa">три звуки, одне слово</div>
             </div>
             <img src="assets/brand/mascot/fox-connect.svg" alt="">
           </div>
@@ -497,13 +494,10 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   const cases = [
     { t: 'Називає літери, а слово не складає', said: '«сі… ей… ті…»',
       why: 'Дитина вивчила назви літер, а читати допомагають звуки. З назв «сі-ей-ті» слово cat не складеться.',
-      fix: 'Вчити звук, а не назву: /k/, /æ/, /t/. Назви літер відкласти на потім.' },
+      fix: 'Вчити, як буква звучить, а не як вона називається. Назви літер відкласти на потім.' },
     { t: 'Вгадує слово за картинкою чи першою літерою', said: 'бачить cat, каже «kitten»',
       why: 'Дитина навчилась вгадувати замість декодувати. На знайомих текстах це непомітно.',
       fix: 'Давати тексти лише з вивчених звуків і перевіряти псевдословами, наприклад «tib», які не вгадаєш.' },
-    { t: 'Читає англійське слово українськими звуками', said: 'ship → «шіп», cat → «кет»',
-      why: 'Дитина підставляє найближчий звук з української. Звуків /æ/ та /ɪ/ в українській немає.',
-      fix: 'Контрастні пари: cat / bet, ship / sheep. Спершу чути різницю, потім читати.' },
     { t: 'Знає слова напам\'ять, а нове прочитати не може', said: 'dog читає, dot не може',
       why: 'Слова запам\'ятали цілком, як картинку. Перенести це на нові слова дитина не може.',
       fix: 'Системна послідовність: кожен новий звук одразу в нових словах, а не у вивченому списку.' }
@@ -534,21 +528,20 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
 
   /* Крок 2: пастки */
   const traps = [
-    ['æ', '<u>a</u> in cat', 'Звука немає в українській; дитина каже <s>«кет»</s>.'],
-    ['ɪ · iː', 'sh<u>i</u>p · sh<u>ee</u>p', 'В українській довгота не змінює значення, тож ship і sheep звучать однаково.'],
-    ['θ · ð', '<u>th</u>ink · <u>th</u>is', 'Підміняють на [с], [ф] або [з]: <s>«сінк»</s>, <s>«зіс»</s>.'],
-    ['w', '<u>w</u>in', 'Губи округлені, зуби не торкаються губи. Часто звучить як <s>«він»</s>.'],
-    ['h', '<u>h</u>at', 'Легкий видих, а не дзвінкий український [г]: не <s>«гет»</s>.'],
-    ['ŋ', 'si<u>ng</u>', 'Один звук без [г] у кінці: не <s>«сінг»</s>.']
+    ['c<u>a</u>t', 'Такого голосного в українській немає, тож дитина каже <s>«кет»</s>.'],
+    ['sh<u>i</u>p · sh<u>ee</u>p', 'В українській довжина звука не змінює значення, тож ці два слова звучать однаково.'],
+    ['<u>th</u>ink · <u>th</u>is', 'Підміняють на [с], [ф] або [з]: <s>«сінк»</s>, <s>«зіс»</s>.'],
+    ['<u>w</u>in', 'Губи округлені, зуби не торкаються губи. Часто звучить як <s>«він»</s>.'],
+    ['<u>h</u>at', 'Легкий видих, а не дзвінкий український [г]: не <s>«гет»</s>.'],
+    ['si<u>ng</u>', 'Один звук без [г] у кінці: не <s>«сінг»</s>.']
   ];
-  $('#traps').innerHTML = traps.map(([s, w, e]) =>
-    `<article class="trap"><div class="sym"><b>/${s}/</b><span>${w}</span></div><p class="err">${e}</p></article>`).join('');
+  $('#traps').innerHTML = traps.map(([w, e]) =>
+    `<article class="trap"><p class="sym learn">${w}</p><p class="err">${e}</p></article>`).join('');
 
   /* Крок 3: тренажер CVC */
   const ON = 'b c d f g h j l m n p r s t w'.split(' ');
   const VO = 'a e i o u'.split(' ');
   const CO = 'b d g m n p t'.split(' ');
-  const IPA = { c: 'k', j: 'dʒ', a: 'æ', e: 'e', i: 'ɪ', o: 'ɒ', u: 'ʌ' };
   const WORDS = new Set(('bad bag ban bat cab can cap cat dad dam fan fat gap had ham hat jam lab lad lap mad man map mat nap pad pan pat rag ram ran rap rat sad sap sat tab tag tan tap wag ' +
     'bed beg bet den fed get hem hen jet led leg let men met net peg pen pet red set ten web wed wet ' +
     'bib bid big bin bit dig dim din dip fig fin fit hid him hip hit jig lid lip lit mid nip pig pin pit rib rid rig rim rip sip sit tin tip wig win wit ' +
@@ -562,7 +555,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   sets.forEach((set, k) => {
     const t = document.createElement('div');
     t.className = 'tile' + (k === 1 ? ' v' : '');
-    t.innerHTML = `<button class="arrow" type="button" aria-label="${names[k]}: попередній">${chevron(0)}</button><div class="face learn" aria-live="polite"></div><button class="arrow" type="button" aria-label="${names[k]}: наступний">${chevron(1)}</button><span class="ipa"></span>`;
+    t.innerHTML = `<button class="arrow" type="button" aria-label="${names[k]}: попередній">${chevron(0)}</button><div class="face learn" aria-live="polite"></div><button class="arrow" type="button" aria-label="${names[k]}: наступний">${chevron(1)}</button>`;
     const [up, down] = t.querySelectorAll('button');
     up.onclick = () => step(k, -1); down.onclick = () => step(k, 1);
     tiles.append(t);
@@ -572,7 +565,6 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
     tiles.querySelectorAll('.tile').forEach((t, k) => {
       const l = sets[k][state[k]];
       t.querySelector('.face').textContent = l;
-      t.querySelector('.ipa').textContent = '/' + (IPA[l] || l) + '/';
     });
   }
   const fox = $('#fox'), bubble = $('#bubble'), result = $('#result');
@@ -586,8 +578,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCD2; bor
   $('#blend').onclick = () => {
     tiles.classList.add('blended');
     const w = word(), real = WORDS.has(w);
-    const ipa = state.map((v, k) => IPA[sets[k][v]] || sets[k][v]).join('');
-    result.innerHTML = `<p class="w">${w} <span class="muted" style="font-size:1.2rem">/${ipa}/</span></p>` +
+    result.innerHTML = `<p class="w">${w}</p>` +
       `<p class="note">${real ? 'Справжнє слово.' : 'Псевдослово: такого слова немає, але дитина, яка декодує, прочитає і його.'}</p>`;
     real ? setFox('celebrate', 'У тебе вийшло!') : setFox('read', 'Прочитай ще раз, звук за звуком');
   };
