@@ -1,40 +1,12 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ChevronLeft, ChevronRight, List, Sparkles, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, List, X } from "lucide-react";
+import { PageHead } from "../components/PageHead.jsx";
+
+const BASE = import.meta.env.BASE_URL;
+const VOWELS = ["a", "e", "i", "o", "u"];
 import { DEFAULT_WORDS } from "../data/words.js";
 import { loadDecks } from "../lib/decks.js";
 
-export const TILE_COLORS = [
-  {
-    bg: "#FFF0EB",
-    border: "#FFBCAD",
-    revealBg: "#FF6B4A",
-    revealText: "white",
-  },
-  {
-    bg: "#EDF7FF",
-    border: "#B3DEFF",
-    revealBg: "#4DB8FF",
-    revealText: "white",
-  },
-  {
-    bg: "#FFFBEC",
-    border: "#FFE899",
-    revealBg: "#FFD93D",
-    revealText: "#7A5800",
-  },
-  {
-    bg: "#EDFAF4",
-    border: "#A8F0D3",
-    revealBg: "#6EE7B7",
-    revealText: "#0E6646",
-  },
-  {
-    bg: "#F5F0FF",
-    border: "#D7C4FF",
-    revealBg: "#B792FF",
-    revealText: "white",
-  },
-];
 export const DEFAULT_DECK_ID = "default";
 export function WordPractice() {
   let [decks, setDecks] = useState(loadDecks),
@@ -42,8 +14,7 @@ export function WordPractice() {
     [wordIndex, setWordIndex] = useState(0),
     [revealed, setRevealed] = useState({}),
     [listOpen, setListOpen] = useState(false),
-    touchStartX = useRef(null),
-    cardRef = useRef(null);
+    touchStartX = useRef(null);
   useEffect(() => {
     let e = () => {
       let e = loadDecks();
@@ -126,495 +97,164 @@ export function WordPractice() {
   }, [listOpen, prevWord, nextWord]);
   let isEmpty = words.length === 0,
     letterCount = currentWord?.letters?.length || 3,
-    tilePadding =
-      letterCount <= 4
-        ? "clamp(14px, 3.5vw, 22px) 6px"
-        : letterCount <= 6
-          ? "clamp(10px, 2.5vw, 16px) 4px"
-          : "clamp(8px, 2vw, 12px) 3px",
-    tileFontSize =
-      letterCount <= 4
-        ? "clamp(2rem, 13vw, 5rem)"
-        : letterCount <= 6
-          ? "clamp(1.4rem, 9vw, 3.6rem)"
-          : "clamp(1.1rem, 7vw, 2.8rem)",
-    soundFontSize =
-      letterCount <= 4
-        ? "clamp(1rem, 4.5vw, 1.9rem)"
-        : "clamp(0.8rem, 3vw, 1.3rem)",
-    tileGap = letterCount <= 4 ? 12 : letterCount <= 6 ? 8 : 6,
     allRevealed =
       currentWord &&
       Object.keys(revealed).length === currentWord.letters.length &&
       Object.values(revealed).every(Boolean);
+  let opened = Object.values(revealed).filter(Boolean).length,
+    long = letterCount > 4;
   return (
-    <div
-      style={{
-        maxWidth: "860px",
-        margin: "0 auto",
-      }}
-    >
-      <div
-        className="text-center animate-bounce-in"
-        style={{
-          marginBottom: "28px",
-        }}
+    <>
+      <PageHead
+        icon="icon-connect.svg"
+        eyebrow="Practice · Читаємо слова"
+        title="Прочитай слово сам"
       >
-        <h1 className="text-gradient-blue">Word Practice</h1>
-        <p
-          style={{
-            fontSize: "1.1rem",
-            fontWeight: "600",
-          }}
-        >
-          Спробуй прочитати слово самостійно. Якщо забув звук — натисни на
-          літеру!
-        </p>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          gap: "8px",
-          overflowX: "auto",
-          paddingBottom: "4px",
-          marginBottom: "20px",
-          scrollbarWidth: "none",
-        }}
-      >
+        Зливай звуки в слово. Забув звук? Натисни на літеру, і під нею з'явиться
+        підказка. Стрілки або свайп ведуть до наступного слова.
+      </PageHead>
+      <div className="decks" role="group" aria-label="Колоди слів">
         {allDecks.map((e) => (
           <button
             key={e.id}
+            type="button"
+            className="pill"
+            aria-pressed={activeDeckId === e.id}
             onClick={() => selectDeck(e.id)}
-            style={{
-              flexShrink: 0,
-              padding: "10px 20px",
-              borderRadius: "99px",
-              border:
-                activeDeckId === e.id
-                  ? "2px solid var(--blue)"
-                  : "2px solid var(--border)",
-              background:
-                activeDeckId === e.id
-                  ? "linear-gradient(135deg, #4DB8FF, #6EE7B7)"
-                  : "var(--surface)",
-              color: activeDeckId === e.id ? "white" : "var(--text)",
-              fontWeight: "700",
-              fontSize: "0.95rem",
-              cursor: "pointer",
-              transition: "all 0.2s ease",
-              whiteSpace: "nowrap",
-              boxShadow:
-                activeDeckId === e.id
-                  ? "0 4px 14px rgba(77,184,255,0.30)"
-                  : "none",
-            }}
           >
-            <span
-              style={{
-                marginRight: "5px",
-              }}
-            >
-              {e.emoji || "🗂"}
-            </span>
+            {e.id !== DEFAULT_DECK_ID && e.emoji && (
+              <span aria-hidden="true">{e.emoji}</span>
+            )}
             {e.name}
-            <span
-              style={{
-                marginLeft: "6px",
-                fontSize: "0.78rem",
-                opacity: activeDeckId === e.id ? 0.85 : 0.5,
-                fontWeight: "600",
-              }}
-            >
-              {e.words.length}
-            </span>
+            <small>{e.words.length}</small>
           </button>
         ))}
       </div>
       <div
-        ref={cardRef}
-        className="card text-center"
+        className="panel fade-up"
         onTouchStart={isEmpty ? void 0 : handleTouchStart}
         onTouchEnd={isEmpty ? void 0 : handleTouchEnd}
-        style={{
-          padding: "48px 16px 36px",
-          background: "linear-gradient(160deg, #FBFEFF 0%, #F0F8FF 100%)",
-          border: "1.5px solid rgba(77,184,255,0.18)",
-          boxShadow: "0 12px 48px rgba(77,184,255,0.10)",
-          position: "relative",
-          overflow: "visible",
-          touchAction: "pan-y",
-        }}
+        style={{ touchAction: "pan-y" }}
       >
-        {isEmpty && (
-          <div
-            style={{
-              padding: "32px 0",
-              color: "var(--muted)",
-            }}
-          >
-            <div
-              style={{
-                fontSize: "3rem",
-                marginBottom: "12px",
-              }}
-            >
-              📭
+        <div>
+          {isEmpty && (
+            <div className="word-empty">
+              <p style={{ fontWeight: 800, fontSize: "1.1rem" }}>
+                Ця колода порожня
+              </p>
+              <p className="muted">
+                {"Додайте слова в розділі "}
+                <strong>«Для дорослих»</strong>.
+              </p>
             </div>
-            <p
-              style={{
-                fontWeight: "700",
-                fontSize: "1.1rem",
-                color: "var(--text)",
-                marginBottom: "6px",
-              }}
-            >
-              Ця колода порожня
-            </p>
-            <p
-              style={{
-                fontSize: "0.95rem",
-              }}
-            >
-              {"Перейди у вкладку "}
-              <strong>Parents</strong>
-              {" і додай слова до цієї колоди."}
-            </p>
-          </div>
-        )}
-        {!isEmpty && allRevealed && (
-          <div
-            style={{
-              position: "absolute",
-              top: "-18px",
-              left: "50%",
-              transform: "translateX(-50%)",
-              background: "linear-gradient(135deg, #6EE7B7, #2ECC8F)",
-              color: "white",
-              fontWeight: "800",
-              fontSize: "0.9rem",
-              padding: "6px 18px",
-              borderRadius: "var(--radius-pill)",
-              boxShadow: "var(--shadow-mint)",
-              whiteSpace: "nowrap",
-              animation:
-                "bounce-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both",
-            }}
-          >
-            <Sparkles
-              size={14}
-              style={{
-                display: "inline",
-                marginRight: "6px",
-              }}
-            />
-            Молодець! Всі звуки відкриті!
-          </div>
-        )}
-        {!isEmpty && currentWord && (
-          <>
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${letterCount}, 1fr)`,
-                gap: `${tileGap}px`,
-                marginBottom: "40px",
-              }}
-            >
-              {currentWord.letters.map((e, t) => {
-                let n = !!revealed[t],
-                  r = TILE_COLORS[t % TILE_COLORS.length];
-                return (
-                  <div
+          )}
+          {!isEmpty && currentWord && (
+            <>
+              <div className="word" key={currentWord.id}>
+                {currentWord.letters.map((e, t) => (
+                  <button
                     key={`${currentWord.id}-${t}`}
-                    className="word-tile"
+                    type="button"
+                    className={`wtile${VOWELS.includes(e) ? " vowel" : ""}${long ? " long" : ""}`}
+                    aria-pressed={!!revealed[t]}
+                    aria-label={`Літера ${e}${revealed[t] ? `, звук ${currentWord.sounds[t]}` : ""}`}
                     onClick={() => toggleTile(t)}
-                    style={{
-                      padding: tilePadding,
-                      cursor: "pointer",
-                      background: n ? r.revealBg : r.bg,
-                      border: `2.5px solid ${n ? r.revealBg : r.border}`,
-                      borderRadius: "20px",
-                      boxShadow: n
-                        ? "0 10px 28px rgba(36,50,74,0.18)"
-                        : "0 4px 16px rgba(36,50,74,0.07)",
-                      transform: n
-                        ? "translateY(-6px) scale(1.04)"
-                        : "scale(1)",
-                      transition: "all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1)",
-                      animationDelay: `${t * 0.1}s`,
-                      userSelect: "none",
-                    }}
                   >
-                    <div
-                      style={{
-                        fontSize: tileFontSize,
-                        fontWeight: "900",
-                        lineHeight: 1,
-                        color: n ? r.revealText : "var(--text)",
-                        letterSpacing: e.length > 1 ? "-2px" : "normal",
-                        transition: "color 0.2s ease",
-                      }}
-                    >
+                    <span className="face" aria-hidden="true">
                       {e}
-                    </div>
-                    <div
-                      style={{
-                        marginTop: "10px",
-                        height: "30px",
-                        opacity: n ? 1 : 0,
-                        transform: n ? "translateY(0)" : "translateY(-8px)",
-                        transition: "all 0.25s ease",
-                        pointerEvents: "none",
-                      }}
-                    >
-                      <div
-                        style={{
-                          fontSize: soundFontSize,
-                          fontWeight: "800",
-                          color: n ? r.revealText : "transparent",
-                          opacity: n ? 0.9 : 0,
-                        }}
-                      >
-                        {currentWord.sounds[t]}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "16px",
-              }}
-            >
-              <button
-                onClick={prevWord}
-                aria-label="Попереднє слово"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
-                  border: "2px solid var(--border)",
-                  background: "var(--surface)",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: "all 0.18s ease",
-                  flexShrink: 0,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
-                }}
-                onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
-                    (e.currentTarget.style.borderColor = "var(--blue)"));
-                }}
-                onMouseOut={(e) => {
-                  ((e.currentTarget.style.background = "var(--surface)"),
-                    (e.currentTarget.style.borderColor = "var(--border)"));
-                }}
-              >
-                <ChevronLeft size={28} color="var(--text)" />
-              </button>
-              <button
-                onClick={() => setListOpen(true)}
-                title="Відкрити список слів"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "8px",
-                  padding: "12px 22px",
-                  borderRadius: "99px",
-                  border: "2px solid var(--border)",
-                  background: "var(--surface)",
-                  cursor: "pointer",
-                  fontWeight: "800",
-                  fontSize: "1.05rem",
-                  color: "var(--text)",
-                  transition: "all 0.18s ease",
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
-                }}
-                onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
-                    (e.currentTarget.style.borderColor = "var(--blue)"));
-                }}
-                onMouseOut={(e) => {
-                  ((e.currentTarget.style.background = "var(--surface)"),
-                    (e.currentTarget.style.borderColor = "var(--border)"));
-                }}
-              >
-                <List size={18} color="var(--blue)" />
-                <span
-                  style={{
-                    color: "var(--blue)",
-                  }}
+                    </span>
+                    <span className="snd" aria-hidden="true">
+                      {currentWord.sounds[t]}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              <div className="word-ctl">
+                <button
+                  type="button"
+                  className="btn btn-ghost btn-round"
+                  onClick={prevWord}
+                  aria-label="Попереднє слово"
                 >
-                  {wordIndex + 1}
-                </span>
-                <span
-                  style={{
-                    color: "var(--muted)",
-                    fontWeight: "600",
-                  }}
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  type="button"
+                  className="pill"
+                  onClick={() => setListOpen(true)}
+                  title="Відкрити список слів"
                 >
-                  /
-                </span>
-                <span>{words.length}</span>
-              </button>
-              <button
-                onClick={nextWord}
-                aria-label="Наступне слово"
-                style={{
-                  width: "60px",
-                  height: "60px",
-                  borderRadius: "50%",
-                  border: "2px solid var(--border)",
-                  background: "var(--surface)",
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  transition: "all 0.18s ease",
-                  flexShrink: 0,
-                  boxShadow: "0 2px 8px rgba(0,0,0,0.07)",
-                }}
-                onMouseOver={(e) => {
-                  ((e.currentTarget.style.background = "#EDF7FF"),
-                    (e.currentTarget.style.borderColor = "var(--blue)"));
-                }}
-                onMouseOut={(e) => {
-                  ((e.currentTarget.style.background = "var(--surface)"),
-                    (e.currentTarget.style.borderColor = "var(--border)"));
-                }}
-              >
-                <ChevronRight size={28} color="var(--text)" />
-              </button>
-            </div>
-          </>
-        )}
+                  <List size={18} aria-hidden="true" />
+                  {wordIndex + 1} / {words.length}
+                </button>
+                <button
+                  type="button"
+                  className="btn btn-primary btn-round"
+                  onClick={nextWord}
+                  aria-label="Наступне слово"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="panel-lulu">
+          <img
+            src={`${BASE}brand/${allRevealed ? "Lulu-celebrate" : opened ? "Lulu-read" : "Lulu-guide"}-480.webp`}
+            alt={allRevealed ? "Lulu радіє" : "Lulu допомагає читати"}
+            width="190"
+            height="240"
+          />
+          <p className="bubble" aria-live="polite">
+            {isEmpty
+              ? "Тут поки немає слів"
+              : allRevealed
+                ? "Усі звуки відкриті! Тепер прочитай слово цілим"
+                : opened
+                  ? "Спробуй злити звуки разом"
+                  : "Спершу спробуй прочитати сам"}
+          </p>
+        </div>
       </div>
       {listOpen && (
-        <div
-          onClick={() => setListOpen(false)}
-          style={{
-            position: "fixed",
-            inset: 0,
-            background: "rgba(0,0,0,0.45)",
-            zIndex: 1e3,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "20px",
-          }}
-        >
+        <div className="modal-bg" onClick={() => setListOpen(false)}>
           <div
+            className="modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="word-list-title"
             onClick={(e) => e.stopPropagation()}
-            style={{
-              background: "var(--surface)",
-              borderRadius: "20px",
-              padding: "24px",
-              width: "100%",
-              maxWidth: "420px",
-              maxHeight: "70vh",
-              display: "flex",
-              flexDirection: "column",
-              boxShadow: "0 24px 64px rgba(0,0,0,0.22)",
-            }}
           >
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                marginBottom: "16px",
-              }}
-            >
-              <h3
-                style={{
-                  margin: 0,
-                  fontWeight: "800",
-                  fontSize: "1.1rem",
-                }}
-              >
+            <div className="modal-head">
+              <h2 id="word-list-title" style={{ fontSize: "var(--step-1)" }}>
+                {activeDeck.name}{" "}
                 <span
-                  style={{
-                    marginRight: "6px",
-                  }}
+                  className="muted"
+                  style={{ fontSize: ".9rem", fontWeight: 600 }}
                 >
-                  {activeDeck.emoji || "🗂"}
+                  {words.length} слів
                 </span>
-                {activeDeck.name}
-                <span
-                  style={{
-                    marginLeft: "8px",
-                    color: "var(--muted)",
-                    fontWeight: "600",
-                    fontSize: "0.9rem",
-                  }}
-                >
-                  {words.length}
-                  {" слів"}
-                </span>
-              </h3>
+              </h2>
               <button
+                type="button"
+                className="icon-btn"
                 onClick={() => setListOpen(false)}
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  padding: "4px",
-                  borderRadius: "8px",
-                  color: "var(--muted)",
-                }}
+                aria-label="Закрити список"
               >
                 <X size={22} />
               </button>
             </div>
-            <div
-              style={{
-                overflowY: "auto",
-                display: "flex",
-                flexWrap: "wrap",
-                gap: "8px",
-              }}
-            >
+            <div className="modal-list">
               {words.map((e, t) => (
                 <button
                   key={e.id}
+                  type="button"
+                  className="pill"
+                  aria-pressed={t === wordIndex}
                   onClick={() => goToWord(t)}
-                  style={{
-                    padding: "10px 16px",
-                    borderRadius: "12px",
-                    border:
-                      t === wordIndex
-                        ? "2px solid var(--blue)"
-                        : "2px solid var(--border)",
-                    background:
-                      t === wordIndex
-                        ? "linear-gradient(135deg, #4DB8FF22, #6EE7B722)"
-                        : "var(--bg-color)",
-                    cursor: "pointer",
-                    fontWeight: "700",
-                    fontSize: "1rem",
-                    color: t === wordIndex ? "var(--blue)" : "var(--text)",
-                    transition: "all 0.15s ease",
-                    display: "flex",
-                    alignItems: "center",
-                    gap: "6px",
-                  }}
                 >
-                  <span
-                    style={{
-                      fontSize: "0.7rem",
-                      color: "var(--muted)",
-                      fontWeight: "600",
-                      minWidth: "18px",
-                    }}
-                  >
-                    {t + 1}
-                  </span>
+                  <small>{t + 1}</small>
                   {e.word}
                 </button>
               ))}
@@ -622,6 +262,6 @@ export function WordPractice() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

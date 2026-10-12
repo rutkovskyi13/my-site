@@ -13,6 +13,9 @@ import { DEFAULT_WORDS } from "../data/words.js";
 import { createDeck, loadDecks, saveDecks } from "../lib/decks.js";
 import { DIGRAPH_CARDS, splitIntoUnits } from "../lib/digraphs.js";
 import { loadSettings, saveSettings } from "../lib/settings.js";
+import { PageHead } from "../components/PageHead.jsx";
+
+const BASE = import.meta.env.BASE_URL;
 
 export function Parents() {
   let [decks, setDecks] = useState(loadDecks),
@@ -152,27 +155,15 @@ export function Parents() {
       );
     };
   return (
-    <div
-      style={{
-        maxWidth: "900px",
-        margin: "0 auto",
-      }}
-    >
-      <div
-        className="text-center animate-bounce-in"
-        style={{
-          marginBottom: "36px",
-        }}
+    <div>
+      <PageHead
+        icon="icon-progress.svg"
+        eyebrow="Practice · Для дорослих"
+        title="Майстерня читання"
       >
-        <h1 className="text-gradient">Майстерня читання</h1>
-        <p
-          style={{
-            fontSize: "1.1rem",
-          }}
-        >
-          Правила, слова та налаштування для навчання.
-        </p>
-      </div>
+        Правила читання, поради та налаштування. Тут же можна створити власні
+        колоди слів для розділу «Читаємо слова».
+      </PageHead>
       <div
         style={{
           marginBottom: "32px",
@@ -189,7 +180,7 @@ export function Parents() {
             gap: "10px",
           }}
         >
-          📚 Правила читання
+          Правила читання
         </h2>
         <div
           style={{
@@ -202,8 +193,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(77,184,255,0.25)",
-              background: "linear-gradient(135deg, #F0F9FF, #FBFEFF)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -214,18 +205,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                🔤
-              </span>
+              <img src={`${BASE}brand/icon-read.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--sky-dark)",
+                  color: "var(--text)",
                 }}
               >
                 Голосні та приголосні
@@ -262,12 +247,12 @@ export function Parents() {
                   key={e}
                   style={{
                     padding: "3px 10px",
-                    background: "var(--yellow-light)",
-                    border: "1.5px solid var(--yellow)",
+                    background: "var(--milk)",
+                    border: "1.5px solid rgba(48,32,71,0.22)",
                     borderRadius: "8px",
                     fontWeight: "800",
                     fontSize: "1rem",
-                    color: "#B88A00",
+                    color: "var(--text)",
                   }}
                 >
                   {e}
@@ -279,8 +264,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(255,107,74,0.22)",
-              background: "linear-gradient(135deg, #FFF5F3, #FFFBFF)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -291,18 +276,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                📖
-              </span>
+              <img src={`${BASE}brand/icon-read.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--coral-dark)",
+                  color: "var(--text)",
                 }}
               >
                 Короткий голосний звук
@@ -338,12 +317,12 @@ export function Parents() {
                   key={e}
                   style={{
                     padding: "3px 10px",
-                    background: "var(--coral-light)",
-                    border: "1.5px solid rgba(255,107,74,0.35)",
+                    background: "var(--milk)",
+                    border: "1px solid var(--border)",
                     borderRadius: "8px",
                     fontWeight: "700",
                     fontSize: "0.9rem",
-                    color: "var(--coral-dark)",
+                    color: "var(--text)",
                   }}
                 >
                   {e}
@@ -355,8 +334,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(110,231,183,0.35)",
-              background: "linear-gradient(135deg, #F0FDF8, #FBFFFD)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -367,18 +346,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                🎵
-              </span>
+              <img src={`${BASE}brand/icon-listen.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--mint-dark)",
+                  color: "var(--text)",
                 }}
               >
                 Читаємо злиттям
@@ -413,7 +386,7 @@ export function Parents() {
               <span
                 style={{
                   fontWeight: "800",
-                  color: "var(--mint-dark)",
+                  color: "var(--text)",
                   fontSize: "1rem",
                 }}
               >
@@ -429,12 +402,12 @@ export function Parents() {
               <span
                 style={{
                   padding: "3px 12px",
-                  background: "var(--mint-light)",
-                  border: "1.5px solid var(--mint)",
+                  background: "var(--milk)",
+                  border: "1.5px solid rgba(48,32,71,0.22)",
                   borderRadius: "8px",
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--mint-dark)",
+                  color: "var(--text)",
                 }}
               >
                 кет
@@ -445,8 +418,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(183,146,255,0.30)",
-              background: "linear-gradient(135deg, #F7F3FF, #FDFBFF)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -457,18 +430,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                🔗
-              </span>
+              <img src={`${BASE}brand/icon-connect.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--lavender-dark)",
+                  color: "var(--text)",
                 }}
               >
                 Діграфи — два звуки разом
@@ -510,12 +477,12 @@ export function Parents() {
                   key={e}
                   style={{
                     padding: "3px 10px",
-                    background: "var(--lavender-light)",
-                    border: "1.5px solid rgba(183,146,255,0.5)",
+                    background: "var(--milk)",
+                    border: "1px solid var(--border)",
                     borderRadius: "8px",
                     fontWeight: "800",
                     fontSize: "0.9rem",
-                    color: "var(--lavender-dark)",
+                    color: "var(--text)",
                   }}
                 >
                   {e}={t}
@@ -527,8 +494,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(255,217,61,0.40)",
-              background: "linear-gradient(135deg, #FFFEF0, #FFFDF5)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -539,18 +506,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                ✨
-              </span>
+              <img src={`${BASE}brand/icon-write.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "#B88A00",
+                  color: "var(--text)",
                 }}
               >
                 Чарівна "E" в кінці
@@ -596,12 +557,12 @@ export function Parents() {
                   key={e}
                   style={{
                     padding: "3px 10px",
-                    background: "var(--yellow-light)",
-                    border: "1.5px solid var(--yellow)",
+                    background: "var(--milk)",
+                    border: "1.5px solid rgba(48,32,71,0.22)",
                     borderRadius: "8px",
                     fontWeight: "700",
                     fontSize: "0.9rem",
-                    color: "#B88A00",
+                    color: "var(--text)",
                   }}
                 >
                   {e}
@@ -613,8 +574,8 @@ export function Parents() {
             className="card"
             style={{
               padding: "20px 22px",
-              border: "1.5px solid rgba(110,231,183,0.30)",
-              background: "linear-gradient(135deg, #F0FDF8, #FBFFFD)",
+              border: "1px solid var(--border)",
+              background: "var(--surface)",
             }}
           >
             <div
@@ -625,18 +586,12 @@ export function Parents() {
                 marginBottom: "10px",
               }}
             >
-              <span
-                style={{
-                  fontSize: "2rem",
-                }}
-              >
-                🎯
-              </span>
+              <img src={`${BASE}brand/icon-progress.svg`} alt="" width="40" height="40" />
               <span
                 style={{
                   fontWeight: "800",
                   fontSize: "1rem",
-                  color: "var(--mint-dark)",
+                  color: "var(--text)",
                 }}
               >
                 Велика і мала — однаковий звук
@@ -677,12 +632,12 @@ export function Parents() {
                   key={e}
                   style={{
                     padding: "3px 10px",
-                    background: "var(--mint-light)",
-                    border: "1.5px solid var(--mint)",
+                    background: "var(--milk)",
+                    border: "1.5px solid rgba(48,32,71,0.22)",
                     borderRadius: "8px",
                     fontWeight: "800",
                     fontSize: "1rem",
-                    color: "var(--mint-dark)",
+                    color: "var(--text)",
                   }}
                 >
                   {e}
@@ -710,7 +665,7 @@ export function Parents() {
             gap: "10px",
           }}
         >
-          💡 Поради батькам
+          Поради батькам
         </h2>
         <div
           style={{
@@ -722,9 +677,9 @@ export function Parents() {
           {[
             {
               icon: "🕐",
-              color: "var(--sky-dark)",
-              border: "rgba(77,184,255,0.25)",
-              bg: "linear-gradient(135deg, #F0F9FF, #FBFEFF)",
+              color: "var(--text)",
+              border: "rgba(21,159,227,0.25)",
+              bg: "var(--surface)",
               title: "Щодня по 5–10 хвилин",
               text: [
                 "Короткі ",
@@ -734,9 +689,9 @@ export function Parents() {
             },
             {
               icon: "📢",
-              color: "var(--coral-dark)",
-              border: "rgba(255,107,74,0.22)",
-              bg: "linear-gradient(135deg, #FFF5F3, #FFFBFF)",
+              color: "var(--text)",
+              border: "rgba(255,92,52,0.22)",
+              bg: "var(--surface)",
               title: "Читайте разом вголос",
               text: [
                 "Спочатку ",
@@ -746,9 +701,9 @@ export function Parents() {
             },
             {
               icon: "🌟",
-              color: "var(--mint-dark)",
-              border: "rgba(110,231,183,0.35)",
-              bg: "linear-gradient(135deg, #F0FDF8, #FBFFFD)",
+              color: "var(--text)",
+              border: "rgba(39,185,160,0.35)",
+              bg: "var(--surface)",
               title: "Хваліть за старання",
               text: [
                 '"Ти так старалась!" важливіше ніж "Все правильно!". Похвала за ',
@@ -758,9 +713,9 @@ export function Parents() {
             },
             {
               icon: "⏳",
-              color: "var(--lavender-dark)",
-              border: "rgba(183,146,255,0.30)",
-              bg: "linear-gradient(135deg, #F7F3FF, #FDFBFF)",
+              color: "var(--text)",
+              border: "rgba(179,154,215,0.30)",
+              bg: "var(--surface)",
               title: "Не поспішайте виправляти",
               text: [
                 "Дайте дитині ",
@@ -770,9 +725,9 @@ export function Parents() {
             },
             {
               icon: "🎮",
-              color: "#B88A00",
-              border: "rgba(255,217,61,0.40)",
-              bg: "linear-gradient(135deg, #FFFEF0, #FFFDF5)",
+              color: "var(--text)",
+              border: "rgba(239,184,77,0.40)",
+              bg: "var(--surface)",
               title: "Грайте зі звуками",
               text: [
                 "По дорозі чи в черзі запитуйте: ",
@@ -782,9 +737,9 @@ export function Parents() {
             },
             {
               icon: "🔍",
-              color: "var(--sky-dark)",
-              border: "rgba(77,184,255,0.25)",
-              bg: "linear-gradient(135deg, #F0F9FF, #FBFEFF)",
+              color: "var(--text)",
+              border: "rgba(21,159,227,0.25)",
+              bg: "var(--surface)",
               title: "Знаходьте літери навколо",
               text: [
                 "Вивіски, упаковки, меню — ",
@@ -794,9 +749,9 @@ export function Parents() {
             },
             {
               icon: "🔁",
-              color: "var(--coral-dark)",
-              border: "rgba(255,107,74,0.22)",
-              bg: "linear-gradient(135deg, #FFF5F3, #FFFBFF)",
+              color: "var(--text)",
+              border: "rgba(255,92,52,0.22)",
+              bg: "var(--surface)",
               title: "Повторення — це добре",
               text: [
                 "Читати знайоме слово знову і знову — ",
@@ -806,9 +761,9 @@ export function Parents() {
             },
             {
               icon: "💙",
-              color: "var(--mint-dark)",
-              border: "rgba(110,231,183,0.35)",
-              bg: "linear-gradient(135deg, #F0FDF8, #FBFFFD)",
+              color: "var(--text)",
+              border: "rgba(39,185,160,0.35)",
+              bg: "var(--surface)",
               title: "Кожна дитина у своєму темпі",
               text: [
                 "Порівнюйте дитину ",
@@ -822,7 +777,7 @@ export function Parents() {
               className="card"
               style={{
                 padding: "20px 22px",
-                border: `1.5px solid ${e.border}`,
+                border: "1px solid var(--border)",
                 background: e.bg,
               }}
             >
@@ -834,18 +789,12 @@ export function Parents() {
                   marginBottom: "8px",
                 }}
               >
-                <span
-                  style={{
-                    fontSize: "1.7rem",
-                  }}
-                >
-                  {e.icon}
-                </span>
+                <span className="tip-mark" aria-hidden="true" />
                 <span
                   style={{
                     fontWeight: "800",
                     fontSize: "0.95rem",
-                    color: e.color,
+                    color: "var(--text)",
                   }}
                 >
                   {e.title}
@@ -1102,7 +1051,7 @@ export function Parents() {
                   padding: "20px",
                   background: "var(--bg-color)",
                   borderRadius: "14px",
-                  border: "1.5px solid rgba(77,184,255,0.25)",
+                  border: "1px solid var(--border)",
                 }}
               >
                 <div
@@ -1139,7 +1088,7 @@ export function Parents() {
                         justifyContent: "center",
                         transition: "all 0.15s ease",
                         boxShadow: emojiPickerOpen
-                          ? "0 0 0 3px rgba(77,184,255,0.18)"
+                          ? "0 0 0 3px rgba(21,159,227,0.18)"
                           : "none",
                       }}
                     >
@@ -1167,7 +1116,7 @@ export function Parents() {
                           height={360}
                           theme="light"
                           style={{
-                            fontFamily: "Nunito, sans-serif",
+                            fontFamily: "var(--font)",
                           }}
                         />
                       </div>
@@ -1267,7 +1216,7 @@ export function Parents() {
                 {deckError && (
                   <div
                     style={{
-                      color: "#e53e3e",
+                      color: "#D84F8B",
                       marginTop: "8px",
                       fontSize: "0.9rem",
                     }}
@@ -1380,7 +1329,7 @@ export function Parents() {
                 style={{
                   marginBottom: "12px",
                   borderRadius: "14px",
-                  border: `1.5px solid ${expandedDeckId === e.id ? "rgba(77,184,255,0.4)" : "var(--border)"}`,
+                  border: `1.5px solid ${expandedDeckId === e.id ? "rgba(21,159,227,0.4)" : "var(--border)"}`,
                   overflow: "hidden",
                   transition: "border-color 0.2s",
                 }}
@@ -1393,7 +1342,7 @@ export function Parents() {
                     padding: "14px 20px",
                     background:
                       expandedDeckId === e.id
-                        ? "linear-gradient(135deg, #EDF7FF, #F0FFF8)"
+                        ? "linear-gradient(135deg, #EAF6FF, #F0FFF8)"
                         : "var(--surface)",
                     cursor: "pointer",
                     transition: "background 0.2s",
@@ -1457,14 +1406,14 @@ export function Parents() {
                         background: "none",
                         border: "none",
                         cursor: "pointer",
-                        color: "#e53e3e",
+                        color: "#D84F8B",
                         padding: "6px",
                         borderRadius: "8px",
                         display: "flex",
                         alignItems: "center",
                       }}
                       onMouseOver={(e) =>
-                        (e.currentTarget.style.background = "#fff5f5")
+                        (e.currentTarget.style.background = "#FCEAF2")
                       }
                       onMouseOut={(e) =>
                         (e.currentTarget.style.background = "none")
@@ -1566,7 +1515,7 @@ export function Parents() {
                                 background: "none",
                                 border: "none",
                                 cursor: "pointer",
-                                color: "#e53e3e",
+                                color: "#D84F8B",
                                 padding: "6px",
                                 borderRadius: "8px",
                                 display: "flex",
@@ -1574,7 +1523,7 @@ export function Parents() {
                                 flexShrink: 0,
                               }}
                               onMouseOver={(e) =>
-                                (e.currentTarget.style.background = "#fff5f5")
+                                (e.currentTarget.style.background = "#FCEAF2")
                               }
                               onMouseOut={(e) =>
                                 (e.currentTarget.style.background = "none")
@@ -1593,7 +1542,7 @@ export function Parents() {
                           padding: "20px",
                           background: "var(--surface)",
                           borderRadius: "12px",
-                          border: "1.5px solid rgba(77,184,255,0.25)",
+                          border: "1px solid var(--border)",
                         }}
                       >
                         <h3
@@ -1654,7 +1603,7 @@ export function Parents() {
                               {wordError && (
                                 <div
                                   style={{
-                                    color: "#e53e3e",
+                                    color: "#D84F8B",
                                     marginTop: "8px",
                                     fontSize: "0.9rem",
                                   }}
@@ -1818,7 +1767,7 @@ export function Parents() {
                             {wordError && (
                               <div
                                 style={{
-                                  color: "#e53e3e",
+                                  color: "#D84F8B",
                                   marginBottom: "12px",
                                   fontSize: "0.9rem",
                                 }}

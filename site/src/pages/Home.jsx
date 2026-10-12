@@ -1,177 +1,76 @@
 import { Link } from "react-router-dom";
 import { LetterBubbles } from "../components/LetterBubbles.jsx";
 
+const BASE = import.meta.env.BASE_URL;
+
+const SECTIONS = [
+  {
+    to: "/alphabet",
+    icon: "icon-read.svg",
+    title: "Алфавіт",
+    text: "Як називаються англійські літери і як вони звучать у слові, з опорою на рідну мову.",
+    cta: "Відкрити алфавіт",
+  },
+  {
+    to: "/word-practice",
+    icon: "icon-connect.svg",
+    title: "Читаємо слова",
+    text: "Короткі слова звук за звуком. Забув звук? Натисни на літеру й перевір себе.",
+    cta: "Читати слова",
+  },
+  {
+    to: "/dashboard",
+    icon: "icon-progress.svg",
+    title: "Для дорослих",
+    text: "Правила читання, поради й власні колоди слів для занять з дитиною.",
+    cta: "Відкрити майстерню",
+  },
+];
+
+// Перший екран Practice зібраний як на сайті курсу: текст ліворуч, Lulu праворуч, далі білі картки розділів.
 export function Home() {
   return (
-    <div
-      style={{
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <>
       <LetterBubbles />
-      <div
-        className="flex"
-        style={{
-          position: "relative",
-          zIndex: 1,
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          minHeight: "62vh",
-          textAlign: "center",
-        }}
-      >
-        <div
-          className="animate-bounce-in"
-          style={{
-            marginBottom: "3rem",
-          }}
-        >
-          <img
-            src="/logo.png"
-            alt="Phonics4All"
-            style={{
-              maxWidth: "420px",
-              width: "100%",
-              height: "auto",
-              display: "block",
-              margin: "0 auto 20px",
-            }}
-          />
-          <p
-            style={{
-              maxWidth: "540px",
-              margin: "0 auto",
-              fontSize: "1.15rem",
-              lineHeight: "1.65",
-              color: "var(--muted)",
-              fontWeight: "500",
-            }}
-          >
-            Запрошую до захопливої подорожі у світ читання англійською мовою. 🚀
+      <section className="hero fade-up">
+        <div className="stack">
+          <div className="eyebrow" style={{ marginBottom: 0 }}>
+            <img src={`${BASE}brand/icon-listen.svg`} alt="" width="40" height="40" />
+            Practice · Тренажер читання
+          </div>
+          <h1>Читаємо разом із Lulu</h1>
+          <p className="lead muted">
+            Запрошую до захопливої подорожі у світ читання англійською мовою.
+            Почніть з алфавіту, а потім складайте звуки в слова.
           </p>
-        </div>
-        <div
-          className="grid"
-          style={{
-            gridTemplateColumns: "repeat(auto-fit, minmax(290px, 1fr))",
-            gap: "28px",
-            width: "100%",
-            maxWidth: "860px",
-          }}
-        >
-          <div
-            className="card float-anim"
-            style={{
-              animationDelay: "0s",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                background: "var(--coral-light)",
-                padding: "22px",
-                borderRadius: "50%",
-                marginBottom: "20px",
-                boxShadow: "0 4px 16px rgba(255,107,74,0.18)",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "2.8rem",
-                  lineHeight: 1,
-                }}
-              >
-                🔤
-              </span>
-            </div>
-            <h2
-              className="text-gradient"
-              style={{
-                marginBottom: "12px",
-              }}
-            >
-              Alphabet Sounds
-            </h2>
-            <p
-              style={{
-                marginBottom: "28px",
-                flex: 1,
-              }}
-            >
-              Learn individual English letters using Ukrainian support sounds to
-              help you.
-            </p>
-            <Link
-              to="/alphabet"
-              className="btn btn-primary"
-              style={{
-                width: "100%",
-                fontSize: "1.1rem",
-              }}
-            >
-              Start Alphabet
+          <div className="ctas">
+            <Link className="btn btn-primary" to="/alphabet">
+              Почати з алфавіту
             </Link>
-          </div>
-          <div
-            className="card float-anim"
-            style={{
-              animationDelay: "0.8s",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                background: "var(--sky-light)",
-                padding: "22px",
-                borderRadius: "50%",
-                marginBottom: "20px",
-                boxShadow: "0 4px 16px rgba(77,184,255,0.18)",
-              }}
-            >
-              <span
-                style={{
-                  fontSize: "2.8rem",
-                  lineHeight: 1,
-                }}
-              >
-                🗣️
-              </span>
-            </div>
-            <h2
-              className="text-gradient-blue"
-              style={{
-                marginBottom: "12px",
-              }}
-            >
-              Word Practice
-            </h2>
-            <p
-              style={{
-                marginBottom: "28px",
-                flex: 1,
-              }}
-            >
-              Blend sounds together to read your first real English words!
-            </p>
-            <Link
-              to="/word-practice"
-              className="btn btn-secondary"
-              style={{
-                width: "100%",
-                fontSize: "1.1rem",
-              }}
-            >
-              Practice Blending
+            <Link className="btn btn-ghost" to="/word-practice">
+              Читати слова
             </Link>
           </div>
         </div>
+        <div className="hero-art">
+          <img
+            src={`${BASE}brand/Lulu-guide-480.webp`}
+            alt="Зайчиха Lulu показує картку з літерою a"
+            width="360"
+            height="450"
+          />
+        </div>
+      </section>
+      <div className="cards3">
+        {SECTIONS.map((s) => (
+          <Link key={s.to} to={s.to} className="card card-link">
+            <img src={`${BASE}brand/${s.icon}`} alt="" width="48" height="48" />
+            <h2 style={{ fontSize: "var(--step-1)" }}>{s.title}</h2>
+            <p className="muted">{s.text}</p>
+            <span className="go">{s.cta} →</span>
+          </Link>
+        ))}
       </div>
-    </div>
+    </>
   );
 }

@@ -5,67 +5,29 @@ export const BUBBLE_LETTERS =
     "A.B.C.D.E.F.G.H.I.J.K.L.M.N.O.P.R.S.T.U.W.sh.ch.ee.oo.a.b.c.d.e.f.g".split(
       ".",
     ),
+  // Кольори бренду: помаранчевий і блакитний як акценти, лавандовий і фіолетовий як спокійні.
   BUBBLE_COLORS = [
     {
-      bg: "rgba(255, 107, 74, 0.06)",
-      border: "rgba(255, 107, 74, 0.15)",
-      text: "rgba(204, 61, 30, 0.55)",
+      bg: "rgba(255,92,52,0.07)",
+      border: "rgba(255,92,52,0.35)",
+      text: "rgba(200,64,29,0.8)",
     },
     {
-      bg: "rgba(77, 184, 255, 0.06)",
-      border: "rgba(77, 184, 255, 0.15)",
-      text: "rgba(20, 128, 200, 0.55)",
+      bg: "rgba(21,159,227,0.07)",
+      border: "rgba(21,159,227,0.35)",
+      text: "rgba(11,111,163,0.8)",
     },
     {
-      bg: "rgba(255, 217, 61, 0.06)",
-      border: "rgba(255, 217, 61, 0.18)",
-      text: "rgba(145, 116, 0, 0.55)",
+      bg: "rgba(179,154,215,0.12)",
+      border: "rgba(179,154,215,0.5)",
+      text: "rgba(108,79,153,0.85)",
     },
     {
-      bg: "rgba(110, 231, 183, 0.06)",
-      border: "rgba(110, 231, 183, 0.18)",
-      text: "rgba(26, 138, 90, 0.55)",
-    },
-    {
-      bg: "rgba(183, 146, 255, 0.06)",
-      border: "rgba(183, 146, 255, 0.15)",
-      text: "rgba(112, 64, 192, 0.55)",
+      bg: "rgba(48,32,71,0.04)",
+      border: "rgba(48,32,71,0.18)",
+      text: "rgba(48,32,71,0.55)",
     },
   ];
-export const CLOUDS = [
-  {
-    id: 0,
-    width: 180,
-    top: "12%",
-    dur: 55,
-    negDelay: 10,
-    opacity: 0.1,
-  },
-  {
-    id: 1,
-    width: 250,
-    top: "32%",
-    dur: 75,
-    negDelay: 30,
-    opacity: 0.08,
-  },
-  {
-    id: 2,
-    width: 140,
-    top: "58%",
-    dur: 42,
-    negDelay: 5,
-    opacity: 0.07,
-  },
-  {
-    id: 3,
-    width: 210,
-    top: "78%",
-    dur: 65,
-    negDelay: 42,
-    opacity: 0.06,
-  },
-];
 export function getBubbleConfig() {
   let e = window.innerWidth;
   return e >= 1024
@@ -192,19 +154,6 @@ export function LetterBubbles() {
         overflow: "hidden",
       }}
     >
-      {CLOUDS.map((e) => (
-        <div
-          key={e.id}
-          className="home-cloud"
-          style={{
-            "--cloud-dur": `${e.dur}s`,
-            "--cloud-delay": `${-e.negDelay}s`,
-            top: e.top,
-            width: e.width,
-            opacity: e.opacity,
-          }}
-        />
-      ))}
       {bubbles.map((e) => {
         let t = BUBBLE_COLORS[e.colorIdx],
           n = e.letter.length > 1,
@@ -238,19 +187,14 @@ export function LetterBubbles() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontWeight: "900",
-                  fontFamily: "var(--font)",
-                  letterSpacing: "-0.5px",
+                  fontWeight: "400",
+                  fontFamily: "var(--font-learn)",
                   background: t.bg,
                   border: `1.5px solid ${t.border}`,
                   color: t.text,
                   fontSize: n
                     ? `${Math.round(e.size * 0.3)}px`
                     : `${Math.round(e.size * 0.42)}px`,
-                  backdropFilter: "blur(2px)",
-                  WebkitBackdropFilter: "blur(2px)",
-                  boxShadow:
-                    "inset 0 -3px 8px rgba(255,255,255,0.3), inset 0 3px 10px rgba(255,255,255,0.45)",
                   animation: e.popping
                     ? "bubble-pop 0.45s ease-out forwards"
                     : `bubble-appear ${e.dur}s ${r} ease-in-out forwards`,

@@ -1,363 +1,769 @@
-@import "https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap";
-:root {
-  --coral: #ff6b4a;
-  --coral-light: #ffe4dc;
-  --coral-dark: #e8502f;
-  --sky: #4db8ff;
-  --sky-light: #d7f0ff;
-  --sky-dark: #1f9ae8;
-  --yellow: #ffd93d;
-  --yellow-light: #fff6c0;
-  --yellow-dark: #e6b800;
-  --mint: #6ee7b7;
-  --mint-light: #d1faf0;
-  --mint-dark: #2ecc8f;
-  --lavender: #b792ff;
-  --lavender-light: #ede5ff;
-  --lavender-dark: #9265f0;
-  --bg: #f8faff;
-  --surface: #fff;
-  --text: #24324a;
-  --muted: #6f7d95;
-  --border: #dce7f5;
-  --primary: var(--coral);
-  --primary-light: var(--coral-light);
-  --secondary: var(--lavender);
-  --secondary-light: var(--lavender-light);
-  --accent: var(--yellow);
-  --accent-light: var(--yellow-light);
-  --blue: var(--sky);
-  --blue-light: var(--sky-light);
-  --bg-color: var(--bg);
-  --text-main: var(--text);
-  --text-muted: var(--muted);
-  --radius-xl: 32px;
-  --radius-lg: 24px;
-  --radius-md: 16px;
-  --radius-sm: 10px;
-  --radius-pill: 9999px;
-  --shadow-xs: 0 2px 8px #24324a0f;
-  --shadow-soft: 0 6px 24px #24324a12;
-  --shadow-card: 0 8px 32px #24324a14;
-  --shadow-hover: 0 16px 48px #24324a24;
-  --shadow-coral: 0 8px 28px #ff6b4a4d;
-  --shadow-sky: 0 8px 28px #4db8ff4d;
-  --shadow-mint: 0 8px 28px #6ee7b759;
-  --shadow-lavender: 0 8px 28px #b792ff4d;
-  --font: "Nunito", system-ui, -apple-system, sans-serif;
-  --max-width: 1200px;
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/NunitoSans-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
 }
-*,
-:before,
-:after {
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/NunitoSans-SemiBold.woff2") format("woff2");
+  font-weight: 600;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Nunito Sans";
+  src: url("/fonts/NunitoSans-ExtraBold.woff2") format("woff2");
+  font-weight: 800;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Andika";
+  src: url("/fonts/Andika-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Andika";
+  src: url("/fonts/Andika-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+/* Practice оформлена так само, як сайт курсу (landing/index.html) і брендбук v2:
+   кремовий фон, білі блоки з тонкою лінією, фіолетовий текст і кнопки, один акцент на макет,
+   Andika для навчальних літер, світло-блакитна підкладка для зони вправи. */
+:root {
+  --plum: #302047;
+  --plum-hover: #47335f;
+  --plum-soft: #5e5272; /* приглушений текст: 6.9:1 на кремовому */
+  --orange: #ff5c34;
+  --blue: #159fe3;
+  --lavender: #b39ad7;
+  --milk: #fff9f2;
+  --ice: #d7efff;
+  --paper: #ffffff;
+  --line: #e6deec;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-learn: "Andika", "Nunito Sans", system-ui, sans-serif;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2.6vw, 3.25rem);
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius: 14px;
+
+  /* Старі імена, якими ще користується сторінка Parents */
+  --coral: var(--orange);
+  --coral-light: #ffe6dd;
+  --coral-dark: #c8401d;
+  --sky: var(--blue);
+  --sky-light: var(--ice);
+  --sky-dark: #0b6fa3;
+  --yellow: #efb84d;
+  --yellow-light: #fcefd2;
+  --yellow-dark: #c98e1c;
+  --mint: #27b9a0;
+  --mint-light: #d6f3ed;
+  --mint-dark: #13796a;
+  --lavender-light: #eee6f8;
+  --lavender-dark: #6c4f99;
+  --bg: var(--milk);
+  --bg-color: var(--milk);
+  --surface: var(--paper);
+  --text: var(--plum);
+  --muted: var(--plum-soft);
+  --border: var(--line);
+  --radius-sm: 10px;
+  --radius-md: var(--radius);
+  --radius-lg: var(--radius);
+  --radius-pill: 999px;
+  --shadow-xs: none;
+  --shadow-card: none;
+  --shadow-mint: none;
+  --font: var(--font-body);
+  color-scheme: light;
+}
+* {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 body {
-  font-family: var(--font);
-  background-color: var(--bg);
-  color: var(--text);
+  margin: 0;
+  background: var(--milk);
+  color: var(--plum);
+  font: 400 var(--step-0)/1.6 var(--font-body);
   -webkit-font-smoothing: antialiased;
-  background-image:
-    radial-gradient(80% 50% at 10% 0, #4db8ff12 0%, #0000 60%),
-    radial-gradient(60% 40% at 90% 5%, #b792ff12 0%, #0000 60%),
-    radial-gradient(70% 50% at 50% 100%, #6ee7b70d 0%, #0000 60%);
-  line-height: 1.5;
   overflow-x: hidden;
 }
 #root {
-  flex-direction: column;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
 }
 h1,
 h2,
 h3,
-h4,
-h5,
-h6 {
-  color: var(--text);
+h4 {
   font-weight: 800;
-  line-height: 1.15;
+  line-height: 1.12;
+  text-wrap: balance;
+  margin: 0;
+  color: var(--plum);
 }
 h1 {
-  letter-spacing: -0.02em;
-  margin-bottom: 1rem;
-  font-size: clamp(2.4rem, 5vw, 3.8rem);
+  font-size: var(--step-3);
+  letter-spacing: -0.01em;
 }
 h2 {
-  margin-bottom: 0.8rem;
-  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-size: var(--step-2);
 }
 h3 {
-  font-size: 1.25rem;
+  font-size: var(--step-1);
 }
 p {
-  color: var(--muted);
-  font-size: 1.05rem;
-  line-height: 1.65;
+  margin: 0;
 }
-.container {
+a {
+  color: inherit;
+}
+button {
+  font: inherit;
+  color: inherit;
+}
+:focus-visible {
+  outline: 3px solid var(--plum);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.wrap {
   width: 100%;
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 24px;
+  max-width: 1160px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.learn {
+  font-family: var(--font-learn);
+}
+.muted {
+  color: var(--plum-soft);
+}
+.lead {
+  font-size: var(--step-1);
+  max-width: 40ch;
+}
+.stack {
+  display: grid;
+  gap: 18px;
+}
+.split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+}
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--plum-soft);
+  margin-bottom: 14px;
+}
+.eyebrow img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 .text-center {
   text-align: center;
 }
-.grid {
-  display: grid;
-}
 .flex {
   display: flex;
 }
-.glass {
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-soft);
-  border-radius: var(--radius-lg);
-  background: #ffffffd1;
-  border: 1.5px solid #fffffff2;
+.grid {
+  display: grid;
 }
-.card {
-  background: var(--surface);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card);
-  border: 1.5px solid var(--border);
-  padding: 32px;
-  transition:
-    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.25s,
-    border-color 0.2s;
-}
-.card:hover {
-  box-shadow: var(--shadow-hover);
-  border-color: #4db8ff40;
-  transform: translateY(-6px) scale(1.01);
-}
+
+/* Кнопки як на сайті курсу: фіолетове тло з кремовим текстом */
 .btn {
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  font-size: 1.1rem;
-  font-weight: 800;
-  font-family: var(--font);
-  letter-spacing: 0.01em;
-  border: none;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  padding: 14px 30px;
-  text-decoration: none;
-  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 2px solid var(--plum);
+  font: 600 1rem/1.2 var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  color: var(--plum);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
 }
 .btn:active {
-  transform: scale(0.93) !important;
+  transform: translateY(1px);
 }
 .btn-primary {
-  color: #fff;
-  box-shadow: var(--shadow-coral);
-  background: linear-gradient(135deg, #ff7a5c, #f53);
+  background: var(--plum);
+  color: var(--milk);
 }
 .btn-primary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 36px #ff6b4a73;
+  background: var(--plum-hover);
+  border-color: var(--plum-hover);
 }
+.btn-ghost,
+.btn-outline,
 .btn-secondary {
-  color: #fff;
-  box-shadow: var(--shadow-sky);
-  background: linear-gradient(135deg, #65c4ff, #1fa8f0);
+  background: transparent;
+  color: var(--plum);
 }
+.btn-ghost:hover,
+.btn-outline:hover,
 .btn-secondary:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 36px #4db8ff73;
+  background: rgba(48, 32, 71, 0.06);
 }
-.btn-mint {
-  color: #0e6646;
-  box-shadow: var(--shadow-mint);
-  background: linear-gradient(135deg, #82eec5, #42d49a);
+.btn-round {
+  width: 52px;
+  min-height: 52px;
+  height: 52px;
+  padding: 0;
 }
-.btn-mint:hover {
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 14px 36px #6ee7b780;
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  min-height: 44px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  border: 1.5px solid rgba(48, 32, 71, 0.18);
+  background: var(--paper);
+  color: var(--plum);
+  font: 600 15px/1.2 var(--font-body);
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s;
 }
-.btn-outline {
-  color: var(--coral);
-  border: 2.5px solid var(--coral);
-  background: 0 0;
+.pill:hover {
+  border-color: var(--plum);
 }
-.btn-outline:hover {
-  background: var(--coral-light);
+.pill.on,
+.pill[aria-current="page"],
+.pill[aria-pressed="true"] {
+  background: var(--plum);
+  color: var(--milk);
+  border-color: var(--plum);
+}
+.pill small {
+  font-size: 0.78rem;
+  font-weight: 600;
+  opacity: 0.75;
+}
+
+/* Шапка: та сама, що на сайті курсу */
+.top {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 20;
+  background: var(--milk);
+  border-bottom: 1px solid var(--line);
+}
+.top-row {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding-block: 10px;
+}
+.top-logo img {
+  width: 200px;
+  height: auto;
+  display: block;
+}
+.top-nav {
+  display: flex;
+  gap: 4px;
+  margin-left: auto;
+}
+.top-nav a {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  gap: 6px;
+  align-items: baseline;
+}
+.top-nav a:hover {
+  background: var(--paper);
+}
+.top-nav a[aria-current] {
+  font-weight: 800;
+  box-shadow: inset 0 -3px 0 var(--orange);
+  border-radius: 0;
+}
+.top-nav small {
+  font-size: 0.7rem;
+  color: var(--plum-soft);
+  font-weight: 600;
+}
+.top .btn {
+  min-height: 44px;
+  padding: 8px 18px;
+}
+.subnav {
+  display: flex;
+  gap: 8px;
+  padding-block: 4px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.subnav::-webkit-scrollbar {
+  display: none;
+}
+
+main.page {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  padding-block: clamp(40px, 6vw, 72px) clamp(56px, 8vw, 104px);
+}
+.section-head {
+  margin-bottom: 32px;
+}
+
+/* Зона вправи: світло-блакитна підкладка, Lulu поруч із завданням */
+.panel {
+  background: var(--ice);
+  border-radius: var(--radius);
+  padding: clamp(20px, 4vw, 44px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: clamp(20px, 4vw, 48px);
+  align-items: center;
+}
+.panel-lulu {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  text-align: center;
+  align-self: start;
+  position: sticky;
+  top: 140px;
+}
+.panel-lulu img {
+  width: 100%;
+  max-width: 190px;
+  height: auto;
+}
+.bubble {
+  background: var(--milk);
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 800;
+}
+.note {
+  margin-top: 16px;
+  font-size: 0.9rem;
+  color: var(--plum-soft);
+}
+
+/* Білі картки, як блоки на сайті курсу */
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+}
+.cards3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.card-link {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  text-decoration: none;
+  transition: border-color 0.2s;
+}
+.card-link:hover {
+  border-color: var(--plum);
+}
+.card-link img {
+  width: 48px;
+  height: 48px;
+}
+.card-link .go {
+  font-weight: 800;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+/* Картки літер: як навчальні картки брендбука і плитки «Склади слово» */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  list-style: none;
+  margin: 0 0 20px;
+  padding: 0;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.legend i {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background: var(--milk);
+  border: 2px solid var(--plum);
+}
+.legend .v i {
+  background: var(--paper);
+  border: 3px solid var(--orange);
+}
+.legend .d i {
+  background: var(--paper);
+  border-color: var(--blue);
+}
+.letter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: 12px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.letter-grid.wide {
+  grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+}
+.letter {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background: var(--milk);
+  border: 2px solid var(--plum);
+  border-radius: 10px;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+}
+.letter:hover {
+  background: var(--paper);
   transform: translateY(-2px);
 }
-.text-gradient {
-  background: linear-gradient(135deg, #ff6b4a, #ff3d1a);
-  -webkit-text-fill-color: transparent;
-  color: #0000;
-  -webkit-background-clip: text;
-  background-clip: text;
+.letter.vowel {
+  background: var(--paper);
+  border: 3px solid var(--orange);
 }
-.text-gradient-blue {
-  background: linear-gradient(135deg, #4db8ff, #1a9ae8);
-  -webkit-text-fill-color: transparent;
-  color: #0000;
-  -webkit-background-clip: text;
-  background-clip: text;
+.letter.digraph {
+  background: var(--paper);
+  border-color: var(--blue);
 }
-.text-gradient-lavender {
-  background: linear-gradient(135deg, #b792ff, #8f5ef0);
-  -webkit-text-fill-color: transparent;
-  color: #0000;
-  -webkit-background-clip: text;
-  background-clip: text;
+.letter .name {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  font: 600 0.66rem/1 var(--font-body);
+  letter-spacing: 0.03em;
+  color: var(--plum-soft);
+  transition: opacity 0.2s;
 }
-@keyframes float {
-  0%,
-  to {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
+.letter .glyph {
+  font: 400 clamp(2.4rem, 1.8rem + 2vw, 3.2rem)/1 var(--font-learn);
+  color: var(--plum);
+  transition: transform 0.22s ease;
+  user-select: none;
 }
-.float-anim {
-  animation: 4s ease-in-out infinite float;
+.letter .glyph span {
+  color: var(--plum-soft);
 }
-@keyframes bounce-in {
-  0% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  55% {
-    opacity: 1;
-    transform: scale(1.06);
-  }
-  75% {
-    transform: scale(0.93);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.letter .sound {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  display: grid;
+  place-items: center;
+  background: var(--plum);
+  color: var(--milk);
+  font: 400 clamp(1.3rem, 1rem + 1vw, 1.6rem)/1 var(--font-learn);
+  transform: translateY(101%);
+  transition: transform 0.22s ease;
 }
-.animate-bounce-in {
-  animation: 0.55s cubic-bezier(0.175, 0.885, 0.32, 1.275) both bounce-in;
+.letter.vowel .sound {
+  background: var(--orange);
+  color: var(--plum);
 }
-@keyframes pop-in {
-  0% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  80% {
-    transform: scale(1.08);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
+.letter.digraph .sound {
+  background: var(--blue);
+  color: var(--plum);
 }
-.alphabet-card {
-  transition:
-    transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1),
-    box-shadow 0.22s,
-    border-color 0.2s !important;
+.letter[aria-pressed="true"] .name {
+  opacity: 0;
 }
-.alphabet-card:hover {
-  transform: translateY(-8px) scale(1.06) !important;
-  box-shadow: 0 18px 40px #24324a24 !important;
+.letter[aria-pressed="true"] .glyph {
+  transform: translateY(-30%);
 }
-.nav-pill {
-  -webkit-backdrop-filter: blur(20px);
-  border-radius: var(--radius-pill);
-  background: #ffffffe0;
-  border: 1.5px solid #dce7f5e6;
-  justify-content: center;
-  gap: 4px;
-  width: fit-content;
-  margin: 20px auto;
-  padding: 8px 10px;
+.letter[aria-pressed="true"] .sound {
+  transform: translateY(0);
+}
+.digraphs-title {
   display: flex;
-  box-shadow: 0 4px 24px #24324a17;
-}
-.nav-item {
-  border-radius: var(--radius-pill);
-  cursor: pointer;
-  white-space: nowrap;
-  color: var(--muted);
-  background: 0 0;
-  border: none;
   align-items: center;
-  gap: 7px;
-  padding: 10px 20px;
-  font-size: 1rem;
-  font-weight: 700;
+  gap: 12px;
+  margin: 36px 0 16px;
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--plum-soft);
+}
+.digraphs-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: rgba(48, 32, 71, 0.2);
+}
+
+/* Word Practice: плитки як у «Склади слово» */
+.decks {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 20px;
+  padding-bottom: 2px;
+}
+.decks::-webkit-scrollbar {
+  display: none;
+}
+.word {
+  display: flex;
+  justify-content: center;
+  gap: clamp(6px, 1.5vw, 12px);
+}
+.wtile {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+.wtile .face {
+  width: clamp(52px, 15vw, 112px);
+  aspect-ratio: 3 / 4;
+  display: grid;
+  place-items: center;
+  background: var(--milk);
+  border: 2px solid var(--plum);
+  border-radius: 10px;
+  font: 400 clamp(2rem, 1.2rem + 4vw, 4.4rem)/1 var(--font-learn);
+  color: var(--plum);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+}
+.wtile.long .face {
+  width: clamp(42px, 12vw, 88px);
+  font-size: clamp(1.6rem, 1rem + 3vw, 3.2rem);
+}
+.wtile.vowel .face {
+  background: var(--paper);
+  border: 3px solid var(--orange);
+}
+.wtile:hover .face {
+  transform: translateY(-2px);
+  background: var(--paper);
+}
+.wtile .snd {
+  min-height: 1.4em;
+  font: 400 clamp(1.2rem, 1rem + 1vw, 1.8rem)/1.2 var(--font-learn);
+  color: var(--plum);
+  opacity: 0;
+  transform: translateY(-6px);
+  transition:
+    opacity 0.2s,
+    transform 0.2s;
+}
+.wtile[aria-pressed="true"] .snd {
+  opacity: 1;
+  transform: none;
+}
+.wtile[aria-pressed="true"] .face {
+  background: var(--paper);
+}
+.word-ctl {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 24px;
+}
+.word-empty {
+  text-align: center;
+  padding: 24px 0;
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+}
+
+.modal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: rgba(48, 32, 71, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.modal {
+  background: var(--milk);
+  border-radius: var(--radius);
+  padding: 24px;
+  width: 100%;
+  max-width: 440px;
+  max-height: 70vh;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.modal-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.modal-list {
+  overflow-y: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.modal-list .pill {
+  font-family: var(--font-learn);
+  font-weight: 400;
+  font-size: 1.1rem;
+}
+.modal-list .pill small {
+  font-family: var(--font-body);
+}
+.icon-btn {
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 8px;
+  color: var(--plum);
+  display: grid;
+  place-items: center;
+}
+.icon-btn:hover {
+  background: rgba(48, 32, 71, 0.06);
+}
+
+/* Перший екран Practice */
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: 24px;
+  align-items: center;
+  margin-bottom: clamp(48px, 7vw, 88px);
+}
+.hero .ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
+.hero-art {
+  display: grid;
+  place-items: center;
+}
+.hero-art img {
+  width: min(100%, 360px);
+  height: auto;
+}
+
+/* Підвал: той самий, що на сайті курсу */
+footer.site {
+  position: relative;
+  z-index: 1;
+  background: var(--plum);
+  color: var(--milk);
+  padding-block: 48px 40px;
+}
+footer.site .wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+  gap: 28px;
+}
+footer.site img {
+  width: 220px;
+  height: auto;
+}
+footer.site h4 {
+  margin: 0 0 8px;
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ice);
+}
+footer.site ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+footer.site a {
   text-decoration: none;
-  transition: all 0.22s;
-  display: inline-flex;
 }
-.nav-item:hover {
-  color: var(--text);
-  background: #24324a0d;
+footer.site a:hover {
+  text-decoration: underline;
 }
-.nav-item.active-home {
-  background: var(--coral);
-  color: #fff;
-  box-shadow: 0 4px 16px #ff6b4a59;
+footer.site .fine {
+  grid-column: 1 / -1;
+  font-size: 0.85rem;
+  color: #d9cce6;
+  border-top: 1px solid #4e3d66;
+  padding-top: 18px;
 }
-.nav-item.active-alphabet {
-  background: var(--sky);
-  color: #fff;
-  box-shadow: 0 4px 16px #4db8ff59;
-}
-.nav-item.active-words {
-  background: var(--mint-dark);
-  color: #fff;
-  box-shadow: 0 4px 16px #2ecc8f59;
-}
-.nav-item.active-parents {
-  background: var(--lavender);
-  color: #fff;
-  box-shadow: 0 4px 16px #b792ff59;
-}
-.home-cloud {
-  height: 52px;
-  animation: cloud-drift var(--cloud-dur) linear var(--cloud-delay) infinite;
-  background: #fff;
-  border-radius: 50px;
-  position: absolute;
-  left: -300px;
-}
-.home-cloud:before {
-  content: "";
-  background: #fff;
-  border-radius: 50%;
-  width: 52%;
-  height: 160%;
-  position: absolute;
-  top: -55%;
-  left: 18%;
-}
-.home-cloud:after {
-  content: "";
-  background: #fff;
-  border-radius: 50%;
-  width: 36%;
-  height: 130%;
-  position: absolute;
-  top: -38%;
-  left: 52%;
-}
-@keyframes cloud-drift {
-  0% {
-    transform: translate(0);
-  }
-  to {
-    transform: translate(calc(100vw + 420px));
-  }
-}
+
+/* Літери-бульбашки на фоні */
 @keyframes bubble-rise-y {
-  0% {
+  from {
     transform: translateY(0);
   }
   to {
@@ -365,7 +771,8 @@ p {
   }
 }
 @keyframes bubble-sway-x {
-  0% {
+  0%,
+  100% {
     transform: translate(0);
   }
   30% {
@@ -374,101 +781,121 @@ p {
   65% {
     transform: translate(-11px);
   }
-  to {
-    transform: translate(0);
-  }
 }
 @keyframes bubble-appear {
   0% {
     opacity: 0;
   }
-  6% {
-    opacity: 0.65;
-  }
-  to {
-    opacity: 0.65;
+  6%,
+  100% {
+    opacity: 0.8;
   }
 }
 @keyframes bubble-pop {
   0% {
-    opacity: 0.65;
+    opacity: 0.8;
     transform: scale(1);
   }
   55% {
     opacity: 0.25;
     transform: scale(2.1);
   }
-  to {
+  100% {
     opacity: 0;
     transform: scale(3);
   }
 }
-@media (width<=768px) {
-  .container {
-    padding: 0 16px;
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
-  .card {
-    padding: 22px 18px;
-  }
-  .nav-item {
-    gap: 5px;
-    padding: 9px 15px;
-    font-size: 0.92rem;
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
-@media (width<=600px) {
-  .container {
-    padding: 0 12px;
-  }
-  .card {
-    padding: 18px 14px;
-  }
-  .nav-pill {
-    border-radius: 20px;
-    gap: 2px;
-    width: 100%;
-    padding: 5px;
-  }
-  .nav-item {
-    border-radius: 16px;
-    gap: 4px;
-    padding: 9px 11px;
-    font-size: 0.82rem;
-  }
-  .btn {
-    padding: 12px 22px;
-    font-size: 1rem;
-  }
-  h1 {
-    font-size: clamp(1.7rem, 6vw, 2.4rem);
-  }
-  h2 {
-    font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-  }
+.fade-up {
+  animation: fade-up 0.4s ease both;
 }
-@media (width<=430px) {
-  .nav-label {
+
+/* Адаптивність, як на сайті курсу */
+@media (max-width: 1000px) {
+  .top-nav {
     display: none;
   }
-  .nav-item {
-    flex: 1;
-    justify-content: center;
-    padding: 11px 14px;
+  .top .btn {
+    margin-left: auto;
   }
-  .nav-pill {
-    gap: 2px;
-    padding: 5px;
+  .cards3 {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .word-tile {
-    min-width: 0;
+}
+@media (max-width: 760px) {
+  .split,
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
   }
-  .next-word-btn {
-    width: 100% !important;
-    min-width: 0 !important;
-    padding-inline: 20px !important;
-    font-size: 1rem !important;
+  .hero-art {
+    order: -1;
   }
-  .card {
+  .hero-art img {
+    width: 200px;
+  }
+  .top-logo img {
+    width: 160px;
+  }
+  .panel {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .panel-lulu {
+    position: static;
+    order: -1;
+    grid-template-columns: 84px 1fr;
+    justify-items: start;
+    text-align: left;
+    align-items: center;
+  }
+  .panel-lulu img {
+    max-width: 84px;
+  }
+  footer.site .wrap {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  footer.site .brand {
+    grid-column: 1 / -1;
+  }
+}
+@media (max-width: 480px) {
+  .letter-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .letter-grid.wide {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .panel {
     padding: 16px 12px;
   }
+}
+@media (max-width: 420px) {
+  .top .btn {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+  }
+  .top-logo img {
+    width: 132px;
+  }
+}
+.tip-mark {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  background: var(--orange);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+/* Текст сторінки над літерами-бульбашками (шар бульбашок має position: fixed у власному стилі) */
+.page .wrap > * {
+  position: relative;
+  z-index: 1;
 }

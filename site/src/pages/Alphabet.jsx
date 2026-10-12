@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { ALPHABET } from "../data/alphabet.js";
 import { DIGRAPH_CARDS } from "../lib/digraphs.js";
-import { loadSettings } from "../lib/settings.js";
+import { loadSettings, saveSettings } from "../lib/settings.js";
 import { LetterCard } from "../components/LetterCard.jsx";
+import { LetterBubbles } from "../components/LetterBubbles.jsx";
+import { PageHead } from "../components/PageHead.jsx";
+
+const BASE = import.meta.env.BASE_URL;
 
 export function Alphabet() {
   let [revealed, setRevealed] = useState({}),
@@ -15,129 +19,130 @@ export function Alphabet() {
     );
   }, []);
   let toggleCard = (e) => {
-    setRevealed((t) => ({
-      ...t,
-      [e]: !t[e],
-    }));
-  };
+      setRevealed((t) => ({
+        ...t,
+        [e]: !t[e],
+      }));
+    },
+    ids = [
+      ...ALPHABET.map((t) => t.letter),
+      ...(settings.digraphsEnabled
+        ? DIGRAPH_CARDS.map((t) => `digraph_${t.key}`)
+        : []),
+    ],
+    allOpen = ids.every((i) => revealed[i]),
+    toggleAll = () =>
+      setRevealed(allOpen ? {} : Object.fromEntries(ids.map((i) => [i, true]))),
+    toggleDigraphs = () =>
+      saveSettings({ ...settings, digraphsEnabled: !settings.digraphsEnabled }),
+    opened = Object.values(revealed).filter(Boolean).length;
   return (
-    <div>
-      <div
-        className="text-center animate-bounce-in"
-        style={{
-          marginBottom: "48px",
-        }}
+    <>
+      <LetterBubbles />
+      <PageHead
+        icon="icon-read.svg"
+        eyebrow="Practice · Алфавіт"
+        title="Як звучать англійські літери"
       >
-        <h1 className="text-gradient-blue">Alphabet Sounds</h1>
-        <p
-          style={{
-            fontSize: "1.15rem",
-            fontWeight: "500",
-          }}
-        >
-          Натисніть на картку, щоб побачити відповідну українську літеру!
-        </p>
-      </div>
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "20px",
-          justifyContent: "center",
-          maxWidth: "1000px",
-          margin: "0 auto",
-        }}
-      >
-        {ALPHABET.map((t, n) => (
-          <LetterCard
-            key={t.letter}
-            id={t.letter}
-            displayTop={t.letter}
-            displayBottom={t.lower}
-            ukrName={t.ukrName}
-            ukrSupport={t.ukrSupport}
-            isVowel={t.type === "vowel"}
-            isDigraph={false}
-            index={n}
-            isActive={!!revealed[t.letter]}
-            onClick={toggleCard}
-          />
-        ))}
-      </div>
-      {settings.digraphsEnabled && (
-        <div
-          style={{
-            maxWidth: "1000px",
-            margin: "52px auto 0",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: "16px",
-              marginBottom: "24px",
-            }}
-          >
-            <div
-              style={{
-                flex: 1,
-                height: "2px",
-                background: "var(--lavender-light)",
-                borderRadius: "2px",
-              }}
-            />
-            <span
-              style={{
-                fontSize: "0.95rem",
-                fontWeight: "800",
-                color: "var(--lavender-dark)",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                whiteSpace: "nowrap",
-                padding: "4px 14px",
-                background: "var(--lavender-light)",
-                borderRadius: "var(--radius-pill)",
-                border: "1.5px solid rgba(183,146,255,0.4)",
-              }}
-            >
-              ✨ Digraphs
-            </span>
-            <div
-              style={{
-                flex: 1,
-                height: "2px",
-                background: "var(--lavender-light)",
-                borderRadius: "2px",
-              }}
-            />
-          </div>
+        У кутку картки записано, як літера називається. Натисни на картку, і
+        знизу з'явиться українська опора: як літера звучить у слові.
+      </PageHead>
+      <div className="panel fade-up">
+        <div>
           <div
             style={{
               display: "flex",
               flexWrap: "wrap",
-              gap: "20px",
-              justifyContent: "center",
+              alignItems: "center",
+              justifyContent: "space-between",
+              gap: "12px 20px",
+              marginBottom: "20px",
             }}
           >
-            {DIGRAPH_CARDS.map((t, n) => (
+            <ul className="legend" style={{ margin: 0 }}>
+              <li>
+                <i />
+                Приголосні
+              </li>
+              <li className="v">
+                <i />
+                Голосні
+              </li>
+              {settings.digraphsEnabled && (
+                <li className="d">
+                  <i />
+                  Диграфи
+                </li>
+              )}
+            </ul>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+              <button
+                type="button"
+                className="pill"
+                aria-pressed={settings.digraphsEnabled}
+                onClick={toggleDigraphs}
+              >
+                Диграфи
+              </button>
+              <button type="button" className="pill" onClick={toggleAll}>
+                {allOpen ? "Сховати всі" : "Відкрити всі"}
+              </button>
+            </div>
+          </div>
+          <ul className="letter-grid">
+            {ALPHABET.map((t) => (
               <LetterCard
-                key={t.key}
-                id={`digraph_${t.key}`}
-                displayTop={t.key}
-                displayBottom={null}
-                ukrName={null}
+                key={t.letter}
+                id={t.letter}
+                displayTop={t.letter}
+                displayBottom={t.lower}
+                ukrName={t.ukrName}
                 ukrSupport={t.ukrSupport}
-                isVowel={false}
-                isDigraph={true}
-                index={n}
-                isActive={!!revealed[`digraph_${t.key}`]}
+                isVowel={t.type === "vowel"}
+                isDigraph={false}
+                isActive={!!revealed[t.letter]}
                 onClick={toggleCard}
               />
             ))}
-          </div>
+          </ul>
+          {settings.digraphsEnabled && (
+            <>
+              <h2 className="digraphs-title">Диграфи: дві літери, один звук</h2>
+              <ul className="letter-grid wide">
+                {DIGRAPH_CARDS.map((t) => (
+                  <LetterCard
+                    key={t.key}
+                    id={`digraph_${t.key}`}
+                    displayTop={t.key}
+                    displayBottom={null}
+                    ukrName={null}
+                    ukrSupport={t.ukrSupport}
+                    isVowel={false}
+                    isDigraph={true}
+                    isActive={!!revealed[`digraph_${t.key}`]}
+                    onClick={toggleCard}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
         </div>
-      )}
-    </div>
+        <div className="panel-lulu">
+          <img
+            src={`${BASE}brand/${opened >= 5 ? "Lulu-celebrate" : "Lulu-read"}-480.webp`}
+            alt={opened >= 5 ? "Lulu радіє" : "Lulu читає книжку"}
+            width="190"
+            height="240"
+          />
+          <p className="bubble" aria-live="polite">
+            {opened === 0
+              ? "Обери літеру й натисни на картку"
+              : opened >= 5
+                ? "У тебе виходить!"
+                : "Прислухайся до звука"}
+          </p>
+        </div>
+      </div>
+    </>
   );
 }
