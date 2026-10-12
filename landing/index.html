@@ -278,18 +278,29 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 .lulu > img { opacity: 0; }
 .lulu.turning > video { opacity: 0; }
 
-/* Супутник збоку (лише на широкому екрані) */
-.buddy { position: fixed; z-index: 15; left: 16px; bottom: 16px; width: clamp(150px, calc((100vw - 1160px) / 2 + 30px), 230px); display: none; flex-direction: column; align-items: flex-start; gap: 8px; pointer-events: none; opacity: 0; transform: translateX(-40px); transition: opacity .35s ease, transform .45s cubic-bezier(.3, 1.2, .5, 1); }
-.buddy.on { opacity: 1; transform: none; }
-.buddy .lulu { width: 100%; }
-.buddy .bubble { pointer-events: auto; position: relative; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; max-width: 220px; opacity: 0; transform: translateY(6px); transition: opacity .25s, transform .25s; }
-.buddy .bubble.show { opacity: 1; transform: none; }
-.buddy .bubble::after { content: ""; position: absolute; left: 34px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
-.buddy .bye { pointer-events: auto; position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--plum); background: var(--milk); color: var(--plum); cursor: pointer; font: 800 16px/1 var(--font-body); display: grid; place-items: center; opacity: 0; transition: opacity .2s; }
-.buddy:hover .bye, .buddy .bye:focus-visible { opacity: 1; }
-.buddy .luluwrap { position: relative; width: 100%; pointer-events: auto; background: var(--milk); border: 2px solid var(--plum); border-radius: 22px; padding: 6px 6px 0; box-shadow: 0 8px 24px rgba(48,32,71,.12); }
+/* Lulu-провідник: на широкому екрані з першого екрана переїжджає в праву колонку
+   і супроводжує сторінку, показуючи лапкою на блок, про який зараз мова. */
+.stage .lulu { z-index: 25; transform-origin: 0 0; will-change: transform; }
+.lulu .point { position: absolute; top: 0; left: -28.571%; width: 128.571%; height: 100%; display: none; pointer-events: none; }
+.lulu .point img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image: linear-gradient(to right, transparent, #000 6%, #000 95%, transparent), linear-gradient(to bottom, transparent, #000 4%, #000 97%, transparent);
+  mask-composite: intersect; }
+.lulu.pointing .point { display: block; }
+.lulu.pointing > img, .lulu.pointing > video { visibility: hidden; }
+.lulu.away { pointer-events: none; }
+.say { position: fixed; z-index: 26; left: 0; top: 0; max-width: 230px; margin: 0; pointer-events: none; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; opacity: 0; transition: opacity .25s; }
+.say.show { opacity: 1; }
+.say::after { content: ""; position: absolute; right: 48px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
 [data-point].pointed { outline: 3px dashed var(--orange); outline-offset: 8px; border-radius: 12px; transition: outline-color .3s; }
-@media (min-width: 1280px) { .buddy { display: flex; } }
+@media (min-width: 1280px) {
+  body.rail { padding-right: 270px; }
+  /* Lulu-провідник уже поруч, тож у самих блоках другої Lulu не показуємо */
+  body.rail .trainer-lulu img, body.rail .price-card > img { display: none; }
+  body.rail .trainer { grid-template-columns: minmax(0, 1fr) 200px; }
+  body.rail .price-card { grid-template-columns: minmax(0, 1fr); }
+}
 @media (max-width: 900px) {
   .talkhero { grid-template-columns: minmax(0, 1fr); align-items: end; }
   .stage { order: -1; --stage-h: 38svh; margin-bottom: 30px; }
@@ -297,7 +308,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 }
 @media (prefers-reduced-motion: reduce) {
   .caret { display: none; }
-  .pills, .buddy { transition: none; }
+  .pills, .say { transition: none; }
 }
 </style>
 
@@ -535,13 +546,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   </div>
 </footer>
 
-<aside class="buddy" id="buddy" aria-label="Lulu, провідник у читанні">
-  <p class="bubble" id="lulu-say" aria-live="polite"></p>
-  <div class="luluwrap">
-    <div class="lulu" data-lulu="buddy"></div>
-    <button class="bye" id="bye" type="button" aria-label="Сховати Lulu">×</button>
-  </div>
-</aside>
+<p class="say" id="lulu-say" aria-live="polite"></p>
 
 <script>
 (() => {
@@ -770,39 +775,60 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     };
     l.play = () => { l.active = true; if (!l.turning && !reduce) v.play().catch(() => {}); };
     l.pause = () => { l.active = false; v.pause(); };
-    showFrame(nearest(Y0, true));
+    l.frontFrame = nearest(Y0, true);
+    showFrame(l.frontFrame);
     return l;
   }
   const stage = $('#stage');
-  const hero = makeLulu(stage.querySelector('.lulu'), true);
-  const buddyEl = $('#buddy'), buddyLulu = buddyEl.querySelector('.lulu');
-  let buddy = null;   // створюємо, коли супутник уперше з'являється
+  const luluEl = stage.querySelector('.lulu');
+  const hero = makeLulu(luluEl, true);
 
   /* Курсор: Lulu дивиться на нього */
-  let mouseX = innerWidth / 2, lastInput = -1e9, pointing = false;
+  let mouseX = innerWidth / 2, lastInput = -1e9;
   addEventListener('mousemove', e => { mouseX = e.clientX; lastInput = performance.now(); $('#hint').style.opacity = 0; }, { passive: true });
   let dragX = null, dragStart = 0;
-  stage.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; dragX = e.clientX; dragStart = hero.angle; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse' || travel > 0) return; dragX = e.clientX; dragStart = hero.angle; stage.setPointerCapture(e.pointerId); });
   stage.addEventListener('pointermove', e => { if (dragX === null) return; hero.target = clamp(dragStart + (e.clientX - dragX) / (stage.clientWidth * 0.6), -1, 1); lastInput = performance.now(); $('#hint').style.opacity = 0; });
   ['pointerup', 'pointercancel'].forEach(t => stage.addEventListener(t, () => { dragX = null; }));
   if (matchMedia('(hover: none)').matches) $('#hint').textContent = 'Проведіть пальцем по Lulu';
 
-  /* Супутник: з'являється, коли перший екран прокручено */
-  let heroVisible = true, buddyOn = false, dismissed = false;
-  try { dismissed = sessionStorage.getItem('lulu-bye') === '1'; } catch (e) {}
-  new IntersectionObserver(([e]) => { heroVisible = e.isIntersecting; heroVisible ? hero.play() : hero.pause(); sync(); }, { threshold: 0.15 }).observe($('#start'));
-  function sync() {
-    const was = buddyOn;
-    buddyOn = !heroVisible && !dismissed && innerWidth >= 1280;
-    buddyEl.classList.toggle('on', buddyOn);
-    buddyEl.setAttribute('aria-hidden', !buddyOn);
-    if (buddyOn && !buddy) buddy = makeLulu(buddyLulu, true);
-    if (buddy && buddyOn !== was) buddyOn ? buddy.play() : buddy.pause();
+  /* Жест лапкою: 28 кадрів з другого відео. 0 = спокій, 0…14 піднімає лапку, 14…27 тримає (туди-назад). */
+  const RAISE = 14, LAST = 27, PFPS = 12;
+  const pointBox = document.createElement('div');
+  pointBox.className = 'point';
+  luluEl.append(pointBox);
+  let pimgs = null, pshown = -1;
+  function loadPoint() {
+    if (pimgs) return;
+    pimgs = Array.from({ length: LAST + 1 }, (_, i) => {
+      const im = new Image(384, 400); im.alt = ''; im.decoding = 'async';
+      im.src = `assets/lulu/point/${String(i).padStart(2, '0')}.webp`;
+      pointBox.append(im); return im;
+    });
   }
-  addEventListener('resize', sync);
-  $('#bye').onclick = () => { dismissed = true; try { sessionStorage.setItem('lulu-bye', '1'); } catch (e) {} sync(); };
+  const showPoint = i => { if (i === pshown) return; if (pshown >= 0) pimgs[pshown].style.opacity = 0; pimgs[i].style.opacity = 1; pshown = i; };
+  // стан жесту: rest → raise → hold (до holdUntil) → lower → rest
+  let gesture = 'rest', gFrame = 0, gDir = 1, holdUntil = 0, lastG = 0;
+  function gestureStep(now) {
+    if (now - lastG < 1000 / PFPS) return; lastG = now;
+    if (gesture === 'raise') { if (++gFrame >= RAISE) { gesture = 'hold'; gDir = 1; } }
+    else if (gesture === 'hold') {
+      gFrame += gDir;
+      if (gFrame >= LAST) gDir = -1;
+      if (gFrame <= RAISE) { gFrame = RAISE; gDir = 1; if (now > holdUntil) gesture = 'lower'; }
+    }
+    else if (gesture === 'lower') { if (--gFrame <= 0) { gFrame = 0; gesture = 'rest'; } }
+    showPoint(gFrame);
+  }
 
-  /* Підказки: коли блок доходить до середини екрана, Lulu повертається до нього і підказує */
+  /* Права колонка: лише на широкому екрані */
+  const railOK = () => innerWidth >= 1280 && !reduce;
+  function syncRail() { document.body.classList.toggle('rail', railOK()); }
+  syncRail(); addEventListener('resize', syncRail);
+  const RAIL_W = 210, RAIL_GAP = 28, PAW_Y = 0.567;   // ширина Lulu в колонці; висота лапки в кадрі
+  let travel = 0, railY = null;
+
+  /* Підказки: коли блок доходить до середини екрана, Lulu під'їжджає до нього і показує лапкою */
   const TIPS = [
     ['#why-list', 'Оберіть ситуацію зі свого уроку'],
     ['#traps', 'Ці звуки діти підміняють найчастіше'],
@@ -813,28 +839,30 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     ['#form', 'Маєте питання? Напишіть Альоні']
   ];
   const tips = TIPS.map(([sel, text]) => { const el = $(sel); if (el) el.dataset.point = ''; return el && { el, text, shown: false }; }).filter(Boolean);
-  const bubble = $('#lulu-say');
+  const say = $('#lulu-say');
   let current = null, hideT = 0;
   function show(tip) {
     if (current) current.el.classList.remove('pointed');
     current = tip; tip.shown = true;
-    bubble.textContent = tip.text; bubble.classList.add('show');
+    say.textContent = tip.text; say.classList.add('show');
     tip.el.classList.add('pointed');
-    pointing = true;
+    gesture = gesture === 'rest' ? 'raise' : gesture === 'lower' ? 'raise' : gesture;
+    holdUntil = performance.now() + 2800;
     clearTimeout(hideT);
-    hideT = setTimeout(() => { pointing = false; bubble.classList.remove('show'); tip.el.classList.remove('pointed'); current = null; }, 3600);
+    hideT = setTimeout(() => { say.classList.remove('show'); tip.el.classList.remove('pointed'); current = null; }, 4200);
   }
+  function hideTip() { clearTimeout(hideT); say.classList.remove('show'); if (current) current.el.classList.remove('pointed'); current = null; if (gesture !== 'rest') gesture = 'lower'; }
   let lastCheck = 0;
   function checkTips(now) {
     if (now - lastCheck < 150) return; lastCheck = now;
     for (const t of tips) {
       const r = t.el.getBoundingClientRect(), c = r.top + Math.min(r.height, innerHeight) / 2;
       if (r.top > innerHeight) t.shown = false;                       // повернулись вище: можна показати знову
-      else if (!t.shown && !pointing && c > innerHeight * 0.3 && c < innerHeight * 0.7) { show(t); break; }
+      else if (!t.shown && !current && c > innerHeight * 0.3 && c < innerHeight * 0.7) { show(t); break; }
     }
   }
 
-  /* Один цикл анімації на обидві Lulu */
+  /* Поворот голови в першому екрані */
   function aimAt(el) {
     const r = el.getBoundingClientRect();
     return clamp((mouseX - (r.left + r.width / 2)) / (innerWidth * 0.45), -1, 1);
@@ -848,13 +876,47 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
     l.angle += (l.target - l.angle) * 0.14;
     l.draw(Math.abs(l.target - l.angle) < 0.02);
   }
+  const ease = t => t * t * (3 - 2 * t);
+
   function tick(now) {
     const idle = now - lastInput > 3500;
-    if (heroVisible) step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
-    if (buddyOn) {
-      checkTips(now);
-      if (pointing && current) step(buddy, 1, true);   // контент праворуч від Lulu
-      else step(buddy, aimAt(buddyLulu), !idle);
+    let p = 0;
+    if (railOK()) {
+      const sr = stage.getBoundingClientRect(), hb = top.getBoundingClientRect().bottom;
+      p = clamp((hb + 40 - sr.top) / (sr.height * 0.55), 0, 1);
+    }
+    travel = p;
+    if (p === 0) {
+      // перший екран: Lulu на своєму місці, крутить головою
+      if (luluEl.style.transform) { luluEl.style.transform = ''; luluEl.classList.remove('pointing', 'away'); railY = null; hideTip(); gesture = 'rest'; gFrame = 0; }
+      step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
+    } else {
+      loadPoint();
+      // переліт: голова повертається прямо, Lulu зменшується й летить у праву колонку
+      hero.target = 0; step(hero, 0, true);
+      const sr = stage.getBoundingClientRect();
+      const W = luluEl.offsetWidth, H = luluEl.offsetHeight;
+      const sx = sr.left + luluEl.offsetLeft, sy = sr.top + luluEl.offsetTop;
+      const k = RAIL_W / W, rh = H * k;
+      const hb = top.getBoundingClientRect().bottom;
+      const rx = innerWidth - RAIL_GAP - RAIL_W;
+      let want = innerHeight - rh - 24;   // спокій: унизу колонки
+      if (current) {
+        const r = current.el.getBoundingClientRect();
+        want = clamp(r.top + Math.min(r.height, innerHeight * 0.6) / 2 - rh * PAW_Y, hb + 90, innerHeight - rh - 12);
+      }
+      railY = railY === null ? want : railY + (want - railY) * 0.08;
+      const e = ease(p);
+      const x = sx + (rx - sx) * e, y = sy + (railY - sy) * e, sc = 1 + (k - 1) * e;
+      luluEl.style.transform = `translate(${x - sx}px, ${y - sy}px) scale(${sc})`;
+      luluEl.classList.toggle('away', true);
+      const arrived = p >= 1;
+      if (arrived && hero.shown === hero.frontFrame) luluEl.classList.add('pointing');
+      if (!arrived && gesture === 'rest') luluEl.classList.remove('pointing');
+      if (luluEl.classList.contains('pointing')) {
+        checkTips(now); gestureStep(now);
+        say.style.transform = `translate(${rx + RAIL_W - say.offsetWidth - 4}px, ${railY - say.offsetHeight + rh * 0.08}px)`;
+      } else if (current) hideTip();
     }
     requestAnimationFrame(tick);
   }
