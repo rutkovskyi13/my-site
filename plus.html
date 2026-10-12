@@ -1,0 +1,208 @@
+<title>Phonetics4All Plus</title>
+<meta name="description" content="Експериментальний перший екран: лисеня-провідник обертається за курсором і пропонує, з чого почати.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Andika:wght@400;700&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,800&display=swap">
+<style>
+/* Перший екран як розмова з лисеням: репліка друкується, відповіді — кнопки, лисеня повертається за курсором. */
+:root {
+  --plum: #351E28;
+  --orange: #FF5C34;
+  --milk: #FFF9F2;
+  --ice: #D7EFFF;
+  --paper: #FFFFFF;
+  --plum-soft: #6B5560;
+  --font-head: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Nunito Sans", "Segoe UI", system-ui, sans-serif;
+  --font-learn: "Andika", "Nunito Sans", system-ui, sans-serif;
+  --gutter: clamp(20px, 4vw, 40px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; background: var(--milk); color: var(--plum); font: 400 16px/1.5 var(--font-body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; border-radius: 6px; }
+[hidden] { display: none !important; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* Навігація */
+.nav { position: fixed; z-index: 10; top: env(safe-area-inset-top, 0px); left: 0; right: 0; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 16px var(--gutter); }
+.nav .logo img { width: clamp(150px, 16vw, 210px); height: auto; display: block; }
+.nav .links { display: flex; gap: 0; font-size: 20px; font-weight: 600; }
+.nav .links a, .nav .cta { text-decoration: none; transition: opacity .2s; }
+.nav .links a:hover, .nav .cta:hover { opacity: .6; }
+.nav .cta { font-size: 20px; font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: 3px; text-underline-offset: 5px; }
+.burger { display: none; width: 44px; height: 44px; border: 0; background: transparent; cursor: pointer; flex-direction: column; justify-content: center; align-items: center; gap: 5px; }
+.burger i { display: block; width: 24px; height: 2px; background: var(--plum); transition: transform .3s, opacity .3s; }
+.burger[aria-expanded="true"] i:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] i:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] i:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu { position: fixed; inset: 0; z-index: 9; background: rgba(53,30,40,.94); color: var(--milk); display: flex; flex-direction: column; justify-content: center; gap: 28px; padding: 0 32px; font-size: 32px; font-weight: 800; opacity: 0; pointer-events: none; transition: opacity .3s; }
+.menu.open { opacity: 1; pointer-events: auto; }
+.menu a { text-decoration: none; }
+.menu a.u { text-decoration: underline; text-decoration-color: var(--orange); text-underline-offset: 6px; }
+
+/* Hero */
+.hero { position: relative; z-index: 1; min-height: 100svh; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; padding: 96px var(--gutter) 40px; overflow: hidden; }
+.talk { max-width: 36rem; position: relative; z-index: 2; }
+.intro { margin: 0 0 22px; font-size: clamp(18px, 3.2vw, 24px); line-height: 1.3; filter: blur(3px); user-select: none; pointer-events: none; color: var(--plum-soft); }
+.typed { margin: 0 0 26px; font: 800 clamp(26px, 4.4vw, 46px)/1.15 var(--font-head); min-height: 3.45em; text-wrap: balance; }
+.caret { display: inline-block; width: 3px; height: 0.95em; background: var(--orange); vertical-align: -0.1em; margin-left: 3px; animation: blink 1s step-end infinite; }
+@keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.pills { display: flex; flex-wrap: wrap; gap: 8px 8px; opacity: 0; transform: translateY(8px); transition: opacity .4s ease, transform .4s ease; }
+.pills.show { opacity: 1; transform: none; }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; white-space: nowrap; min-height: 44px; padding: 8px 18px; border-radius: 999px; border: 1.5px solid rgba(53,30,40,.18); background: var(--paper); color: var(--plum); font: 600 15px/1.2 var(--font-body); text-decoration: none; cursor: pointer; transition: background-color .2s, color .2s, border-color .2s; }
+.pill:hover { background: var(--plum); color: var(--milk); border-color: var(--plum); }
+.pill.main { background: var(--orange); border-color: var(--orange); font-weight: 800; }
+.pill.main:hover { background: var(--plum); color: var(--milk); border-color: var(--plum); }
+.pill.line { background: transparent; border-color: var(--plum); }
+.pill.line:hover { background: var(--plum); color: var(--milk); }
+.status { margin: 14px 0 0; font-size: 14px; background: var(--ice); padding: 8px 12px; border-radius: 8px; display: inline-block; }
+
+/* Лисеня, що обертається */
+.stage { position: relative; height: min(78svh, 720px); display: grid; place-items: end center; touch-action: pan-y; cursor: ew-resize; }
+.stage::before { content: ""; position: absolute; left: 50%; bottom: 3%; width: 46%; height: 5%; transform: translateX(calc(-50% + var(--shadow-x, 0px))); background: radial-gradient(closest-side, rgba(53,30,40,.16), transparent); border-radius: 50%; }
+.fox { position: relative; height: 100%; aspect-ratio: 600 / 640; max-width: 100%; perspective: 1400px; }
+.fox img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; object-position: bottom; opacity: 0; will-change: opacity, transform; transform-origin: 50% 90%; }
+.fox img.flip { scale: -1 1; }
+.stage .hint { position: absolute; left: 50%; bottom: -22px; transform: translateX(-50%); font-size: 13px; color: var(--plum-soft); white-space: nowrap; }
+.note { position: relative; z-index: 1; padding: 18px var(--gutter) 28px; font-size: 14px; color: var(--plum-soft); display: flex; gap: 12px; flex-wrap: wrap; justify-content: space-between; border-top: 1px solid #E8DDD6; }
+
+@media (max-width: 900px) {
+  .nav .links, .nav .cta { display: none; }
+  .burger { display: flex; }
+  .hero { grid-template-columns: minmax(0, 1fr); align-items: end; padding-top: 80px; }
+  .stage { order: -1; height: 40svh; margin-bottom: 36px; }
+  .typed { min-height: 4.6em; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret { display: none; }
+  .pills { transition: none; }
+}
+</style>
+
+<nav class="nav" aria-label="Головна навігація">
+  <a class="logo" href="#top" aria-label="Phonetics4All"><img src="assets/brand/logos/logo-horizontal.svg" alt="Phonetics4All" width="210" height="58"></a>
+  <div class="links"><a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#start">Academy</a>,&nbsp;<a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-4">Resources</a>,&nbsp;<a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-3">Practice</a></div>
+  <a class="cta" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#buy">Купити курс</a>
+  <button class="burger" id="burger" type="button" aria-label="Меню" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+</nav>
+<div class="menu" id="menu">
+  <a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#start">Academy</a>
+  <a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-4">Resources</a>
+  <a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-3">Practice</a>
+  <a class="u" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#buy">Купити курс</a>
+</div>
+
+<main id="top">
+  <section class="hero">
+    <div class="talk">
+      <p class="intro" aria-hidden="true">Привіт, я Лисеня з Phonetics4All.<br>Допомагаю вчителям навчити дітей читати англійською.</p>
+      <p class="sr">Привіт, я Лисеня з Phonetics4All. Допомагаю вчителям навчити дітей читати англійською.</p>
+      <h1 class="typed"><span class="sr" id="typed-full"></span><span aria-hidden="true" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span></h1>
+      <div class="pills" id="pills">
+        <a class="pill main" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#buy">Купити курс</a>
+        <a class="pill" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-1">Чому дитина не читає?</a>
+        <a class="pill" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-3">Спробувати тренажер</a>
+        <a class="pill" href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ#step-5">Подивитися програму</a>
+        <button class="pill line" id="tg" type="button">Безкоштовний матеріал у Telegram
+          <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.5 2.8 10.7c-1 .4-1 1.8.1 2.1l4.6 1.5 1.8 5.5c.3.9 1.4 1.1 2 .4l2.6-2.7 4.7 3.5c.8.6 1.9.1 2.1-.8l3-15.1c.2-1.1-.9-2-1.9-1.6Z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <p class="status" id="tg-status" hidden>Посилання на бота додамо, щойно він запрацює.</p>
+    </div>
+    <div class="stage" id="stage" role="img" aria-label="Лисеня Phonetics4All повертається слідом за курсором">
+      <div class="fox" id="fox">
+        <img src="assets/turn/fox-profile.webp" class="flip" alt="" data-i="0">
+        <img src="assets/turn/fox-three-quarter.webp" class="flip" alt="" data-i="1">
+        <img src="assets/turn/fox-front.webp" alt="" data-i="2" style="opacity:1">
+        <img src="assets/turn/fox-three-quarter.webp" alt="" data-i="3">
+        <img src="assets/turn/fox-profile.webp" alt="" data-i="4">
+      </div>
+      <span class="hint" id="hint">Поводіть курсором, і лисеня обернеться</span>
+    </div>
+  </section>
+</main>
+<p class="note"><span>Експериментальна версія першого екрана.</span><a href="https://claude.ai/artifact/6DsTFj3K6PEriCwE49LUKQ">Основне демо сайту</a></p>
+
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* Меню */
+  const burger = $('#burger'), menu = $('#menu');
+  burger.onclick = () => { const o = burger.getAttribute('aria-expanded') !== 'true'; burger.setAttribute('aria-expanded', o); menu.classList.toggle('open', o); };
+  menu.addEventListener('click', e => { if (e.target.closest('a')) burger.click(); });
+
+  /* Друкування репліки */
+  const TEXT = 'Діти знають літери, але не читають слова? Знаю, як це виправити. З чого почнемо?';
+  $('#typed-full').textContent = TEXT;
+  const out = $('#typed'), caret = $('#caret');
+  if (reduce) { out.textContent = TEXT; caret.remove(); }
+  else setTimeout(() => {
+    let i = 0;
+    const t = setInterval(() => { out.textContent = TEXT.slice(0, ++i); if (i >= TEXT.length) { clearInterval(t); caret.remove(); } }, 38);
+  }, 600);
+  setTimeout(() => $('#pills').classList.add('show'), reduce ? 0 : 400);
+  $('#tg').onclick = () => { $('#tg-status').hidden = false; };
+
+  /* Оберт лисеняти: 5 ракурсів від профілю ліворуч до профілю праворуч */
+  const stage = $('#stage'), frames = [...document.querySelectorAll('#fox img')];
+  let target = 0, angle = 0, lastInput = 0, visible = true, raf = 0;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  function render(a) {
+    const pos = (a + 1) * 2;                 // a: -1…1 → 0…4
+    const i = Math.floor(clamp(pos, 0, 3.999)), f = pos - i;
+    const s = clamp((f - 0.3) / 0.4, 0, 1);  // коротке перехрестя, без довгого «привида»
+    const k = s * s * (3 - 2 * s);
+    frames.forEach((im, j) => {
+      const o = j === i ? 1 - k : j === i + 1 ? k : 0;
+      im.style.opacity = o;
+      if (o) im.style.transform = `rotateY(${(j === i ? k : k - 1) * 14}deg)`;
+    });
+    stage.style.setProperty('--shadow-x', a * 18 + 'px');
+  }
+  function tick(now) {
+    raf = 0;
+    if (!visible) return;
+    if (now - lastInput > 3500 && !reduce) target = Math.sin(now / 1600) * 0.35;   // спокійне похитування без руху миші
+    angle += (target - angle) * 0.12;
+    render(angle);
+    raf = requestAnimationFrame(tick);
+  }
+  const kick = () => { if (!raf && !reduce) raf = requestAnimationFrame(tick); };
+  function aim(x) {
+    target = clamp((x / innerWidth) * 2 - 1, -1, 1);
+    lastInput = performance.now();
+    $('#hint').style.opacity = 0;
+    kick();
+  }
+  if (reduce) { render(0); $('#hint').textContent = 'Перетягніть, щоб обернути лисеня'; }
+  addEventListener('mousemove', e => aim(e.clientX), { passive: true });
+  /* На телефоні: перетягування пальцем по лисеняті */
+  let dragX = null, dragStart = 0;
+  stage.addEventListener('pointerdown', e => { if (e.pointerType === 'mouse') return; dragX = e.clientX; dragStart = target; stage.setPointerCapture(e.pointerId); });
+  stage.addEventListener('pointermove', e => {
+    if (dragX === null) return;
+    target = clamp(dragStart + (e.clientX - dragX) / (stage.clientWidth * 0.6), -1, 1);
+    lastInput = performance.now(); $('#hint').style.opacity = 0;
+    if (reduce) render(target); else kick();
+  });
+  stage.addEventListener('pointerup', () => { dragX = null; });
+  stage.addEventListener('pointercancel', () => { dragX = null; });
+  /* Клавіатура */
+  stage.tabIndex = 0;
+  stage.addEventListener('keydown', e => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    target = clamp(target + (e.key === 'ArrowRight' ? 0.25 : -0.25), -1, 1);
+    lastInput = performance.now();
+    if (reduce) render(target); else kick();
+  });
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; kick(); }).observe(stage);
+  if (matchMedia('(hover: none)').matches) $('#hint').textContent = 'Проведіть пальцем по лисеняті';
+  kick();
+})();
+</script>
