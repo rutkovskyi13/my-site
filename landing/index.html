@@ -38,6 +38,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h, 160px) + 8px); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 body { background: var(--milk); color: var(--plum); font: 400 var(--step-0)/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
@@ -51,7 +52,6 @@ a { color: inherit; }
 .wrap { max-width: 1160px; margin-inline: auto; padding-inline: var(--gutter); }
 .learn { font-family: var(--font-learn); }
 .muted { color: var(--plum-soft); }
-.sample { display: inline-block; font: 700 0.72rem/1 var(--font-body); letter-spacing: 0.08em; text-transform: uppercase; background: var(--ice); color: var(--plum); padding: 5px 8px; border-radius: 4px; vertical-align: middle; }
 
 /* Кнопки за брендбуком: фіолетове тло з кремовим текстом (14:1) */
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 48px; padding: 12px 24px; border-radius: 999px; border: 2px solid var(--plum); font: 600 1rem/1.2 var(--font-body); text-decoration: none; cursor: pointer; transition: transform .15s ease, background-color .15s ease; }
@@ -158,7 +158,6 @@ section { padding-block: clamp(56px, 8vw, 104px); }
 /* Крок 4: матеріали */
 .games { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 36px; }
 .game { border: 2px dashed var(--line); border-radius: var(--radius); padding: 20px; display: grid; gap: 8px; align-content: start; min-height: 170px; background: var(--paper); }
-.game .sample { justify-self: start; }
 .game h3 { font-family: var(--font-learn); font-weight: 700; font-size: 1.5rem; }
 .sheets { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; margin-top: 20px; }
 .sheet { background: var(--paper); border: 1px solid var(--line); border-radius: 6px; padding: 22px; display: grid; gap: 14px; }
@@ -187,10 +186,6 @@ section { padding-block: clamp(56px, 8vw, 104px); }
 .creds { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
 .creds li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; }
 .creds li::before { content: ""; width: 12px; height: 12px; margin-top: 7px; background: var(--orange); clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.quotes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; margin-top: 48px; }
-blockquote { margin: 0; padding: 22px; background: var(--paper); border-radius: var(--radius); display: grid; gap: 12px; border: 1px solid var(--line); }
-blockquote p { font-size: 1.05rem; }
-blockquote footer { font-size: 0.9rem; color: var(--plum-soft); display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
 
 .buy { position: relative; background: var(--plum) url("assets/patterns/P5-character-tile.svg") repeat; background-size: 320px 320px; color: var(--milk); overflow: hidden; }
 .buy .wrap { position: relative; }
@@ -198,15 +193,10 @@ blockquote footer { font-size: 0.9rem; color: var(--plum-soft); display: flex; j
 .price-card .price { font: 800 2.2rem/1 var(--font-head); font-variant-numeric: tabular-nums; }
 .price-card ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
 .price-card img { width: 100%; height: auto; }
-.status { font-size: 0.92rem; background: var(--ice); padding: 10px 14px; border-radius: 8px; }
 
 .free { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); }
-form { display: grid; gap: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
-label { font-weight: 600; font-size: 0.95rem; display: grid; gap: 6px; }
-input, textarea { font: 400 1rem/1.4 var(--font-body); color: var(--plum); background: var(--milk); border: 1.5px solid #C9BDD6; border-radius: 8px; padding: 12px 14px; min-height: 48px; width: 100%; }
-input:focus, textarea:focus { outline: 3px solid var(--plum); outline-offset: 1px; }
-.check { display: grid; grid-template-columns: 22px 1fr; gap: 10px; font-weight: 400; align-items: start; }
-.check input { min-height: auto; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--orange); }
+.ask { display: grid; align-self: start; align-content: start; gap: 14px; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+.ask p a { font-weight: 600; }
 details { border-bottom: 1px solid var(--line); padding-block: 14px; }
 summary { font-weight: 800; cursor: pointer; min-height: 32px; display: flex; align-items: center; }
 details p { margin-top: 8px; }
@@ -218,7 +208,9 @@ footer.site h4 { margin: 0 0 8px; font-size: 0.85rem; letter-spacing: .06em; tex
 footer.site ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
 footer.site a { text-decoration: none; }
 footer.site a:hover { text-decoration: underline; }
-footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; border-top: 1px solid #4E3D66; padding-top: 18px; }
+footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; border-top: 1px solid #4E3D66; padding-top: 18px; display: grid; gap: 8px; }
+footer.site .fine p { margin: 0; }
+footer.site .fine a { text-decoration: underline; }
 
 /* Адаптивність */
 @media (max-width: 1000px) {
@@ -233,7 +225,7 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   .traps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 760px) {
-  .split, .why, .trainer, .author, .free, .sheets, .quotes, .for, .price-card { grid-template-columns: minmax(0, 1fr); }
+  .split, .why, .trainer, .author, .free, .sheets, .for, .price-card { grid-template-columns: minmax(0, 1fr); }
   .why-list { border-right: 0; border-bottom: 2px solid var(--plum); }
   .traps, .games { grid-template-columns: minmax(0, 1fr); }
   .path a .lbl { display: none; }
@@ -437,16 +429,16 @@ body.docked .hide-lulu { display: none; }
       </div>
       <div class="sheets">
         <div class="sheet">
-          <header><img src="assets/logos/logo-horizontal.svg" alt="Phonics4All"><span class="sample">Зразок аркуша</span></header>
+          <header><img src="assets/logos/logo-horizontal.svg" alt="Phonics4All"></header>
           <h3>Читаємо слова</h3>
           <p>Прочитай. Обери слово. Спробуй ще.</p>
           <div class="line"><span>CAT</span><span>MAP</span><span>SUN</span></div>
           <p>Моє слово: <span class="blank" style="display:inline-block;vertical-align:bottom"></span></p>
         </div>
         <div class="sheet">
-          <header><b>Картки для злиття</b><span class="sample">Зразок карток</span></header>
+          <header><b>Картки для злиття</b></header>
           <div class="cards"><div>S<small>01</small></div><div style="border-color:var(--orange)">U<small>02</small></div><div>N<small>03</small></div></div>
-          <p class="muted" style="font-size:.95rem">На старті діти читають лише великі літери: так менше навантаження на зір і увагу. Фрагменти посібника покажемо тут.</p>
+          <p class="muted" style="font-size:.95rem">На старті діти читають лише великі літери: так менше навантаження на зір і увагу.</p>
         </div>
       </div>
       <p class="shop-cta"><a class="btn btn-primary" href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">Купити роздруківки</a></p>
@@ -469,7 +461,7 @@ body.docked .hide-lulu { display: none; }
       </ol>
       <div class="for">
         <div><b>Для кого</b><p class="muted">Вихователі садочків і вчителі 1-х класів, репетитори й мовні школи, батьки, навіть ті, хто не знає англійської.</p></div>
-        <div><b>Формат</b><p class="muted">Посібник, шаблони карток і доступ до сайту-тренажера. Займаєтесь у власному темпі. <span class="sample">Уточнюється</span></p></div>
+        <div><b>Формат</b><p class="muted">Посібник, шаблони карток і доступ до сайту-тренажера. Займаєтесь у власному темпі.</p></div>
         <div><b>Результат</b><p class="muted">Дитина впевнено читає прості слова й не боїться англійського тексту, а ви знаєте, як вести її далі.</p></div>
       </div>
     </div>
@@ -480,7 +472,7 @@ body.docked .hide-lulu { display: none; }
     <div class="wrap">
       <div class="eyebrow"><img src="assets/icons/icon-progress.svg" alt="">Крок 6 з 6 · Авторка</div>
       <div class="author">
-        <div class="photo"><div><img src="assets/characters/Lulu-read-480.webp" alt=""><p>Тут буде фото авторки</p></div></div>
+        <div class="photo"><div><img src="assets/characters/Lulu-read-480.webp" alt=""></div></div>
         <div class="stack">
           <h2>Альона Рутковська, PhD</h2>
           <p class="lead">Докторка філософії, вчителька-практик і авторка методики навчання читання англійською для дітей 5–7 років.</p>
@@ -494,10 +486,6 @@ body.docked .hide-lulu { display: none; }
           </ul>
         </div>
       </div>
-      <div class="quotes">
-        <blockquote><p>«Мої першокласники перестали боятися англійських слів. За три тижні вже самі читають CAT і DOG.»</p><footer><span>Вчителька 1-го класу, Київ</span><span class="sample">Зразок відгуку</span></footer></blockquote>
-        <blockquote><p>«Займаюся з донькою вдома, хоча сама англійську майже не пам'ятаю. Усе зрозуміло, і ми граємо, а не зубримо.»</p><footer><span>Мама п'ятирічної Соломії, Львів</span><span class="sample">Зразок відгуку</span></footer></blockquote>
-      </div>
     </div>
   </section>
 
@@ -507,14 +495,12 @@ body.docked .hide-lulu { display: none; }
       <div class="price-card">
         <div class="stack">
           <h2>Онлайн-курс Phonics4All</h2>
-          <p class="price">Ціну буде оголошено <span class="sample">Зразок</span></p>
           <ul>
             <li>Посібник із методикою та готовими сценаріями уроків</li>
             <li>Шаблони інтерактивних карток для друку</li>
             <li>Доступ до закритого сайту-тренажера</li>
           </ul>
-          <div><button class="btn btn-primary" id="pay" type="button">Купити курс</button></div>
-          <p class="status" id="pay-status" hidden>Оплату ще не підключено, це демо. Після запуску тут буде перехід до оплати й автоматичний доступ до навчання.</p>
+          <div><a class="btn btn-primary" href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">Купити курс</a></div>
         </div>
         <img src="assets/characters/Lulu-celebrate-480.webp" alt="" width="480" height="661">
       </div>
@@ -525,27 +511,27 @@ body.docked .hide-lulu { display: none; }
   <section id="contact">
     <div class="wrap free">
       <div class="stack">
-        <h2>Ще не готові купувати?</h2>
-        <p class="lead muted">Отримайте безкоштовний матеріал у Telegram-боті Phonics4All і спробуйте його на уроці.</p>
-        <div><button class="btn btn-ghost" id="tg" type="button">Отримати в Telegram</button></div>
-        <p class="status" id="tg-status" hidden>Посилання на бота додамо, щойно він запрацює.</p>
-        <div style="margin-top:24px">
+        <!-- Telegram-бот: щоб увімкнути, прибрати hidden і вписати посилання на бота в href -->
+        <div class="stack" id="tg-block" hidden>
+          <h2>Ще не готові купувати?</h2>
+          <p class="lead muted">Отримайте безкоштовний матеріал у Telegram-боті Phonics4All і спробуйте його на уроці.</p>
+          <div><a class="btn btn-ghost" href="https://t.me/" target="_blank" rel="noopener">Отримати в Telegram</a></div>
+        </div>
+        <h2>Часті питання</h2>
+        <div>
           <details><summary>Чи не зашкодить опора на рідну мову вимові?</summary><p class="muted">Ні. Рідна опора тут як бічні коліщата на дитячому велосипеді: допомагає стартувати без страху і прибирається, щойно навичка злиття звуків закріпилась. Точну англійську вимову дитина шліфує через аудіювання, пісні й живе спілкування.</p></details>
           <details><summary>Чим методика відрізняється від транскрипції чи методу цілих слів?</summary><p class="muted">Вона не заперечує класичні підходи, а пропонує м'якший шлях саме для 5–7 років: без додаткових абстрактних знаків і без механічного заучування слів.</p></details>
           <details><summary>Чи зможу я займатися з дитиною, якщо сама не знаю англійської?</summary><p class="muted">Так. Усі підказки зрозумілі будь-якому дорослому, а сайт-тренажер допомагає перевірити себе.</p></details>
-          <details><summary>Чи підійде курс дітям з особливими освітніми потребами?</summary><p class="muted">Методика має зареєстровану адаптацію шрифтом Брайля для дітей із порушенням зору. <span class="sample">Деталі уточнюються</span></p></details>
-          <details><summary>Коли я отримаю доступ?</summary><p class="muted">Одразу після оплати на пошту прийде підтвердження й інструкція з доступу. <span class="sample">Умови уточнюються</span></p></details>
+          <details><summary>Чи підійде курс дітям з особливими освітніми потребами?</summary><p class="muted">Методика має зареєстровану адаптацію шрифтом Брайля для дітей із порушенням зору.</p></details>
+          <details><summary>Коли я отримаю доступ?</summary><p class="muted">Одразу після оплати на пошту прийде підтвердження й інструкція з доступу.</p></details>
         </div>
       </div>
-      <form id="form" novalidate>
+      <div class="ask" id="ask">
         <h3>Поставити питання</h3>
-        <label for="f-name">Ім'я<input id="f-name" name="name" autocomplete="name" required></label>
-        <label for="f-email">Email<input id="f-email" name="email" type="email" autocomplete="email" required></label>
-        <label for="f-msg">Питання<textarea id="f-msg" name="msg" rows="4" required></textarea></label>
-        <label class="check" for="f-ok"><input id="f-ok" type="checkbox" required><span>Погоджуюсь з політикою конфіденційності</span></label>
-        <div><button class="btn btn-primary" type="submit">Надіслати</button></div>
-        <p class="status" id="form-status" hidden></p>
-      </form>
+        <p class="muted">Напишіть Альоні на пошту або в Instagram, відповідь прийде особисто.</p>
+        <div><a class="btn btn-primary" href="mailto:phonics4all.read@gmail.com">Написати на пошту</a></div>
+        <p><a href="mailto:phonics4all.read@gmail.com">phonics4all.read@gmail.com</a><br><a href="https://www.instagram.com/aly_rutkovska/" target="_blank" rel="noopener">Instagram @aly_rutkovska</a></p>
+      </div>
     </div>
   </section>
 </main>
@@ -553,10 +539,10 @@ body.docked .hide-lulu { display: none; }
 <footer class="site">
   <div class="wrap">
     <div class="brand stack"><img src="assets/logos/logo-horizontal-light.svg" alt="Phonics4All"><p>Читаємо разом із Lulu.</p></div>
-    <div><h4>Academy</h4><ul><li><a href="#step-5">Програма курсу</a></li><li><a href="#buy">Купити курс</a></li></ul></div>
-    <div><h4>Resources</h4><ul><li><a href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">Роздруківки в магазині</a></li><li>Посібник для 5–7 років, скоро</li></ul></div>
+    <div><h4>Academy</h4><ul><li><a href="#step-5">Програма курсу</a></li><li><a href="#buy">Купити курс</a></li><li><a href="mailto:phonics4all.read@gmail.com">phonics4all.read@gmail.com</a></li><li><a href="https://www.instagram.com/aly_rutkovska/" target="_blank" rel="noopener">Instagram</a></li></ul></div>
+    <div><h4>Resources</h4><ul><li><a href="https://rutkovskashop.wayforpay.shop" target="_blank" rel="noopener">Роздруківки в магазині</a></li></ul></div>
     <div><h4>Practice</h4><ul><li><a href="practice/index.html#/alphabet">Алфавіт</a></li><li><a href="practice/index.html#/word-practice">Word Practice</a></li><li><a href="#step-3">Гра «Склади слово»</a></li></ul></div>
-    <p class="fine">Демо-версія сайту. Позначки «Зразок» замінимо справжніми даними. Публічна оферта й політика конфіденційності з'являться до запуску продажів.</p>
+    <div class="fine"><p>© 2026 Альона Рутковська. Phonics4All — авторська методика навчання читання англійською, розроблена Альоною Рутковською. Методика, тексти, ілюстрації, персонажі й матеріали сайту захищені авторським правом. Копіювання й поширення без письмового дозволу авторки заборонено.</p><p><a href="privacy.html">Політика конфіденційності</a> · <a href="terms.html">Умови використання</a></p></div>
   </div>
 </footer>
 
@@ -682,17 +668,6 @@ body.docked .hide-lulu { display: none; }
   };
   render(); reset();
 
-  /* Чесні заглушки */
-  $('#pay').onclick = () => { $('#pay-status').hidden = false; };
-  $('#tg').onclick = () => { $('#tg-status').hidden = false; };
-  $('#form').addEventListener('submit', e => {
-    e.preventDefault();
-    const f = e.target, s = $('#form-status');
-    const bad = [...f.querySelectorAll('[required]')].find(el => el.type === 'checkbox' ? !el.checked : !el.value.trim() || (el.type === 'email' && !el.checkValidity()));
-    s.hidden = false;
-    if (bad) { s.textContent = bad.type === 'checkbox' ? 'Поставте галочку згоди, щоб надіслати питання.' : bad.type === 'email' ? 'Перевірте email: схоже, в ньому помилка.' : 'Заповніть усі поля.'; bad.focus(); return; }
-    s.textContent = 'Дякуємо! Це демо, тому форма ще нікуди не надсилає дані. Після запуску відповідь прийде на ваш email.';
-  });
 
   /* Головний ефект: знак Phonics4All іде шляхом читання */
   const items = [...document.querySelectorAll('.path li')];
@@ -860,7 +835,7 @@ body.docked .hide-lulu { display: none; }
     ['.games', 'Усе це ви отримаєте в курсі'],
     ['.program', 'Шість модулів, як шість кроків читання'],
     ['.price-card', 'Тут можна купити курс'],
-    ['#form', 'Маєте питання? Напишіть Альоні']
+    ['#ask', 'Маєте питання? Напишіть Альоні']
   ];
   const tips = TIPS.map(([sel, text]) => { const el = $(sel); if (el) el.dataset.point = ''; return el && { el, text }; }).filter(Boolean);
   const say = $('#lulu-say');

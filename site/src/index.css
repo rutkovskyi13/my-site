@@ -759,6 +759,14 @@ footer.site .fine {
   color: #d9cce6;
   border-top: 1px solid #4e3d66;
   padding-top: 18px;
+  display: grid;
+  gap: 8px;
+}
+footer.site .fine p {
+  margin: 0;
+}
+footer.site .fine a {
+  text-decoration: underline;
 }
 
 /* Літери-бульбашки на фоні */

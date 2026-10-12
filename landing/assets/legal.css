@@ -1,0 +1,21 @@
+/* Сторінки «Політика конфіденційності» й «Умови використання»: ті самі токени, що на головній */
+@font-face { font-family: "Nunito Sans"; src: url("fonts/NunitoSans-Regular.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Nunito Sans"; src: url("fonts/NunitoSans-ExtraBold.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+:root { --plum: #302047; --orange: #FF5C34; --milk: #FFF9F2; --plum-soft: #5E5272; --line: #E6DEEC; --gutter: clamp(16px, 4vw, 40px); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--milk); color: var(--plum); font: 400 1rem/1.65 "Nunito Sans", "Segoe UI", system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 760px; margin-inline: auto; padding-inline: var(--gutter); }
+header { border-bottom: 1px solid var(--line); }
+header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+header img { width: 160px; height: auto; display: block; }
+a { color: var(--plum); text-underline-offset: 3px; }
+a:hover { color: var(--orange); }
+header a.back { font-weight: 800; text-decoration: none; padding: 8px 0; }
+main { padding-block: 40px 64px; }
+h1 { font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem); line-height: 1.15; margin: 0 0 8px; font-weight: 800; }
+h2 { font-size: 1.25rem; margin: 32px 0 8px; font-weight: 800; }
+p, li { max-width: 68ch; }
+ul { padding-left: 1.2em; }
+.muted { color: var(--plum-soft); }
+footer { border-top: 1px solid var(--line); padding-block: 20px 32px; font-size: 0.9rem; color: var(--plum-soft); }
+:focus-visible { outline: 3px solid var(--plum); outline-offset: 3px; border-radius: 4px; }
