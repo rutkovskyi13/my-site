@@ -580,7 +580,9 @@ main.page {
   background: none;
   cursor: pointer;
 }
+/* За методикою на старті слова читаємо лише великими літерами */
 .wtile .face {
+  text-transform: uppercase;
   width: clamp(52px, 15vw, 112px);
   aspect-ratio: 3 / 4;
   display: grid;
@@ -672,6 +674,7 @@ main.page {
   gap: 8px;
 }
 .modal-list .pill {
+  text-transform: uppercase;
   font-family: var(--font-learn);
   font-weight: 400;
   font-size: 1.1rem;
