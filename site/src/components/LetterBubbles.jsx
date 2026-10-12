@@ -5,31 +5,27 @@ export const BUBBLE_LETTERS =
     "A.B.C.D.E.F.G.H.I.J.K.L.M.N.O.P.R.S.T.U.W.sh.ch.ee.oo.a.b.c.d.e.f.g".split(
       ".",
     ),
+  // Кольори бренду: помаранчевий і блакитний як акценти, лавандовий і фіолетовий як спокійні.
   BUBBLE_COLORS = [
     {
-      bg: "rgba(255,92,52, 0.08)",
-      border: "rgba(255,92,52, 0.24)",
-      text: "rgba(200,64,29, 0.7)",
+      bg: "rgba(255,92,52,0.07)",
+      border: "rgba(255,92,52,0.35)",
+      text: "rgba(200,64,29,0.8)",
     },
     {
-      bg: "rgba(21,159,227, 0.08)",
-      border: "rgba(21,159,227, 0.24)",
-      text: "rgba(11,111,163, 0.7)",
+      bg: "rgba(21,159,227,0.07)",
+      border: "rgba(21,159,227,0.35)",
+      text: "rgba(11,111,163,0.8)",
     },
     {
-      bg: "rgba(239,184,77, 0.08)",
-      border: "rgba(239,184,77, 0.24)",
-      text: "rgba(150,100,10, 0.7)",
+      bg: "rgba(179,154,215,0.12)",
+      border: "rgba(179,154,215,0.5)",
+      text: "rgba(108,79,153,0.85)",
     },
     {
-      bg: "rgba(39,185,160, 0.08)",
-      border: "rgba(39,185,160, 0.24)",
-      text: "rgba(19,121,106, 0.7)",
-    },
-    {
-      bg: "rgba(179,154,215, 0.08)",
-      border: "rgba(179,154,215, 0.24)",
-      text: "rgba(108,79,153, 0.7)",
+      bg: "rgba(48,32,71,0.04)",
+      border: "rgba(48,32,71,0.18)",
+      text: "rgba(48,32,71,0.55)",
     },
   ];
 export function getBubbleConfig() {
@@ -158,7 +154,6 @@ export function LetterBubbles() {
         overflow: "hidden",
       }}
     >
-      
       {bubbles.map((e) => {
         let t = BUBBLE_COLORS[e.colorIdx],
           n = e.letter.length > 1,
@@ -192,7 +187,7 @@ export function LetterBubbles() {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
-                  fontWeight: "700",
+                  fontWeight: "400",
                   fontFamily: "var(--font-learn)",
                   background: t.bg,
                   border: `1.5px solid ${t.border}`,
@@ -200,10 +195,6 @@ export function LetterBubbles() {
                   fontSize: n
                     ? `${Math.round(e.size * 0.3)}px`
                     : `${Math.round(e.size * 0.42)}px`,
-                  backdropFilter: "blur(2px)",
-                  WebkitBackdropFilter: "blur(2px)",
-                  boxShadow:
-                    "inset 0 -3px 8px rgba(255,255,255,0.3), inset 0 3px 10px rgba(255,255,255,0.45)",
                   animation: e.popping
                     ? "bubble-pop 0.45s ease-out forwards"
                     : `bubble-appear ${e.dur}s ${r} ease-in-out forwards`,

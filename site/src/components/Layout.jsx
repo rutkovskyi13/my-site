@@ -1,93 +1,119 @@
+import { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import {
-  ArrowLeft,
-  BookOpen,
-  ChartNoAxesColumn,
-  House,
-  Volume2,
-} from "lucide-react";
+
+const BASE = import.meta.env.BASE_URL;
+// Сайт курсу лежить на рівень вище: Practice збирається в landing/practice/.
+const COURSE = "../index.html";
 
 export const NAV_ITEMS = [
-  {
-    path: "/",
-    label: "Home",
-    icon: House,
-  },
-  {
-    path: "/alphabet",
-    label: "Alphabet",
-    icon: BookOpen,
-  },
-  {
-    path: "/word-practice",
-    label: "Word Practice",
-    icon: Volume2,
-  },
-  {
-    path: "/dashboard",
-    label: "Parents",
-    icon: ChartNoAxesColumn,
-  },
+  { path: "/", label: "Огляд" },
+  { path: "/alphabet", label: "Алфавіт" },
+  { path: "/word-practice", label: "Читаємо слова" },
+  { path: "/dashboard", label: "Для дорослих" },
 ];
-// Шапка як на сайті курсу (landing): логотип, розділи тренажера, повернення на курс.
-const BASE = import.meta.env.BASE_URL;
+
+// Шапка й підвал такі самі, як на сайті курсу; розділи тренажера — рядок «пігулок» під шапкою.
 export function Layout() {
   let location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-      }}
-    >
-      <header className="site-top">
-        <div className="site-top-row">
-          <Link
-            to="/"
-            className="site-logo"
-            aria-label="Phonics4All Practice, на початок"
+    <>
+      <header className="top">
+        <div className="wrap top-row">
+          <a
+            className="top-logo"
+            href={COURSE}
+            aria-label="Phonics4All, на сайт курсу"
           >
             <img
               src={`${BASE}brand/logo-horizontal.svg`}
               alt="Phonics4All"
-              width="180"
-              height="54"
+              width="200"
+              height="60"
             />
-          </Link>
-          <nav className="site-nav" aria-label="Розділи тренажера">
-            {NAV_ITEMS.map((t) => {
-              let n = location.pathname === t.path,
-                Icon = t.icon;
-              return (
-                <Link
-                  key={t.path}
-                  to={t.path}
-                  className={`nav-item${n ? " active" : ""}`}
-                  aria-current={n ? "page" : void 0}
-                >
-                  <Icon size={18} aria-hidden="true" />
-                  <span className="nav-label">{t.label}</span>
-                </Link>
-              );
-            })}
+          </a>
+          <nav className="top-nav" aria-label="Розділи">
+            <a href={COURSE}>Academy</a>
+            <a href={`${COURSE}#step-4`}>
+              Resources <small>скоро</small>
+            </a>
+            <Link to="/" aria-current="page">
+              Practice
+            </Link>
           </nav>
-          <a className="back-link" href="../index.html">
-            <ArrowLeft size={18} aria-hidden="true" />
-            До курсу
+          <a className="btn btn-primary" href={`${COURSE}#buy`}>
+            Купити курс
           </a>
         </div>
+        <nav className="wrap subnav" aria-label="Розділи тренажера">
+          {NAV_ITEMS.map((t) => (
+            <Link
+              key={t.path}
+              to={t.path}
+              className="pill"
+              aria-current={location.pathname === t.path ? "page" : void 0}
+            >
+              {t.label}
+            </Link>
+          ))}
+        </nav>
       </header>
-      <main
-        className="container"
-        style={{
-          flex: 1,
-          paddingBottom: "80px",
-          paddingTop: "28px",
-        }}
-      >
-        <Outlet />
+      <main className="page">
+        <div className="wrap">
+          <Outlet />
+        </div>
       </main>
-    </div>
+      <footer className="site">
+        <div className="wrap">
+          <div className="brand stack">
+            <img
+              src={`${BASE}brand/logo-horizontal-light.svg`}
+              alt="Phonics4All"
+              width="220"
+              height="66"
+            />
+            <p>Читаємо разом із Lulu.</p>
+          </div>
+          <div>
+            <h4>Academy</h4>
+            <ul>
+              <li>
+                <a href={`${COURSE}#step-5`}>Програма курсу</a>
+              </li>
+              <li>
+                <a href={`${COURSE}#buy`}>Купити курс</a>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4>Resources</h4>
+            <ul>
+              <li>Шаблони карток, скоро</li>
+              <li>Посібник для 5–7 років, скоро</li>
+            </ul>
+          </div>
+          <div>
+            <h4>Practice</h4>
+            <ul>
+              <li>
+                <Link to="/alphabet">Алфавіт</Link>
+              </li>
+              <li>
+                <Link to="/word-practice">Читаємо слова</Link>
+              </li>
+              <li>
+                <a href={`${COURSE}#step-3`}>Гра «Склади слово»</a>
+              </li>
+            </ul>
+          </div>
+          <p className="fine">
+            Демо-версія сайту. Публічна оферта й політика конфіденційності
+            з'являться до запуску продажів.
+          </p>
+        </div>
+      </footer>
+    </>
   );
 }
