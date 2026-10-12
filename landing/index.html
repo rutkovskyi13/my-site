@@ -278,23 +278,23 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 .lulu > img { opacity: 0; }
 /* фон кадрів трохи світліший за сторінку в деяких браузерах; darken лишає видимим лише саму Lulu */
 .lulu { mix-blend-mode: darken; }
-.lulu.away { mix-blend-mode: normal; }   /* у куточку кадри з прозорим фоном */
 .lulu.turning > video { opacity: 0; }
 
 /* Lulu-провідник: на широкому екрані з першого екрана переїжджає в праву колонку
    і супроводжує сторінку, показуючи лапкою на блок, про який зараз мова. */
-.stage .lulu { z-index: 15; transform-origin: 0 0; will-change: transform; }   /* нижче за шапку (z-index 20) */
-.lulu .point { position: absolute; inset: 0; display: none; pointer-events: none; }
-.lulu .point img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
-.lulu.pointing .point { display: block; }
-.lulu.pointing > img, .lulu.pointing > video { visibility: hidden; }
-.lulu.away { pointer-events: none; }
-.say { position: fixed; z-index: 26; left: 0; top: 0; max-width: 230px; margin: 0; pointer-events: none; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; opacity: 0; transition: opacity .25s; }
+.stage .lulu.gone { visibility: hidden; }
+/* Lulu-провідник: окремий елемент. Під час перельоту його веде скрипт, у куточку тримає сам браузер (position: fixed) */
+.lulu-guide { position: fixed; left: 0; top: 0; z-index: 15; aspect-ratio: 474 / 600; pointer-events: none; display: none; transform-origin: 0 0; }
+.lulu-guide.on { display: block; }
+.lulu-guide.corner { left: auto; top: auto; right: 20px; bottom: 20px; width: 180px !important; transform: none !important; transition: translate .4s ease; }
+body.docked .lulu-guide.corner { translate: 0 calc(100% + 40px); }
+.lulu-guide img { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+.say { position: fixed; z-index: 26; right: 20px; bottom: 234px; max-width: 230px; margin: 0; pointer-events: none; background: var(--plum); color: var(--milk); box-shadow: 0 0 0 2px var(--milk); font-weight: 800; font-size: .92rem; line-height: 1.3; padding: 10px 14px; border-radius: 14px; opacity: 0; transition: opacity .25s; }
 .say.show { opacity: 1; }
 .say::after { content: ""; position: absolute; right: 64px; bottom: -8px; border: 8px solid transparent; border-bottom: 0; border-top-color: var(--plum); }
 .dock { position: fixed; z-index: 16; right: 20px; bottom: 20px; width: 56px; height: 56px; border-radius: 50%; border: 2px solid var(--plum); background: var(--milk); box-shadow: 0 6px 18px rgba(48,32,71,.18); display: none; place-items: center; cursor: pointer; padding: 0; }
 .dock img { width: 36px; height: auto; }
-.hide-lulu { position: fixed; z-index: 16; left: 0; top: 0; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--plum); background: var(--milk); color: var(--plum); font: 800 16px/1 var(--font-body); display: none; place-items: center; cursor: pointer; padding: 0; }
+.hide-lulu { position: fixed; z-index: 16; right: 14px; bottom: 206px; width: 32px; height: 32px; border-radius: 50%; border: 1.5px solid var(--plum); background: var(--milk); color: var(--plum); font: 800 16px/1 var(--font-body); display: none; place-items: center; cursor: pointer; padding: 0; }
 body.docked .dock, body.cornered .hide-lulu { display: grid; }
 body.docked .hide-lulu { display: none; }
 [data-point].pointed { outline: 3px dashed var(--orange); outline-offset: 8px; border-radius: 12px; transition: outline-color .3s; }
@@ -729,9 +729,9 @@ body.docked .hide-lulu { display: none; }
      Кадри повороту вирізані з того самого відео, тож перемикання відео ↔ кадр відбувається на однаковій позі.
      ORIG: номер кадру у вихідному відео; YAW: куди дивиться Lulu (від'ємне = ліворуч); REST: очі відкриті.
      LOOP_YAW: поза на кожному кадрі відео-повтору (повтор починається з 6-го кадру вихідного відео, 24 к/с). */
-  const ORIG = [27, 36, 37, 38, 39, 40, 41, 42, 43, 45, 47, 51, 58, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 88, 90, 93];
-  const YAW = [-94, -88, -83, -72, -58, -45, -34, -25, -22, -18, -14, -12, -9, -4, 1, 8, 20, 33, 47, 59, 68, 74, 78, 82, 86, 89];
-  const REST = [1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1];
+  const ORIG = [27, 9, 8, 7, 6, 5, 4, 46, 48, 52, 58, 76, 120, 118, 117, 116, 115, 108, 84, 85, 86, 88, 90, 94];
+  const YAW = [-94, -65, -54, -42, -32, -24, -19, -16, -13, -11, -9, -7, 5, 9, 12, 14, 17, 63, 68, 74, 78, 82, 86, 90];
+  const REST = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
   const LOOP_YAW = [-32, -42, -54, -65, -88, -109, -112, -114, -115, -101, -86, -87, -87, -87, -88, -89, -91, -92, -93, -93, -94, -94, -94, -94, -94, -94, -93, -93, -92, -92, -88, -83, -72, -58, -45, -34, -25, -22, -20, -18, -16, -14, -13, -12, -12, -12, -11, -11, -10, -10, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -9, -10, -10, -9, -8, -7, -4, 1, 8, 20, 33, 47, 59, 68, 74, 78, 80, 82, 84, 86, 88, 89, 89, 90, 90, 90, 90, 91, 91, 90, 90, 90, 90, 89, 87, 81, 73, 63, 56, 47, 40, 33, 29, 22, 17, 14, 12, 9, 7, 5, 5, 4, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, -16, -16, -16, -17, -19, -24];
   const FPS = 24, LOOP_START = 6;
   const Y0 = YAW[ORIG.indexOf(58)], YMIN = YAW[0], YMAX = YAW[YAW.length - 1];   // кадр 58: Lulu дивиться прямо
@@ -769,7 +769,8 @@ body.docked .hide-lulu { display: none; }
     l.stopTurning = () => {    // кадри → відео: продовжуємо відео саме з того кадру, що зараз на екрані
       if (!l.turning || l.returning) return;
       l.returning = true;
-      v.currentTime = (ORIG[l.shown] - LOOP_START + 0.5) / FPS;
+      const o = ORIG[l.shown] >= LOOP_START ? ORIG[l.shown] - LOOP_START : LOOP_YAW.length - LOOP_START + ORIG[l.shown];
+      v.currentTime = (o + 0.5) / FPS;
       v.addEventListener('seeked', () => {
         l.returning = false;
         if (!l.wantVideo) return;
@@ -800,8 +801,9 @@ body.docked .hide-lulu { display: none; }
   /* Жест лапкою: 37 кадрів з відео на зеленому фоні. 0 = спокій, 0…20 піднімає лапку, 20…36 тримає (туди-назад). */
   const RAISE = 20, LAST = 36, PFPS = 12;
   const pointBox = document.createElement('div');
-  pointBox.className = 'point';
-  luluEl.append(pointBox);
+  pointBox.className = 'lulu-guide';
+  pointBox.setAttribute('aria-hidden', 'true');
+  document.body.append(pointBox);
   let pimgs = null, pshown = -1;
   function loadPoint() {
     if (pimgs) return;
@@ -901,35 +903,36 @@ body.docked .hide-lulu { display: none; }
       p = clamp((hb + 40 - sr.top) / (sr.height * 0.55), 0, 1);
     }
     travel = p;
-    if (p === 0) {
+    const guideOn = pointBox.classList.contains('on');
+    if (p === 0 || (p < 0.1 && guideOn && gesture === 'rest')) {
       // перший екран: Lulu на своєму місці, крутить головою
-      if (luluEl.style.transform) { luluEl.style.transform = ''; luluEl.classList.remove('pointing', 'away'); document.body.classList.remove('cornered', 'docked'); hideTip(); gesture = 'rest'; gFrame = 0; }
-      step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
+      if (guideOn) { pointBox.classList.remove('on', 'corner'); luluEl.classList.remove('gone'); document.body.classList.remove('cornered', 'docked'); hideTip(); gesture = 'rest'; gFrame = 0; showPoint(0); }
+      if (p === 0) step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
+      else { hero.target = 0; step(hero, 0, true); }
     } else {
       loadPoint();
-      // переліт: Lulu дивиться прямо, зменшується й летить у правий нижній куточок
-      hero.target = 0; step(hero, 0, true);
-      const sr = stage.getBoundingClientRect();
-      const W = luluEl.offsetWidth, H = luluEl.offsetHeight;
-      const sx = sr.left + luluEl.offsetLeft, sy = sr.top + luluEl.offsetTop;
-      const k = CORNER_W / W, ch = H * k;
-      const cx = innerWidth - GAP - CORNER_W, cy = innerHeight - GAP - ch + (docked ? ch + 40 : 0);   // сховано: за краєм екрана
-      const e = ease(p);
-      luluEl.style.transform = `translate(${sx + (cx - sx) * e - sx}px, ${sy + (cy - sy) * e - sy}px) scale(${1 + (k - 1) * e})`;
-      luluEl.classList.add('away');
-      // кадр «прямо» з відео повороту → перший кадр жесту (теж прямо, з прозорим фоном)
+      hero.target = 0; step(hero, 0, true);   // перед перельотом Lulu дивиться прямо
       const pointReady = pimgs[0].complete && pimgs[0].naturalWidth > 0;
-      if (p > 0.15 && pointReady && (hero.shown === hero.frontFrame || !hero.ready)) luluEl.classList.add('pointing');
-      if (p < 0.1 && gesture === 'rest') luluEl.classList.remove('pointing');
+      if (!guideOn && p > 0.15 && pointReady && (hero.shown === hero.frontFrame || !hero.ready)) {
+        pointBox.classList.add('on'); luluEl.classList.add('gone');   // кадр «прямо» → такий самий перший кадр жесту
+      }
+      if (pointBox.classList.contains('on')) {
+        if (p < 1) {
+          // переліт з першого екрана в куточок
+          pointBox.classList.remove('corner');
+          const sr = stage.getBoundingClientRect();
+          const W = luluEl.offsetWidth, sx = sr.left + luluEl.offsetLeft, sy = sr.top + luluEl.offsetTop;
+          const k = CORNER_W / W, cx = innerWidth - GAP - CORNER_W, cy = innerHeight - GAP - luluEl.offsetHeight * k;
+          const e = ease(p);
+          pointBox.style.width = W + 'px';
+          pointBox.style.transform = `translate(${sx + (cx - sx) * e}px, ${sy + (cy - sy) * e}px) scale(${1 + (k - 1) * e})`;
+        } else pointBox.classList.add('corner');   // далі її тримає сам браузер, без скрипта
+        gestureStep(now);
+      }
       const inCorner = p >= 1 && !docked;
       document.body.classList.toggle('cornered', inCorner);
       document.body.classList.toggle('docked', p >= 1 && docked);
-      if (inCorner) {
-        checkTips(now);
-        say.style.transform = `translate(${innerWidth - GAP - say.offsetWidth}px, ${cy - say.offsetHeight + ch * 0.06}px)`;
-        $('#hide-lulu').style.transform = `translate(${innerWidth - GAP - 16}px, ${cy + ch * 0.12}px)`;
-      } else if (current) hideTip();
-      if (luluEl.classList.contains('pointing')) gestureStep(now);
+      if (inCorner) checkTips(now); else if (current) hideTip();
     }
     requestAnimationFrame(tick);
   }
