@@ -42,7 +42,8 @@
 
 ## Публікація
 - Приватне посилання (Artifact): **https://claude.ai/artifact/MEetD7xcK3ays4DDCHKyTh**. Оновлювати: перегенерувати `landing/artifact.html` з `index.html` (прибрати `<!doctype html>`, `<html lang="uk">`, `<meta charset>`, `<meta viewport>`; title «Курс Phonics4All») і опублікувати з `url` цього артефакту (спершу `Artifact action: read`), `root: landing`, файли в `files`.
-- Хостинг: Hosting Ukraine (adm.tools, акаунт bz616285, продовжено 12.10.2026), сайт у `/home/bz616285/phonics4all.fun/www/`. **SSH із хмари не працює** — готуємо zip, користувач завантажує через «Файл-менеджер» adm.tools. На хостингу досі СТАРИЙ сайт з алфавітом; landing ще не викладали.
+- Хостинг: Hosting Ukraine (adm.tools, акаунт bz616285, продовжено 12.10.2026), сайт у `/home/bz616285/phonics4all.fun/www/`. **SSH із хмари не працює** — готуємо zip, користувач завантажує через «Файл-менеджер» adm.tools.
+- Архів для хостингу: вміст `landing/` без `artifact.html` (`cd landing && zip -qr -X ../release/phonics4all-site.zip . -x artifact.html`), розпаковується прямо в `www/` (index.html у корені). Старі посилання `#/alphabet` тощо переадресовуються в `practice/` скриптом у `<head>`. Telegram-блок і кнопка в hero сховані атрибутом `hidden`.
 
 ## Перевірки
 - Сервер з Range (потрібен для відео): `npx --no-install http-server -p 8766 -s -c-1 .` з кореня репо.

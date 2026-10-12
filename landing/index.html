@@ -5,6 +5,7 @@
 <title>Phonics4All: курс навчання читання англійською</title>
 <meta name="description" content="Авторська методика Альони Рутковської, PhD: як навчити дітей 5–7 років читати англійською без стресу і без транскрипції, з опорою на рідну мову.">
 <meta name="theme-color" content="#302047">
+<script>/* старі посилання сайту з алфавітом (phonics4all.fun/#/alphabet) ведуть у Practice */ if (/^#\//.test(location.hash)) location.replace('practice/index.html' + location.hash);</script>
 <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
 <link rel="apple-touch-icon" href="assets/logos/icon-180.png">
 <link rel="preload" href="assets/fonts/NunitoSans-ExtraBold.woff2" as="font" type="font/woff2" crossorigin>
@@ -250,7 +251,6 @@ footer.site .fine a { text-decoration: underline; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .talkhero { min-height: calc(100svh - var(--head-h, 150px)); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 24px; padding-block: 32px; }
 .talk { max-width: 36rem; }
-.intro { margin: 0 0 20px; font-size: clamp(18px, 3vw, 23px); line-height: 1.3; filter: blur(3px); user-select: none; pointer-events: none; color: var(--plum-soft); }
 .typed { margin: 0 0 26px; font: 800 clamp(26px, 4.2vw, 46px)/1.15 var(--font-head); min-height: 3.45em; }
 .caret { display: inline-block; width: 3px; height: 0.95em; background: var(--orange); vertical-align: -0.1em; margin-left: 3px; animation: blink 1s step-end infinite; }
 @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
@@ -342,15 +342,14 @@ body.docked .hide-lulu { display: none; }
 <main>
   <!-- Hero -->  <section class="talkhero wrap" id="start">
     <div class="talk">
-      <p class="intro" aria-hidden="true">Привіт, я Lulu з Phonics4All.<br>Допомагаю дітям 5–7 років почати читати англійською.</p>
-      <p class="sr">Привіт, я Lulu з Phonics4All. Допомагаю дітям 5–7 років почати читати англійською.</p>
       <h1 class="typed"><span class="sr" id="typed-full"></span><span aria-hidden="true" id="typed"></span><span class="caret" id="caret" aria-hidden="true"></span></h1>
       <div class="pills" id="pills">
         <a class="pill main" href="#buy">Купити курс</a>
         <a class="pill" href="#step-1">Чому дитина не читає?</a>
         <a class="pill" href="#step-3">Спробувати тренажер</a>
         <a class="pill" href="#step-5">Подивитися програму</a>
-        <a class="pill line" href="#contact">Безкоштовний матеріал у Telegram</a>
+        <!-- Telegram-бот: щоб увімкнути, прибрати hidden і вписати посилання на бота -->
+        <a class="pill line" href="#contact" hidden>Безкоштовний матеріал у Telegram</a>
       </div>
     </div>
     <div class="stage" id="stage" role="img" aria-label="Lulu з Phonics4All повертає голову слідом за курсором">
