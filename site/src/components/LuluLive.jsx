@@ -30,7 +30,7 @@ export function LuluLive({ react, className, label = "Lulu" }) {
 
   useEffect(() => {
     let canvas = canvasRef.current,
-      v = videos.current,
+      v = { ...videos.current }, // власна копія: під час прибирання React уже обнуляє ref-и відео
       reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches,
       gl = canvas.getContext("webgl", {
         premultipliedAlpha: true,
@@ -135,6 +135,7 @@ export function LuluLive({ react, className, label = "Lulu" }) {
     api.current = play;
     // поза екраном Lulu відпочиває
     let io = new IntersectionObserver(([e]) => {
+      if (!alive) return;
       visible = e.isIntersecting;
       visible ? v[cur].play().catch(() => {}) : v[cur].pause();
     });
@@ -168,7 +169,9 @@ export function LuluLive({ react, className, label = "Lulu" }) {
       {CLIPS.map((n) => (
         <video
           key={n}
-          ref={(el) => (videos.current[n] = el)}
+          ref={(el) => {
+            if (el) videos.current[n] = el;
+          }}
           muted
           playsInline
           preload="auto"
