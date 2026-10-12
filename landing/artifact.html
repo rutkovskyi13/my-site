@@ -1,4 +1,4 @@
-<title>Курс Phonics4All</title>
+<title>Phonics4All: курс навчання читання англійською</title>
 <meta name="description" content="Авторська методика Альони Рутковської, PhD: як навчити дітей 5–7 років читати англійською без стресу і без транскрипції, з опорою на рідну мову.">
 <meta name="theme-color" content="#302047">
 <link rel="icon" href="assets/logos/favicon.svg" type="image/svg+xml">
@@ -34,7 +34,7 @@
   color-scheme: light;
 }
 * { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 160px; }
+html { scroll-behavior: smooth; scroll-padding-top: calc(var(--head-h, 160px) + 8px); }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition: none !important; animation: none !important; } }
 body { background: var(--milk); color: var(--plum); font: 400 var(--step-0)/1.6 var(--font-body); -webkit-font-smoothing: antialiased; }
 h1, h2, h3 { font-family: var(--font-head); font-weight: 800; line-height: 1.12; text-wrap: balance; margin: 0; }
@@ -217,7 +217,10 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
 
 /* Адаптивність */
 @media (max-width: 1000px) {
-  .top-nav { display: none; }
+  /* на вузькому екрані меню переходить у другий рядок шапки, під логотип */
+  .top-row { flex-wrap: wrap; row-gap: 2px; }
+  .top-nav { order: 3; width: 100%; margin-left: 0; justify-content: space-between; }
+  .top-nav a { padding: 6px 8px; font-size: 0.95rem; min-height: 40px; align-items: center; }
   .top .btn { margin-left: auto; }
   .games { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .program li { grid-template-columns: 44px 48px minmax(0, 1fr); }
@@ -241,6 +244,8 @@ footer.site .fine { grid-column: 1 / -1; font-size: 0.85rem; color: #D9CCE6; bor
   .hero-art { aspect-ratio: 4 / 3; }
 }
 @media (max-width: 420px) {
+  .top-nav { gap: 0; }
+  .top-nav a { padding: 6px 4px; font-size: 0.88rem; }
   .top .btn { padding: 8px 14px; font-size: 0.9rem; }
   .top-logo img { width: 132px; }
 }
