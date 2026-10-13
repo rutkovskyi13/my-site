@@ -1,0 +1,14 @@
+# Phonics4All: адреси сайту
+RewriteEngine On
+
+# Старий домен phonics4all.fun (з www і без) → новий, зі збереженням сторінки
+RewriteCond %{HTTP_HOST} ^(www\.)?phonics4all\.fun$ [NC]
+RewriteRule ^(.*)$ https://phonics4all.com.ua/$1 [R=301,L]
+
+# www.phonics4all.com.ua → phonics4all.com.ua
+RewriteCond %{HTTP_HOST} ^www\.phonics4all\.com\.ua$ [NC]
+RewriteRule ^(.*)$ https://phonics4all.com.ua/$1 [R=301,L]
+
+# /index.html → / (і practice/index.html → practice/), щоб в адресі був лише домен
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]

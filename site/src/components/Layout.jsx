@@ -3,7 +3,7 @@ import { Link, Outlet, useLocation } from "react-router-dom";
 
 const BASE = import.meta.env.BASE_URL;
 // Сайт курсу лежить на рівень вище: Practice збирається в landing/practice/.
-const COURSE = "../index.html";
+const COURSE = "../";
 
 export const NAV_ITEMS = [
   { path: "/", label: "Огляд" },
