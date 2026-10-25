@@ -771,7 +771,10 @@ body.docked .hide-lulu { display: none; }
   const luluEl = stage.querySelector('.lulu');
   const hero = makeLulu(luluEl, true);
 
-  /* Курсор: Lulu дивиться на нього */
+  /* Курсор: Lulu дивиться на нього. Вимкнено: з наявних кадрів поворот виходить ривками,
+     тож у першому екрані грає лише плавне відео. Щоб увімкнути, поставити FOLLOW = true. */
+  const FOLLOW = false;
+  if (!FOLLOW) $('#hint').hidden = true;
   let mouseX = innerWidth / 2, lastInput = -1e9;
   addEventListener('mousemove', e => { mouseX = e.clientX; lastInput = performance.now(); $('#hint').style.opacity = 0; }, { passive: true });
   let dragX = null, dragStart = 0;
@@ -889,7 +892,7 @@ body.docked .hide-lulu { display: none; }
     if (p === 0 || (p < 0.1 && guideOn && gesture === 'rest')) {
       // перший екран: Lulu на своєму місці, крутить головою
       if (guideOn) { pointBox.classList.remove('on', 'corner'); luluEl.classList.remove('gone'); document.body.classList.remove('cornered', 'docked'); hideTip(); gesture = 'rest'; gFrame = 0; showPoint(0); }
-      if (p === 0) step(hero, dragX === null ? aimAt(stage) : hero.target, !idle || dragX !== null);
+      if (p === 0) step(hero, dragX === null ? aimAt(stage) : hero.target, FOLLOW && (!idle || dragX !== null));
       else { hero.target = 0; step(hero, 0, true); }
     } else {
       loadPoint();
