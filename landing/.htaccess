@@ -1,6 +1,9 @@
 # Phonics4All: адреси сайту
 RewriteEngine On
 
+# Перевірку SSL-сертифіката (Let's Encrypt) не переадресовуємо
+RewriteRule ^\.well-known/ - [L]
+
 # Старий домен phonics4all.fun (з www і без) → новий, зі збереженням сторінки
 RewriteCond %{HTTP_HOST} ^(www\.)?phonics4all\.fun$ [NC]
 RewriteRule ^(.*)$ https://phonics4all.com.ua/$1 [R=301,L]
